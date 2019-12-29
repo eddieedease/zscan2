@@ -1,0 +1,182 @@
+{
+    "Vraag1": {
+        "vraag": "In ons bedrijf werken we veilig",
+        "type": "IZ2"
+    },
+    "Vraag2": {
+        "vraag": "De bedrijfsleiding geeft het voorbeeld hoe ik veilig moet werken",
+        "type": "IZ1"
+    },
+    "Vraag3": {
+        "vraag": "De machines en middelen waar ik mee werk zijn veilig",
+        "type": "IK2"
+    },
+    "Vraag4": {
+        "vraag": "Er is voldoende toezicht op veilig werken",
+        "type": "IZ2"
+    },
+    "Vraag5": {
+        "vraag": "Bij bewust onveilig gedrag volgen er maatregelen",
+        "type": "IZ2"
+    },
+    "Vraag6": {
+        "vraag": "Ik wordt altijd aangesproken als ik iets onveilig doe",
+        "type": "IZ3"
+    },
+    "Vraag7": {
+        "vraag": "Onveilige situaties worden zo snel mogelijk aangepast",
+        "type": "IZ1"
+    },
+    "Vraag8": {
+        "vraag": "In ons bedrijf hebben we geen tijd voor veiligheid",
+        "type": "SMOE1"
+    },
+    "Vraag9": {
+        "vraag": "Ook als het druk is, wordt er voldoende aandacht aan veiligheid besteed",
+        "type": "IK2"
+    },
+    "Vraag10": {
+        "vraag": "De leiding kijkt de andere kant uit, als er onveilig wordt gewerkt",
+        "type": "IZ2"
+    },
+    "Vraag11": {
+        "vraag": "Ik voel me verantwoordelijk voor de veiligheid van mijn collega’s",
+        "type": "IW1"
+    },
+    "Vraag12": {
+        "vraag": "Ik voel me verantwoordelijk voor de orde en de netheid",
+        "type": "IW1"
+    },
+    "Vraag13": {
+        "vraag": "Ik geef voldoende informatie over onveilige situaties",
+        "type": "IWE4"
+    },
+    "Vraag14": {
+        "vraag": "Mijn collega’s moeten zelf bepalen hoe zij met veiligheid omgaan",
+        "type": "IW1"
+    },
+    "Vraag15": {
+        "vraag": "Ik vind de veiligheidsregels in ons bedrijf zinvol",
+        "type": "IW2"
+    },
+    "Vraag16": {
+        "vraag": "Ik ga er van uit dat mij niets overkomt op mijn werk",
+        "type": "SMOE2"
+    },
+    "Vraag17": {
+        "vraag": "Het melden van bijna ongevallen is tijdsverspilling",
+        "type": "IW1"
+    },
+    "Vraag18": {
+        "vraag": "Voor mij is productie belangrijker dan veiligheid",
+        "type": "SMOE3"
+    },
+    "Vraag19": {
+        "vraag": "Ik ben al voldoende geschoold om veilig te werken",
+        "type": "IW3"
+    },
+    "Vraag20": {
+        "vraag": "Niemand werkt echt veilig bij ons",
+        "type": "SMOE4"
+    },
+    "Vraag21": {
+        "vraag": "Voor mij zijn de veiligheidsregels duidelijk",
+        "type": "IW2"
+    },
+    "Vraag22": {
+        "vraag": "Ik weet waar en hoe ik onveilige situaties kan melden",
+        "type": "IK2"
+    },
+    "Vraag23": {
+        "vraag": "Ik heb voldoende instructies gehad om met risicovolle situaties om te gaan",
+        "type": "IWE1"
+    },
+    "Vraag24": {
+        "vraag": "Ik heb voldoende trainingen gehad om veilig te werken",
+        "type": "IWE2"
+    },
+    "Vraag25": {
+        "vraag": "Ik  heb voldoende trainingen gehad om veiligheidsbewust te werken",
+        "type": "IWE3"
+    },
+    "Vraag26": {
+        "vraag": "Ik krijg informatie over de oorzaken van incidenten",
+        "type": "IWE4"
+    },
+    "Vraag27": {
+        "vraag": "Ik weet wat van mij verwacht wordt rondom veilig werken",
+        "type": "SMOE5"
+    },
+    "Vraag28": {
+        "vraag": "Ik kan veilig werken tijdens mijn werk",
+        "type": "IK2"
+    },
+    "Vraag29": {
+        "vraag": "Ik kan tijdens werktijd mijn werkplek schoon en opgeruimd houden",
+        "type": "IK2"
+    },
+    "Vraag30": {
+        "vraag": "Ik weet bij wie ik informatie kan vragen over veilig werken",
+        "type": "IK2"
+    },
+    "Vraag31": {
+        "vraag": "Ik spreek anderen aan op onveilig gedrag",
+        "type": "IZ3"
+    },
+    "Vraag32": {
+        "vraag": "Als ik niet veilig kan werken, werk ik niet",
+        "type": "SMOE6"
+    },
+    "Vraag33": {
+        "vraag": "Ik overleg ten minste 1 keer per week over veiligheid",
+        "type": "SMOE7"
+    },
+    "Vraag34": {
+        "vraag": "De bedrijfsleiding hecht veel belang aan veilig en gezond werken ",
+        "type": "IZ1"
+    },
+    "Vraag35": {
+        "vraag": "Veiligheid krijgt van de bedrijfsleiding een hoge prioriteit",
+        "type": "IZ1"
+    },
+    "Vraag36": {
+        "vraag": "De bedrijfsleiding vindt veiligheid belangrijk",
+        "type": "IZ1"
+    },
+    "Vraag37": {
+        "vraag": "Ik vind het de moeite waard om mij in te spannen om mijn persoonlijke veiligheid te verbeteren",
+        "type": "IW1"
+    },
+    "Vraag38": {
+        "vraag": "Ik vind het belangrijk dat het werk onder alle omstandigheden veilig blijft",
+        "type": "IW1"
+    },
+    "Vraag39": {
+        "vraag": "Ik vind dat het belangrijk is om het risico op ongevallen en incidenten te verkleinen",
+        "type": "IW1"
+    },
+    "Vraag40": {
+        "vraag": "Ik gebruik voor mijn werk alle benodigde veiligheidsapparatuur",
+        "type": "IW2"
+    },
+    "Vraag41": {
+        "vraag": "Ik gebruik voor mijn werk de correcte veiligheidsprocedures",
+        "type": "IW2"
+    },
+    "Vraag42": {
+        "vraag": "Ik zorg voor de grootst mogelijke veiligheid als ik mijn werk uitvoer",
+        "type": "IK1"
+    },
+    "Vraag43": {
+        "vraag": "Ik ondersteun het veiligheidsprogramma in mijn bedrijf",
+        "type": "IW1"
+    },
+    "Vraag44": {
+        "vraag": "Ik doe erg mijn best om de veiligheid van de werkplek te verbeteren",
+        "type": "IW1"
+    },
+    "Vraag45": {
+        "vraag": "Ik voer vrijwillig extra taken of activiteiten uit die helpen om de veiligheid op de werkplek te verbeteren",
+        "type": "IW1"
+    }
+}

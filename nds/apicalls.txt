@@ -1,0 +1,17 @@
+////    TESTCALL
+http://localhost:8888/etz1/src/api/testcall
+
+
+
+
+
+
+
+// insert form result for groupid 1
+http://localhost/etz1/src/api/formsubmit/1/2.38/3.63/4/57/2.75?rnd=1528974400480
+
+
+
+// ADMIN
+// get groups
+http://localhost/etz1/src/api/getgroups

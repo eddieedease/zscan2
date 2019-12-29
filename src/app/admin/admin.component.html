@@ -1,0 +1,766 @@
+'<div class="modal fade" id="adminModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog"
+  aria-labelledby="adminModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Admin inlog</h5>
+
+      </div>
+      <div class="modal-body">
+        <form class="">
+
+          <fieldset class="form-group has-danger">
+            <label for="password" class="form-control-label">Emailadres:</label>
+            <input [(ngModel)]="admnEmail" [ngModelOptions]="{standalone: true}" type="email"
+              class="form-control form-control-danger" id="password">
+          </fieldset>
+
+          <fieldset class="form-group has-danger">
+            <label for="password" class="form-control-label">Wachtwoord:</label>
+            <input [(ngModel)]="admnPwd" [ngModelOptions]="{standalone: true}" type="password"
+              class="form-control form-control-danger" id="email">
+          </fieldset>
+          <button (click)="loginAttempt()" class="btn btn-primary btn-lg">Login</button>
+        </form>
+        <br>
+        <div style='color:orangered' *ngIf="errorMsg == true">Geen juiste inloggegevens
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade modal-add" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nieuwe groep toevoegen</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="group_name_add" class="col-form-label">Nieuwe groepnaam:</label>
+            <input [(ngModel)]="groupName" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
+              id="group_name_add">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
+        <button type="button" (click)="makeGroup()" data-dismiss="modal" class="btn btn-primary">Toevoegen</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade modal-usertogroups" id="usertogroupModal" tabindex="-1" role="dialog" aria-labelledby="modal-add"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Groepen aan admins</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Hier kunnen gebruikers aan groepen worden gehangen</p>
+        <p>Als een admin (niet Superadmin) een groep aanmaakt, wordt deze automatisch aan zijn/haar lijst toegevoegd.
+        </p>
+
+        <ngx-datatable *ngIf="loading == false" class="material" [rows]="allGroupRows" [columns]="columns"
+          [columnMode]="'force'" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
+          <ngx-datatable-column name="Titel" [sortable]="true">
+            <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+              <span (click)="sort()" style="cursor:pointer">
+                {{column.name}}
+              </span>
+            </ng-template>
+
+            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+              <div [innerHTML]="row['name']"></div>
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Landkaart">
+            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+              <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                <button type="button" *ngIf="!row['ingroup']" (click)="groupCourseHandler('add',row['id'])"
+                  class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                <button type="button" *ngIf="row['ingroup']" (click)="groupCourseHandler('rem',row['id'])"
+                  class="btn btn-danger"><i class="fa fa-minus" aria-hidden="true"></i></button>
+
+              </div>
+            </ng-template>
+
+          </ngx-datatable-column>
+
+
+
+
+
+
+        </ngx-datatable>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade modal-grouplist" id="grouplist" tabindex="-1" role="dialog" aria-labelledby="modal-add"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Groepslijst</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Hier kunnen emailadressen aan groepen worden gehangen die de zelfscan moeten uitvoeren</p>
+        <p>Ook kunnen hier personen aangewezen worden om de checklist uit te voeren</p>
+        
+
+
+       
+
+        <div class="btn-group">
+        <button type="button" 
+                class="btn btn-primary" (click)="addClick('user')" data-toggle="modal">
+                <i class="fa fa-plus"></i>&nbsp; Email toevoegen
+              </button>
+              <button type="button" 
+                class="btn btn-warning" (click)="addClick('bulk')" data-toggle="modal">
+                <i class="fa fa-plus"></i>&nbsp; Bulk CSV import
+              </button>
+            </div><br><br>
+
+            <div *ngIf="userAddUser">
+            <fieldset class="form-group has-danger">
+              <label class="form-control-label">Emailadres:</label>
+              <input [(ngModel)]="emailAdd" [ngModelOptions]="{standalone: true}" type="email"
+                class="form-control form-control-danger" id="emailadd">
+               
+            </fieldset> <button type="button" (click)="addUser()"
+            class="btn btn-primary" data-toggle="modal">
+            <i class="fa fa-plus"></i>&nbsp;Voeg toe
+          </button></div>
+
+          <div *ngIf="userAddBulk">
+            <fieldset class="form-group has-danger">
+              <label class="form-control-label">CSV bestand upload</label>
+              <input [(ngModel)]="emailAdd" [ngModelOptions]="{standalone: true}" type="email"
+                class="form-control form-control-danger" id="emailadd">
+               
+            </fieldset> <button type="button" 
+            class="btn btn-primary" data-toggle="modal">
+            <i class="fa fa-plus"></i>&nbsp;Voeg toe
+          </button></div>
+
+          <br> <div class="container">
+            <p>Klik op de knop hieronder om mails te versturen naar iedereen van deze lijst die de scan nog niet heeft gemaakt</p>
+            <button type="button" style="margin:10px;padding:10px" class="btn btn-info">Mails versturen</button>
+           <br><hr><br>
+          </div><br>
+
+        <ngx-datatable *ngIf="loading == false" class="material" [rows]="groupListUsers" [columns]="columns"
+        [columnMode]="'force'" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
+          <ngx-datatable-column name="Email" [sortable]="true">
+            <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+              <span (click)="sort()" style="cursor:pointer">
+                {{column.name}}
+              </span>
+            </ng-template>
+
+            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+              <div [innerHTML]="row['email']"></div>
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Link" [sortable]="true">
+            <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+              <span (click)="sort()" style="cursor:pointer">
+                {{column.name}}
+              </span>
+            </ng-template>
+
+            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+              <div [innerHTML]="'/login/' + row['id'] +'/'+ row['unlockkey']"></div>
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Ingevuld">
+            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+              <!-- <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                          <button type="button" *ngIf="!row['ingroup']"
+                            (click)="groupCourseHandler('add',row['id'])" class="btn btn-primary"><i
+                              class="fa fa-plus" aria-hidden="true"></i></button>
+                          <button type="button" *ngIf="row['ingroup']"
+                            (click)="groupCourseHandler('rem',row['id'])" class="btn btn-danger"><i
+                              class="fa fa-minus" aria-hidden="true"></i></button>
+  
+                        </div> -->
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Verwijder">
+            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+              <!-- <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                          <button type="button" *ngIf="!row['ingroup']"
+                            (click)="groupCourseHandler('add',row['id'])" class="btn btn-primary"><i
+                              class="fa fa-plus" aria-hidden="true"></i></button>
+                          <button type="button" *ngIf="row['ingroup']"
+                            (click)="groupCourseHandler('rem',row['id'])" class="btn btn-danger"><i
+                              class="fa fa-minus" aria-hidden="true"></i></button>
+  
+                        </div> -->
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade modal-edit" tabindex="-1" role="dialog" aria-labelledby="modal-edit" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Bewerk groep</h5>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="group_name_edit" class="col-form-label">Groepnaam:</label>
+            <input [(ngModel)]="groupName" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
+              id="group_name_edit">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
+        <button type="button" (click)="editGroup()" class="btn btn-primary" data-dismiss="modal">Wijzigingen
+          opslaan</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade modal-useredit" tabindex="-1" role="dialog" aria-labelledby="modal-edit" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Bewerk gebruiker</h5>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="group_name_edit" class="col-form-label">Naam:</label>
+            <input [(ngModel)]="ausrName" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
+              id="usr_name_edit">
+          </div>
+
+          <div class="form-group">
+            <label for="group_name_edit" class="col-form-label">Achternaam:</label>
+            <input [(ngModel)]="ausrLastName" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
+              id="usr_lastname_edit">
+          </div>
+
+          <div class="form-group">
+            <label for="group_name_edit" class="col-form-label">Email:</label>
+            <input [(ngModel)]="ausrEmail" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
+              id="usr_name_email">
+          </div>
+          
+          <div class="form-group">
+              <p>Als onderstaand wachtwoord veld leeg wordt gelaten, veranderd het oude wachtwoord niet.</p>
+            <label for="group_name_edit" class="col-form-label">Gewenst wachtwoord:</label>
+            <input [(ngModel)]="ausrWw" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
+              id="usr_ww_edit">
+          </div>
+
+          <div class="form-group">
+            <label for="group_name_edit" class="col-form-label">Type:</label>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" [checked]="ausrType === '1'" class="form-check-input" value="1"
+                  (change)="ausrType = 1" name="typeA">Admin
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" (change)="ausrType = 2" [checked]="ausrType === '2'" class="form-check-input"
+                  value="2" name="typeA">Super Admin
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
+        <button type="button" (click)="editAusr()" class="btn btn-primary">Wijzigingen opslaan</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- user modal -->
+
+<div class="modal fade modaluser-add" id="useraddmodal" tabindex="-1" role="dialog" aria-labelledby="modaluser-add"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nieuwe Gebruiker toevoegen</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="group_name_edit" class="col-form-label">Naam:</label>
+            <input [(ngModel)]="ausrName" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
+              id="usr_name_new">
+          </div>
+
+          <div class="form-group">
+            <label for="group_name_edit" class="col-form-label">Achternaam:</label>
+            <input [(ngModel)]="ausrLastName" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
+              id="usr_lastname_new">
+          </div>
+
+          <div class="form-group">
+            <label for="group_name_edit" class="col-form-label">Email:</label>
+            <input [(ngModel)]="ausrEmail" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
+              id="usr_email_new">
+          </div>
+
+          <div class="form-group">
+            <label for="group_name_edit" class="col-form-label">Gewenst wachtwoord:</label>
+            <input [(ngModel)]="ausrWw" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
+              id="usr_ww_new">
+          </div>
+
+
+          <div class="form-group">
+            <label for="group_name_edit" class="col-form-label">Type:</label>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" [checked]="ausrType === '1'" class="form-check-input" value="1"
+                  (change)="ausrType = 1" name="typeA">Admin
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" (change)="ausrType = 2" [checked]="ausrType === '2'" class="form-check-input"
+                  value="2" name="typeA">Super Admin
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
+        <button type="button" (click)="makeUser()" class="btn btn-primary">Toevoegen</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- content -->
+
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+
+<div *ngIf="adminLogged == true">
+  <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0">Admin</a>
+
+    <ul class="navbar-nav px-3">
+      <li class="nav-item text-nowrap">
+        <a class="nav-link">Log uit</a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <div class="row">
+      <main role="main" class="col-md-12">
+        <br>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active">
+              <img src="assets/logo.png" class="img-fluid" alt="Responsive image">
+            </a>
+          </li>
+        </ul>
+        <tabset [justified]="true">
+          <tab heading="Admins" *ngIf="admnType === 2"><br><br>
+            <p>Het beheer Admins</p>
+
+            <div
+              class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+
+              <h2 class="h2">Admins</h2><button type="button" (click)="resetUsersVals()"
+                class="btn btn-primary btn-lg float-right" data-toggle="modal" data-target=".modaluser-add">
+                <i class="fa fa-plus"></i>
+              </button>
+            </div>
+
+
+            <ngx-datatable class="material" [scrollbarH]="true" [rows]="manageRows" [columns]="columns"
+              [columnMode]="'force'" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
+              <ngx-datatable-column name="Naam" prop="name" [sortable]="true">
+
+                <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+                  <span (click)="sort()" style="cursor:pointer">
+                    {{column.name}}
+                  </span>
+                </ng-template>
+
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  <div [innerHTML]="row['name']"></div>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Achternaam" prop="lastname" [sortable]="true">
+
+                <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+                  <span style="cursor:pointer">
+                    {{column.name}}
+                  </span>
+                </ng-template>
+
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  <div [innerHTML]="row['lastname']"></div>
+                </ng-template>
+
+              </ngx-datatable-column>
+
+              <ngx-datatable-column name="Email" prop="email" [sortable]="true">
+
+                <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+                  <span style="cursor:pointer">
+                    {{column.name}}
+                  </span>
+                </ng-template>
+
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  <div [innerHTML]="row['email']"></div>
+                </ng-template>
+
+              </ngx-datatable-column>
+
+              <ngx-datatable-column name="Type" prop="type" [sortable]="true">
+
+                <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+                  <span style="cursor:pointer">
+                    {{column.name}}
+                  </span>
+                </ng-template>
+
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  <div *ngIf="row['type'] === '1'">Admin</div>
+                  <div *ngIf="row['type'] === '2'">Superadmin</div>
+                </ng-template>
+
+              </ngx-datatable-column>
+
+              <ngx-datatable-column name="Acties">
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  <div class="btn-group" style="border-radius: 10px; color: white" role="group"
+                    aria-label="Basic example">
+                    <button (click)="openEditUserModal(row.id)" type="button" style="color: white" class="btn btn-info"
+                      data-toggle="modal" data-target=".modal-useredit">
+                      <i class="fa fa-edit"></i> Edit
+                    </button>
+                    <button (click)="openUserToGroupModal(row.id)" type="button" style="color: white"
+                      class="btn btn-primary" data-toggle="modal" data-target=".modal-usertogroups">
+                      <i class="fa fa-group"></i> Groeplinks
+                    </button>
+                  </div>
+                </ng-template>
+
+              </ngx-datatable-column>
+            </ngx-datatable>
+          </tab>
+
+          <tab heading="Groepen">
+            <br><br>
+            <p>Het beheer van groepen</p>
+
+            <div
+              class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+
+              <h2 class="h2">Groepen</h2>
+              <button type="button" (click)="resetGroupVals()" class="btn btn-primary btn-lg float-right"
+                data-toggle="modal" data-target=".modal-add">
+                <i class="fa fa-plus"></i>
+              </button>
+            </div>
+            <div *ngIf="!showScore">
+              <br><br>
+              <div class="form-group">
+                    <input type="file" (change)="onFileSelect($event.target)" name="myfile">
+               </div>
+              <ngx-datatable [scrollbarH]="true" class="material" [rows]="groupRows" [columns]="columns"
+                [columnMode]="'force'" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
+                <ngx-datatable-column name="Titel" [sortable]="true">
+                  <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+                    <span (click)="sort()" style="cursor:pointer">
+                      {{column.name}}
+                    </span>
+                  </ng-template>
+
+                  <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                    <div [innerHTML]="row['name']"></div>
+                  </ng-template>
+                </ngx-datatable-column>
+               
+                <!-- <ngx-datatable-column name="Actief" [sortable]="true">
+
+                  <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+                    <span style="cursor:pointer">
+                      {{column.name}}
+                    </span>
+                  </ng-template>
+
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    <p>{{row.Title}}
+                      <input type="checkbox" id="{{row.Title}}" name="{{row.Title}}" [(ngModel)]="row.status"
+                        (change)="publishToggle(row.id,row.status)" />
+                      <label for="{{row.Title}}"></label>
+                    </p>
+                  </ng-template>
+
+                </ngx-datatable-column> -->
+
+
+
+                <ngx-datatable-column name="Aantal Ingevuld">
+                  <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+                    <span style="cursor:pointer">
+                      {{column.name}}
+                    </span>
+                  </ng-template>
+
+                  <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                    <!-- <div [innerHTML]="row['made']"></div> --> .. / ..
+                  </ng-template>
+
+                </ngx-datatable-column>
+
+
+                <ngx-datatable-column name="Acties">
+                  <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                    <div class="btn-group" style="border-radius: 10px; color: white" role="group"
+                      aria-label="Basic example">
+                      <button (click)="showEdit(row.id)" type="button" style="color: white" class="btn btn-info"
+                        data-toggle="modal" data-target=".modal-edit">
+                        <i class="fa fa-edit"></i> Edit
+                      </button>
+                      <button (click)="showGroupList(row.id)" type="button" style="color: white" class="btn btn-primary"
+                        data-toggle="modal" data-target=".modal-grouplist">
+                        <i class="fa fa-list"></i> Groeplijst
+                      </button>
+                    </div>
+                  </ng-template>
+
+                </ngx-datatable-column>
+
+
+                <ngx-datatable-column name="Landkaart">
+                  <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                    <div class="btn-group" style="border-radius: 10px; color: white" role="group"
+                      aria-label="Basic example">
+                      <button (click)="showResult(row.id)" type="button" class="btn btn-primary">
+                        <i class="fa fa-eye"></i> Landkaart
+                      </button>
+                    </div>
+                  </ng-template>
+
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Aangemaakt" [sortable]="true">
+
+                  <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+                    <span style="cursor:pointer">
+                      {{column.name}}
+                    </span>
+                  </ng-template>
+
+                  <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                    <div [innerHTML]="row['made']"></div>
+                  </ng-template>
+
+                </ngx-datatable-column>
+
+
+
+
+              </ngx-datatable>
+            </div>
+
+            <hr>
+            <div *ngIf="showScore">
+              <div class="container">
+                <button type="button" (click)="showScore = false" class="btn btn-primary" data-toggle="modal">
+                  <i class="fa fa-arrow-left"> </i>Terug naar Overzicht
+                </button>
+                <button type="button" (click)="printResult()" class="btn btn-primary" data-toggle="modal">
+                  <i class="fa fa-print"></i>Print resultaat
+                </button>
+                <br><br><br>
+                <h2>{{currentGroup}}</h2>
+                <p>Aantal keren verstuurd: <b>{{howManySend}}</b></p>
+                <br>
+                <table style="float: left; height: 1028px;" width="100%" cellpadding="10">
+                  <tbody>
+                    <tr style="height: 23px;">
+                      <td style="height: 23px; width: 101px;">Mens</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IZ</td>
+                      <td style="height: 23px; width: 125px;">Ik zie</td>
+                      <td style="height: 23px; width: 10px;">IZ 1&nbsp;</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IZ 2</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IZ 3</td>
+                      <td style="height: 23px; width: 15px;" rowspan="2">&nbsp;&nbsp;</td>
+                    </tr>
+                    <tr style="height: 23px;">
+                      <td style="height: 23px; width: 101px;" rowspan="3">&nbsp;&nbsp;&nbsp;</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IW</td>
+                      <td style="height: 23px; width: 125px;">Ik wil</td>
+                      <td style="height: 23px; width: 10px;">&nbsp;IW 1</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IW 2</td>
+                      <td style="height: 23px; width: 15px;">IW 3&nbsp;</td>
+                    </tr>
+                    <tr style="height: 23px;">
+                      <td style="height: 23px; width: 15px;">&nbsp;IWE</td>
+                      <td style="height: 23px; width: 125px;">Ik weet</td>
+                      <td style="height: 23px; width: 10px;">&nbsp;IWE 1</td>
+                      <td style="height: 23px; width: 15px;">IWE 2</td>
+                      <td style="height: 23px; width: 15px;">IWE 3</td>
+                      <td style="height: 23px; width: 15px;">IWE 4</td>
+                    </tr>
+                    <tr style="height: 23px;">
+                      <td style="height: 23px; width: 15px;">&nbsp;IK</td>
+                      <td style="height: 23px; width: 125px;">Ik kan</td>
+                      <td style="height: 23px; width: 10px;">&nbsp;IK 1</td>
+                      <td style="height: 23px; width: 15px;">IK 2</td>
+                      <td style="height: 23px; width: 15px;">IK 3</td>
+                      <td style="height: 23px; width: 15px;" rowspan="6">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    </tr>
+                    <tr style="height: 23px;">
+                      <td style="height: 23px; width: 101px;">Organisatie&nbsp;</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;CW</td>
+                      <td style="height: 23px; width: 125px;">Compliance, wetgeving &amp; richtlijnen</td>
+                      <td style="height: 23px; width: 10px;">CW 1</td>
+                      <td style="height: 23px; width: 15px;">CW 2</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;</td>
+                    </tr>
+                    <tr style="height: 23px;">
+                      <td style="height: 23px; width: 101px;" rowspan="2">&nbsp;&nbsp;</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;VB</td>
+                      <td style="height: 23px; width: 125px;">Veiligheidsbeleid</td>
+                      <td style="height: 23px; width: 10px;">&nbsp;VB 1</td>
+                      <td style="height: 23px; width: 15px;">VB 2</td>
+                      <td style="height: 23px; width: 15px;">VB 3</td>
+                    </tr>
+                    <tr style="height: 23px;">
+                      <td style="height: 23px; width: 15px;">&nbsp;OPL</td>
+                      <td style="height: 23px; width: 125px;">Opleiding</td>
+                      <td style="height: 23px; width: 10px;">OPL 1</td>
+                      <td style="height: 23px; width: 15px;">OPL 2</td>
+                      <td style="height: 23px; width: 15px;">OPL 3</td>
+                    </tr>
+                    <tr style="height: 23px;">
+                      <td style="height: 23px; width: 101px;">&nbsp;Proces</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;PRO</td>
+                      <td style="height: 23px; width: 125px;">Beheersing werkzaamheden, beheer &amp; onderhoud</td>
+                      <td style="height: 23px; width: 10px;">PRO 1</td>
+                      <td style="height: 23px; width: 15px;">PRO 2</td>
+                      <td style="height: 23px; width: 15px;">PRO 3</td>
+                    </tr>
+                    <tr style="height: 23px;">
+                      <td style="height: 23px; width: 101px;">&nbsp;Communicatie</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;COM</td>
+                      <td style="height: 23px; width: 125px;">Communicatiestructuren&nbsp;</td>
+                      <td style="height: 23px; width: 10px;">COM 1</td>
+                      <td style="height: 23px; width: 15px;">COM 2</td>
+                      <td style="height: 23px; width: 15px;">COM 3</td>
+                    </tr>
+                    <tr style="height: 23px;">
+                      <td style="height: 23px; width: 101px;">&nbsp;Borging</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;BOR</td>
+                      <td style="height: 23px; width: 125px;">Meter, monitoren, bijstellen &amp; borgen</td>
+                      <td style="height: 23px; width: 10px;">BOR 1</td>
+                      <td style="height: 23px; width: 15px;">BOR 2</td>
+                      <td style="height: 23px; width: 15px;">BOR 3</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;BOR 4</td>
+                    </tr>
+                    <tr style="height: 23px;">
+                      <td style="height: 23px; width: 101px;">&nbsp;Smoezen</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;SMOE1</td>
+                      <td style="height: 23px; width: 250px;">Smoesvraag&nbsp;</td>
+                    </tr>
+                    <tr style="height: 23px;">
+                      <td style="height: 23px; width: 101px;">&nbsp;</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;SMOE2</td>
+                      <td style="height: 23px; width: 250px;">Smoesvraag&nbsp;</td>
+                    </tr>
+                    <tr style="height: 23px;">
+                      <td style="height: 23px; width: 101px;">&nbsp;</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;SMOE3</td>
+                      <td style="height: 23px; width: 250px;">Smoesvraag&nbsp;</td>
+                    </tr>
+                    <tr style="height: 23px;">
+                      <td style="height: 23px; width: 101px;">&nbsp;</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;SMOE4</td>
+                      <td style="height: 23px; width: 250px;">Smoesvraag&nbsp;</td>
+                    </tr>
+                    <tr style="height: 23px;">
+                      <td style="height: 23px; width: 101px;">&nbsp;</td>
+                      <td style="height: 23px;">&nbsp;SMOE5</td>
+                      <td style="height: 23px; width: 250px;">Smoesvraag&nbsp;</td>
+                    </tr>
+                    <tr style="height: 23px;">
+                      <td style="height: 23px; width: 101px;">&nbsp;</td>
+                      <td style="height: 23px;">&nbsp;SMOE6</td>
+                      <td style="height: 23px; width: 250px;">Smoesvraag&nbsp;</td>
+                    </tr>
+                    <tr style="height: 23px;">
+                      <td style="height: 23px; width: 101px;">&nbsp;</td>
+                      <td style="height: 23px;">&nbsp;SMOE7</td>
+                      <td style="height: 23px; width: 250px;">Smoesvraag&nbsp;</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <br><br><br><br>.<br><br><br><br><br>
+                <!-- DivTable.com -->
+              </div>
+              <!-- DivTable.com -->
+            </div>
+          </tab>
+        </tabset>
+      </main>
+
+    </div>
+  </div>
+</div>

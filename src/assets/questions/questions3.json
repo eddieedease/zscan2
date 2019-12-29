@@ -1,0 +1,151 @@
+{
+    "Veiligheid1": {
+        "vraag": "Het beleid bevat een commitment om tenminste te voldoen wet en regelgeving en interne veiligheidsrichtlijn.",
+        "type": "Veiligheid"
+    },
+    "Veiligheid2": {
+        "vraag": "Het beleid is schriftelijk vastgelegd",
+        "type": "Veiligheid"
+    },
+    "Veiligheid3": {
+        "vraag": "Het beleid is bekend gemaakt aan alle werknemers",
+        "type": "Veiligheid"
+    },
+    "Veiligheid4": {
+        "vraag": "Het beleid is beschikbaar voor alle belanghebbende partijen",
+        "type": "Veiligheid"
+    },
+    "Planning1": {
+        "vraag": "Er is een procedure voor de vaststelling van risico's in verband met geïdentificeerde gevaren",
+        "type": "Planning"
+    },
+    "Planning2": {
+        "vraag": "Er is een procedure voor het geven van een indicatie van het niveau van de risico's en het bepalen of een risico aanvaardbaar is of niet",
+        "type": "Planning"
+    },
+    "Planning3": {
+        "vraag": "Er is een procedure waarin een beschrijving gegeven wordt (of verwezen wordt naar) van de maatregelen voor het monitoren en beheersen van risico's, met name van risico's die niet aanvaardbaar zijn",
+        "type": "Planning"
+    },
+    "Planning4": {
+        "vraag": "Er is een procedure voor de identificatie van de eisen met betrekking tot de vakbekwaamheid en opleiding om de beheersmaatregelen te implementeren",
+        "type": "Planning"
+    },
+    "Structuur1": {
+        "vraag": "De veiligheids verantwoordelijkheden en bevoegdheden zijn voor alle relevante werknemers schriftelijk vastgelegd",
+        "type": "Structuur"
+    },
+    "Structuur2": {
+        "vraag": "Er is een procedure voor het bekendmaken van de taakverdeling en de verantwoordelijkheden aan alle werknemers en andere relevante partijen",
+        "type": "Structuur"
+    },
+    "Opleiding1": {
+        "vraag": "De vakbekwaamheidseisen voor de afzonderlijke taken zijn vastgelegd",
+        "type": "Opleiding"
+    },
+    "Opleiding2": {
+        "vraag": "Er is een analyse van de behoefte aan opleidingen",
+        "type": "Opleiding"
+    },
+    "Opleiding3": {
+        "vraag": "Er zijn opleidingsprogramma's en opleidingsplannen voor de afzonderlijke werknemers",
+        "type": "Opleiding"
+    },
+    "Opleiding4": {
+        "vraag": "De gevolgde opleidingen worden geregistreerd",
+        "type": "Opleiding"
+    },
+    "Overleg1": {
+        "vraag": "Er is formeel overleg tussen de directie en de werknemers, bijvoorbeeld via de ondernemingsraad of een personeelsvertegenwoordiging",
+        "type": "Overleg"
+    },
+    "Overleg2": {
+        "vraag": "De werknemers worden betrokken bij de identificatie van gevaren, de risicobeoordeling en de risicobeheersing",
+        "type": "Overleg"
+    },
+    "Overleg3": {
+        "vraag": "Er is werkoverleg, waarbij aandacht besteed wordt aan het beoordelen en verbeteren van de arbosituatie op de werkplek",
+        "type": "Overleg"
+    },
+    "Overleg4": {
+        "vraag": "Werknemers worden betrokken bij onderzoek van ongevallen en incidenten, periodieke inspecties e.d.",
+        "type": "Overleg"
+    },
+    "Overleg5": {
+        "vraag": "Er zijn prikborden aanwezig met gegevens over de veiligheidsprestaties",
+        "type": "Overleg"
+    },
+    "Documentatie1": {
+        "vraag": "Er zijn procedures",
+        "type": "Documentatie"
+    },
+    "Documentatie2": {
+        "vraag": "Er zijn werkinstructies",
+        "type": "Documentatie"
+    },
+    "Gegevens1": {
+        "vraag": "Er is een procedure voor het beheer van documenten, inclusief de toegewezen verantwoordelijkheden en bevoegdheden",
+        "type": "Gegevens"
+    },
+    "Gegevens2": {
+        "vraag": "Er is een overzicht van beheerde documentatie en de locatie ervan",
+        "type": "Gegevens"
+    },
+    "Gegevens3": {
+        "vraag": "Er zijn registraties van documenten die zich in de archieven bevinden",
+        "type": "Gegevens"
+    },
+    "Beheersing1": {
+        "vraag": "Er zijn procedures met betrekking tot het uitvoeren van gevaarlijke werkzaamheden",
+        "type": "Beheersing"
+    },
+    "Beheersing2": {
+        "vraag": "Er zijn procedures voor het omgaan met gevaarlijke materialen",
+        "type": "Beheersing"
+    },
+    "Monitoring1": {
+        "vraag": "Er zijn procedures voor meting en monitoring",
+        "type": "Monitoring"
+    },
+    "Monitoring2": {
+        "vraag": "Er zijn schema's en checklists voor inspecties",
+        "type": "Monitoring"
+    },
+    "Monitoring3": {
+        "vraag": "Er zijn lijsten met 'kritieke apparatuur'",
+        "type": "Monitoring"
+    },
+    "Ongevallen1": {
+        "vraag": "Er zijn procedures voor het melden en onderzoeken van ongevallen en afwijkingen",
+        "type": "Ongevallen"
+    },
+    "Ongevallen2": {
+        "vraag": "Er zijn rapporten over geconstateerde afwijkingen",
+        "type": "Ongevallen"
+    },
+    "Ongevallen3": {
+        "vraag": "Er is een register van afwijkingen",
+        "type": "Ongevallen"
+    },
+    "Ongevallen4": {
+        "vraag": "Er zijn onderzoeksrapporten",
+        "type": "Ongevallen"
+    },
+    "Audit1": {
+        "vraag": "Er is een auditplan/programma voor de doorlichting van het veiligheidsmanagementsysteem",
+        "type": "Audit"
+    },
+    "Audit2": {
+        "vraag": "Er zijn procedures voor het uitvoeren van audits",
+        "type": "Audit"
+    },
+    "Audit3": {
+        "vraag": "Er zijn rapporten aanwezig van uitgevoerde audits, inclusief rapporten over afwijkingen, aanbevelingen en correctieve acties",
+        "type": "Audit"
+    },
+    "Audit4": {
+        "vraag": "Er zijn afgetekende en afgehandelde rapporten over afwijkingen",
+        "type": "Audit"
+    }
+
+}
