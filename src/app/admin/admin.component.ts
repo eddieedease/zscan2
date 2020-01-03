@@ -352,16 +352,15 @@ export class AdminComponent implements OnInit {
         break;
     }
     // TODO: make changing call
-
     ///////////////////////
-    // this.serCred.API_statusChange(_id, statchangenumb).subscribe(value => this.gotStatusChange(value));
+    this.serCred.API_statusChange(_id, statchangenumb).subscribe(value => this.gotStatusChange(value));
     this.loading = true;
   }
 
   gotStatusChange(_value) {
     this.serCred.debugLog(_value);
     ///////////////////////
-    // this.serCred.API_getgroups().subscribe(value => this.gotGroups(value));
+    this.serCred.API_getgroups(this.admnId).subscribe(value => this.gotGroups(value));
   }
 
   gotGroups(_val) {
@@ -398,24 +397,24 @@ export class AdminComponent implements OnInit {
 
   // function for validating email
   validateEmail(email) {
-    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
   }
 
   addUser(){
     // value should not be empty
-    if (this.emailAdd !== ''){
+    if (this.emailAdd !== '') {
       if (this.validateEmail(this.emailAdd)) {
         this.serCred.API_createuseringroup(this.groupId, this.emailAdd).subscribe(value => this.createdUserInGroup(value));
       } else {
         this.toastr.warning('Geen geldig email adres', '');
-      }; 
+      }
     } else {
       this.toastr.warning('Email adres niet ingevuld', 'Niet opgeslagen');
     }
   }
 
-  createdUserInGroup(_resp){
+  createdUserInGroup(_resp) {
     this.emailAdd = '';
     this.userAddBulk = false;
     this.serCred.API_getgrouplist(this.groupId).subscribe(value => this.gotGroupList(value));

@@ -66,11 +66,11 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body"><br>
         <p>Hier kunnen gebruikers aan groepen worden gehangen</p>
         <p>Als een admin (niet Superadmin) een groep aanmaakt, wordt deze automatisch aan zijn/haar lijst toegevoegd.
         </p>
-
+        <br>
         <ngx-datatable *ngIf="loading == false" class="material" [rows]="allGroupRows" [columns]="columns"
           [columnMode]="'force'" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
           <ngx-datatable-column name="Titel" [sortable]="true">
@@ -85,13 +85,13 @@
             </ng-template>
           </ngx-datatable-column>
 
-          <ngx-datatable-column name="Landkaart">
+          <ngx-datatable-column name="Aan groep">
             <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
               <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                 <button type="button" *ngIf="!row['ingroup']" (click)="groupCourseHandler('add',row['id'])"
                   class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></button>
                 <button type="button" *ngIf="row['ingroup']" (click)="groupCourseHandler('rem',row['id'])"
-                  class="btn btn-danger"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                  class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i></button>
 
               </div>
             </ng-template>
@@ -119,7 +119,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Groepslijst</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Groeplijst</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -156,10 +156,7 @@
 
           <div *ngIf="userAddBulk">
             <fieldset class="form-group has-danger">
-              <label class="form-control-label">CSV bestand upload</label>
-              <input [(ngModel)]="emailAdd" [ngModelOptions]="{standalone: true}" type="email"
-                class="form-control form-control-danger" id="emailadd">
-               
+              <label class="form-control-label">CSV bestand upload</label>     
             </fieldset> <button type="button" 
             class="btn btn-primary" data-toggle="modal">
             <i class="fa fa-plus"></i>&nbsp;Voeg toe
@@ -199,6 +196,7 @@
 
           <ngx-datatable-column name="Ingevuld">
             <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+              <i class="fa fa-check" aria-hidden="true" style="color: green;"></i>
               <!-- <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                           <button type="button" *ngIf="!row['ingroup']"
                             (click)="groupCourseHandler('add',row['id'])" class="btn btn-primary"><i
@@ -213,6 +211,8 @@
 
           <ngx-datatable-column name="Verwijder">
             <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+              <button type="button" (click)="groupCourseHandler('rem',row['id'])"
+                  class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
               <!-- <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                           <button type="button" *ngIf="!row['ingroup']"
                             (click)="groupCourseHandler('add',row['id'])" class="btn btn-primary"><i
@@ -414,7 +414,7 @@
           </li>
         </ul>
         <tabset [justified]="true">
-          <tab heading="Admins" *ngIf="admnType === 2"><br><br>
+          <tab heading="Beheer" *ngIf="admnType === 2"><br><br>
             <p>Het beheer Admins</p>
 
             <div
@@ -488,13 +488,14 @@
                 <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                   <div class="btn-group" style="border-radius: 10px; color: white" role="group"
                     aria-label="Basic example">
-                    <button (click)="openEditUserModal(row.id)" type="button" style="color: white" class="btn btn-info"
-                      data-toggle="modal" data-target=".modal-useredit">
-                      <i class="fa fa-edit"></i> Edit
-                    </button>
+                    
                     <button (click)="openUserToGroupModal(row.id)" type="button" style="color: white"
                       class="btn btn-primary" data-toggle="modal" data-target=".modal-usertogroups">
                       <i class="fa fa-group"></i> Groeplinks
+                    </button>
+                    <button (click)="openEditUserModal(row.id)" type="button" style="color: white" class="btn btn-info"
+                      data-toggle="modal" data-target=".modal-useredit">
+                      <i class="fa fa-edit"></i> Edit
                     </button>
                   </div>
                 </ng-template>
@@ -518,9 +519,9 @@
             </div>
             <div *ngIf="!showScore">
               <br><br>
-              <div class="form-group">
+              <!-- <div class="form-group">
                     <input type="file" (change)="onFileSelect($event.target)" name="myfile">
-               </div>
+               </div> -->
               <ngx-datatable [scrollbarH]="true" class="material" [rows]="groupRows" [columns]="columns"
                 [columnMode]="'force'" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
                 <ngx-datatable-column name="Titel" [sortable]="true">
@@ -535,7 +536,7 @@
                   </ng-template>
                 </ngx-datatable-column>
                
-                <!-- <ngx-datatable-column name="Actief" [sortable]="true">
+                <ngx-datatable-column name="Actief" [sortable]="true">
 
                   <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
                     <span style="cursor:pointer">
@@ -551,11 +552,11 @@
                     </p>
                   </ng-template>
 
-                </ngx-datatable-column> -->
+                </ngx-datatable-column>
 
 
 
-                <ngx-datatable-column name="Aantal Ingevuld">
+              <!--   <ngx-datatable-column name="Aantal Ingevuld">
                   <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
                     <span style="cursor:pointer">
                       {{column.name}}
@@ -563,24 +564,25 @@
                   </ng-template>
 
                   <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                    <!-- <div [innerHTML]="row['made']"></div> --> .. / ..
+                    .. / ..
                   </ng-template>
 
-                </ngx-datatable-column>
+                </ngx-datatable-column> -->
 
 
                 <ngx-datatable-column name="Acties">
                   <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                     <div class="btn-group" style="border-radius: 10px; color: white" role="group"
                       aria-label="Basic example">
-                      <button (click)="showEdit(row.id)" type="button" style="color: white" class="btn btn-info"
-                        data-toggle="modal" data-target=".modal-edit">
-                        <i class="fa fa-edit"></i> Edit
-                      </button>
                       <button (click)="showGroupList(row.id)" type="button" style="color: white" class="btn btn-primary"
                         data-toggle="modal" data-target=".modal-grouplist">
                         <i class="fa fa-list"></i> Groeplijst
                       </button>
+                      <button (click)="showEdit(row.id)" type="button" style="color: white" class="btn btn-info"
+                        data-toggle="modal" data-target=".modal-edit">
+                        <i class="fa fa-edit"></i> Edit
+                      </button>
+                      
                     </div>
                   </ng-template>
 
@@ -591,8 +593,8 @@
                   <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                     <div class="btn-group" style="border-radius: 10px; color: white" role="group"
                       aria-label="Basic example">
-                      <button (click)="showResult(row.id)" type="button" class="btn btn-primary">
-                        <i class="fa fa-eye"></i> Landkaart
+                      <button style="color: white;" (click)="showResult(row.id)" type="button" class="btn btn-warning">
+                        <i class="fa fa-eye" ></i> Landkaart
                       </button>
                     </div>
                   </ng-template>
@@ -623,14 +625,15 @@
             <div *ngIf="showScore">
               <div class="container">
                 <button type="button" (click)="showScore = false" class="btn btn-primary" data-toggle="modal">
-                  <i class="fa fa-arrow-left"> </i>Terug naar Overzicht
-                </button>
+                  <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Terug naar Overzicht
+                </button>&nbsp;&nbsp;
                 <button type="button" (click)="printResult()" class="btn btn-primary" data-toggle="modal">
-                  <i class="fa fa-print"></i>Print resultaat
+                  <i class="fa fa-print"></i>&nbsp;&nbsp;Print resultaat
                 </button>
                 <br><br><br>
                 <h2>{{currentGroup}}</h2>
-                <p>Aantal keren verstuurd: <b>{{howManySend}}</b></p>
+                <p>Verstuurd/Ingevuld: <b>{{howManySend}}/..</b><br>
+                  CheckList ingevuld: <b></b></p>
                 <br>
                 <table style="float: left; height: 1028px;" width="100%" cellpadding="10">
                   <tbody>
