@@ -61,41 +61,82 @@ export class TestComponent implements OnInit {
   // Custom VARS
   // test user
   IZ1;
+  resultIZ1;
   IZ2;
+  resultIZ2;
   IZ3;
+  resultIZ3;
   IW1;
+  resultIW1;
   IW2;
+  resultIW2;
   IW3;
+  resultIW3;
   IWE1;
+  resultIWE1;
   IWE2;
+  resultIWE2;
   IWE3;
+  resultIWE3;
   IWE4;
+  resultIWE4;
   IK1;
+  resultIK1;
   IK2;
+  resultIK2;
   IK3;
+  resultIK3;
   SMOE1;
+  resultSMOE1;
   SMOE2;
+  resultSMOE2;
   SMOE3;
+  resultSMOE3;
   SMOE4;
+  resultSMOE4;
   SMOE5;
+  resultSMOE5;
   SMOE6;
+  resultSMOE6;
   SMOE7;
+  resultSMOE7;
   // test manager
   CW1;
+  resultCW1;
   CW2;
+  resultCW2;
   VB1;
+  resultVB1;
   VB2;
+  resultVB2;
   VB3;
+  resultVB3;
   PRO1;
+  resultPRO1;
   PRO2;
+  resultPRO2;
   PRO3;
+  resultPRO3;
   COM1;
+  resultCOM1;
   COM2;
+  resultCOM2;
   COM3;
+  resultCOM3;
   BOR1;
+  resultBOR1;
   BOR2;
+  resultBOR2;
   BOR3;
+  resultBOR3;
   BOR4;
+  resultBOR4;
+  OPL1;
+  resultOPL1;
+  OPL2;
+  resultOPL2;
+  OPL3;
+  resultOPL3;
 
 
 
@@ -265,6 +306,9 @@ export class TestComponent implements OnInit {
     this.VB1 = 0;
     this.VB2 = 0;
     this.VB3 = 0;
+    this.OPL1 = 0;
+    this.OPL2 = 0;
+    this.OPL3 = 0;
     this.PRO1 = 0;
     this.PRO2 = 0;
     this.PRO3 = 0;
@@ -287,66 +331,82 @@ export class TestComponent implements OnInit {
           console.log(this.questionArray[index].answer);
           switch (this.questionArray[index].type) {
             case 'IZ1':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
+              this.IZ1 = this.IZ1 + this.questionArray[index].answer;
               break;
-              case 'IZ2':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
+            case 'IZ2':
+              this.IZ2 = this.IZ2 + this.questionArray[index].answer;
               break;
-              case 'IZ3':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
+            case 'IZ3':
+              this.IZ3 = this.IZ3 + this.questionArray[index].answer;
               break;
-              case 'IW1':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
+            case 'IW1':
+              this.IW1 = this.IW1 + this.questionArray[index].answer;
               break;
-              case 'IW2':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
+            case 'IW2':
+              this.IW2 = this.IW2 + this.questionArray[index].answer;
               break;
-              case 'IW3':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
               break;
-              case 'IWE1':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
+            case 'IW3':
+              this.IW3 = this.IW3 + this.questionArray[index].answer;
               break;
-              case 'IWE2':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
               break;
-              case 'IWE3':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
+            case 'IWE1':
+              this.IWE1 = this.IWE1 + this.questionArray[index].answer;
               break;
-              case 'IWE4':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
               break;
-              case 'IK1':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
+            case 'IWE2':
+              this.IWE2 = this.IWE2 + this.questionArray[index].answer;
               break;
-              case 'IK2':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
               break;
-              case 'IK3':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
+            case 'IWE3':
+              this.IWE3 = this.IWE3 + this.questionArray[index].answer;
               break;
-              case 'SMOE1':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
               break;
-              case 'SMOE2':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
+            case 'IWE4':
+              this.IWE4 = this.IWE4 + this.questionArray[index].answer;
               break;
-              case 'SMOE3':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
               break;
-              case 'SMOE4':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
+            case 'IK1':
+              this.IK1 = this.IK1 + this.questionArray[index].answer;
               break;
-              case 'SMOE5':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
               break;
-              case 'SMOE6':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
+            case 'IK2':
+              this.IK2 = this.IK2 + this.questionArray[index].answer;
               break;
-              case 'SMOE7':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
               break;
- 
+            case 'IK3':
+              this.IK3 = this.IK3 + this.questionArray[index].answer;
+              break;
+              break;
+            case 'SMOE1':
+              this.SMOE1 = this.SMOE1 + this.questionArray[index].answer;
+              break;
+              break;
+            case 'SMOE2':
+              this.SMOE2 = this.SMOE2 + this.questionArray[index].answer;
+              break;
+              break;
+            case 'SMOE3':
+              this.SMOE3 = this.SMOE3 + this.questionArray[index].answer;
+              break;
+              break;
+            case 'SMOE4':
+              this.SMOE4 = this.SMOE4 + this.questionArray[index].answer;
+              break;
+              break;
+            case 'SMOE5':
+              this.SMOE5 = this.SMOE5 + this.questionArray[index].answer;
+              break;
+              break;
+            case 'SMOE6':
+              this.SMOE6 = this.SMOE6 + this.questionArray[index].answer;
+              break;
+              break;
+            case 'SMOE7':
+              this.SMOE7 = this.SMOE7 + this.questionArray[index].answer;
+              break;
+              break;
+
           }
         } else {
           // Something is not filled in correctly
@@ -361,75 +421,70 @@ export class TestComponent implements OnInit {
           console.log(this.questionArray[index].answer);
           switch (this.questionArray[index].type) {
             case 'CW1':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
+              this.CW1 = this.CW1 + this.questionArray[index].answer;
               break;
-              case 'CW2':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
+            case 'CW2':
+              this.CW2 = this.CW2 + this.questionArray[index].answer;
               break;
-              case 'VB1':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
+            case 'VB1':
+              this.VB1 = this.VB1 + this.questionArray[index].answer;
               break;
-              case 'VB2':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
+            case 'VB2':
+              this.VB2 = this.VB2 + this.questionArray[index].answer;
               break;
-              case 'VB3':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
+            case 'VB3':
+              this.VB3 = this.VB3 + this.questionArray[index].answer;
               break;
-              case 'OPL1':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
+            case 'OPL1':
+              this.OPL1 = this.OPL1 + this.questionArray[index].answer;
               break;
-              case 'OPL2':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
+            case 'OPL2':
+              this.OPL2 = this.OPL2 + this.questionArray[index].answer;
               break;
-              case 'OPL3':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
+            case 'OPL3':
+              this.OPL3 = this.OPL3 + this.questionArray[index].answer;
               break;
-              case 'PRO1':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
+            case 'PRO1':
+              this.PRO1 = this.PRO1 + this.questionArray[index].answer;
               break;
-              case 'PRO2':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
+            case 'PRO2':
+              this.PRO2 = this.PRO2 + this.questionArray[index].answer;
               break;
-              case 'PRO3':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
+            case 'PRO3':
+              this.PRO3 = this.PRO3 + this.questionArray[index].answer;
               break;
-              case 'COM1':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
+            case 'COM1':
+              this.COM1 = this.COM1 + this.questionArray[index].answer;
               break;
-              case 'COM2':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
+            case 'COM2':
+              this.COM2 = this.COM2 + this.questionArray[index].answer;
               break;
-              case 'COM3':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
+            case 'COM3':
+              this.COM3 = this.COM3 + this.questionArray[index].answer;
               break;
-              case 'BOR1':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
+            case 'BOR1':
+              this.BOR1 = this.BOR1 + this.questionArray[index].answer;
               break;
-              case 'BOR2':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
+            case 'BOR2':
+              this.BOR2 = this.BOR2 + this.questionArray[index].answer;
               break;
-              case 'BOR3':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
               break;
-              case 'BOR4':
-              // this.result1 = this.result1 + this.questionArray[index].answer;
-              break;          }
+            case 'BOR3':
+              this.BOR3 = this.BOR3 + this.questionArray[index].answer;
+              break;
+              break;
+            case 'BOR4':
+              this.BOR4 = this.BOR4 + this.questionArray[index].answer;
+              break;
+              break;
+          }
         } else {
           // Something is not filled in correctly
           somethingempty = true;
           whichemptyArray.push(index + 1);
         }
       }
-
-
     }
-
-
-    //
-
-
-
-
 
 
     if (somethingempty === false) {
@@ -440,26 +495,55 @@ export class TestComponent implements OnInit {
 
       // TODO: Below comes the calculating, we need to know how many items one thing has
       if (this.typeTest === 1) {
+        // TODO: Do the mathz
+        // TODO: Do the mats
+         // this.result1 = Math.round(this.result1 / 8 * 100) / 100;
+        this.IZ1 = Math.round(this.IZ1 / 8 * 100) / 100;
+        this.IZ2 = Math.round(this.IZ2 / 8 * 100) / 100;
+        this.IZ3 = Math.round(this.IZ3 / 8 * 100) / 100;
+        this.IW1 = Math.round(this.IW1 / 8 * 100) / 100;
+        this.IW2 = Math.round(this.IW2 / 8 * 100) / 100;
+        this.IW3 = Math.round(this.IW3 / 8 * 100) / 100;
+        this.IWE1 = Math.round(this.IWE1 / 8 * 100) / 100;
+        this.IWE2 = Math.round(this.IWE2 / 8 * 100) / 100;
+        this.IWE3 = Math.round(this.IWE3 / 8 * 100) / 100;
+        this.IWE4 = Math.round(this.IWE4 / 8 * 100) / 100;
+        this.IK1 = Math.round(this.IK1 / 8 * 100) / 100;
+        this.IK2 = Math.round(this.IK2 / 8 * 100) / 100;
+        this.IK3 = Math.round(this.IK3 / 8 * 100) / 100;
+        this.SMOE1 = Math.round(this.SMOE1 / 8 * 100) / 100;
+        this.SMOE2 = Math.round(this.SMOE2 / 8 * 100) / 100;
+        this.SMOE3 = Math.round(this.SMOE3 / 8 * 100) / 100;
+        this.SMOE4 = Math.round(this.SMOE4 / 8 * 100) / 100;
+        this.SMOE5 = Math.round(this.SMOE5 / 8 * 100) / 100;
+        this.SMOE6 = Math.round(this.SMOE6 / 8 * 100) / 100;
+        this.SMOE7 = Math.round(this.SMOE7 / 8 * 100) / 100;
 
       } else if (this.typeTest === 2) {
-
+        this.CW1 = Math.round(this.CW1 / 8 * 100) / 100;
+        this.CW2 = Math.round(this.CW2 / 8 * 100) / 100;
+        this.VB1 = Math.round(this.VB1 / 8 * 100) / 100;
+        this.VB2 = Math.round(this.VB2 / 8 * 100) / 100;
+        this.VB3 = Math.round(this.VB3 / 8 * 100) / 100;
+        this.OPL1 = Math.round(this.OPL1 / 8 * 100) / 100;
+        this.OPL2 = Math.round(this.OPL2 / 8 * 100) / 100;
+        this.OPL3 = Math.round(this.OPL3 / 8 * 100) / 100;
+        this.PRO1 = Math.round(this.PRO1 / 8 * 100) / 100;
+        this.PRO2 = Math.round(this.PRO2 / 8 * 100) / 100;
+        this.PRO3 = Math.round(this.PRO3 / 8 * 100) / 100;
+        this.COM1 = Math.round(this.COM1 / 8 * 100) / 100;
+        this.COM2 = Math.round(this.COM2 / 8 * 100) / 100;
+        this.COM3 = Math.round(this.COM3 / 8 * 100) / 100;
+        this.BOR1 = Math.round(this.BOR1 / 8 * 100) / 100;
+        this.BOR2 = Math.round(this.BOR2 / 8 * 100) / 100;
+        this.BOR3 = Math.round(this.BOR3 / 8 * 100) / 100;
+        this.BOR4 = Math.round(this.BOR4 / 8 * 100) / 100;
       }
-
-      // everything is filled in and we are gonna send it through the API
-      this.result1 = Math.round(this.result1 / 8 * 100) / 100;
-      this.result2 = Math.round(this.result2 / 8 * 100) / 100;
-      this.result3 = Math.round(this.result3 / 7 * 100) / 100;
-      this.result4 = Math.round(this.result4 / 7 * 100) / 100;
-      this.result5 = Math.round(this.result5 / 8 * 100) / 100;
-      this.edSer.debugLog('Result 1: ' + this.result1);
-      this.edSer.debugLog('Result 2: ' + this.result2);
-      this.edSer.debugLog('Result 3: ' + this.result3);
-      this.edSer.debugLog('Result 4: ' + this.result4);
-      this.edSer.debugLog('Result 5: ' + this.result5);
       // tslint:disable-next-line:max-line-length
 
       ///////////////////////
       // tslint:disable-next-line:max-line-length
+      // TODO: make the call
       // this.edSer.API_formsubmit(this.edSer.currentGroupID, this.result1, this.result2, this.result3, this.result4, this.result5).subscribe(value => this.formSend(value));
     } else {
       // feedback to the user that something is empty
