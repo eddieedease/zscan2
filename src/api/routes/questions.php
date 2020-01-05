@@ -32,14 +32,13 @@ $app->get('/formsubmit/{groupid}/{IZ1}/{IZ2}/{IZ3}/{IW1}/{IW2}/{IW3}/{IWE1}/{IWE
     $SMOE4 = $request->getAttribute('SMOE4');
     $SMOE5 = $request->getAttribute('SMOE5');
     $SMOE6 = $request->getAttribute('SMOE6');
-    $SMOE7 = $request->getAttribute('SMOE7');
 
 
     include 'db.php';
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
 
     // SQL QUERY FOR getting group id with key
-    $sqlinsertresult = "INSERT INTO results (grouplink, IZ1, IZ2, IZ3, IW1, IW2, IW3, IWE1, IWE2, IWE3, IWE4, IK1, IK2, IK3, SMOE1, SMOE2, SMOE3, SMOE4, SMOE5, SMOE6, SMOE7) VALUES ('$groupid','$IZ1','$IZ2','$IZ3','$IW1','$IW2','$IW3','$IWE1','$IWE2','$IWE3','$IWE4','$IK1','$IK2','$IK3','$SMOE1','$SMOE2','$SMOE3','$SMOE4','$SMOE5','$SMOE6','$SMOE7')";
+    $sqlinsertresult = "INSERT INTO results (grouplink, IZ1, IZ2, IZ3, IW1, IW2, IW3, IWE1, IWE2, IWE3, IWE4, IK1, IK2, IK3, SMOE1, SMOE2, SMOE3, SMOE4, SMOE5, SMOE6) VALUES ('$groupid','$IZ1','$IZ2','$IZ3','$IW1','$IW2','$IW3','$IWE1','$IWE2','$IWE3','$IWE4','$IK1','$IK2','$IK3','$SMOE1','$SMOE2','$SMOE3','$SMOE4','$SMOE5','$SMOE6')";
     $stmtinsertresult = $dbh->prepare($sqlinsertresult);
     $stmtinsertresult->execute();
     // $resultinsertresult = $stmtinsertresult->fetchAll(PDO::FETCH_ASSOC);

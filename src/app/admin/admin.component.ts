@@ -60,6 +60,7 @@ export class AdminComponent implements OnInit {
 
   userAddUser = false;
   userAddBulk = false;
+  userSendMails = false;
 
 
   emailAdd = '';
@@ -132,7 +133,13 @@ export class AdminComponent implements OnInit {
 
     if (environment.production === false){
       // fast logging in for development mode
-      this.serCred.API_admnlogin('demo@demo.nl', 'demo').subscribe(value => this.gotLogin(value));
+      // this.serCred.API_admnlogin('demo@demo.nl', 'demo').subscribe(value => this.gotLogin(value));
+
+      $('#adminModal').modal('show', {
+        backdrop: 'static',
+        keyboard: false
+      });
+
     } else {
       $('#adminModal').modal('show', {
         backdrop: 'static',
@@ -387,10 +394,16 @@ export class AdminComponent implements OnInit {
       case 'user':
       this.userAddUser = !this.userAddUser;
       this.userAddBulk = false;
+      this.userSendMails = false;
         break;
       case 'bulk':
       this.userAddUser = false;
+      this.userSendMails = false;
       this.userAddBulk = !this.userAddBulk;
+        break;
+        case 'sendmails':
+      this.userAddUser = false;
+      this.userSendMails = !this.userSendMails;
         break;
     }
   }
@@ -477,6 +490,7 @@ export class AdminComponent implements OnInit {
 
   editteddAuser(_resp){
     this.loading = false;
+    this.ausrWw = '';
     this.toastr.success('Gebruiker bewerkt', '');
     this.serCred.API_getausers().subscribe(value => this.gotAusers(value));
   }
@@ -545,6 +559,16 @@ export class AdminComponent implements OnInit {
     this.ausrId = _id;
     this.loading = true;
     this.serCred.API_getausergroups(_id).subscribe(value => this.gotUserToGroups(value));
+  }
+
+  // TODO: Do all the deleting are u sure stuff
+  openDeleteModal(_case, id) {
+    this.serCred.debugLog('Trying to delete something, but not coded yet');
+    switch (_case) {
+      case 'auser':
+        
+        break;
+    }
   }
 
 
@@ -646,6 +670,10 @@ export class AdminComponent implements OnInit {
   // batchuser response
   userbatchResponse(_event){
     console.log(_event);
+  }
+
+  logOut(){
+    location.reload();
   }
 
 

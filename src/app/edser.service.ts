@@ -267,9 +267,9 @@ export class EdserService {
   // API QUESTIONS
 
   // tslint:disable-next-line:max-line-length
-  API_formsubmit(_groupid, IZ1, IZ2, IZ3, IW1, IW2, IW3, IWE1, IWE2, IWE3, IWE4, IK1, IK2, IK3, SMOE1, SMOE2, SMOE3, SMOE4, SMOE5, SMOE6, SMOE7): Observable < any > {
+  API_formsubmit(_groupid, IZ1, IZ2, IZ3, IW1, IW2, IW3, IWE1, IWE2, IWE3, IWE4, IK1, IK2, IK3, SMOE1, SMOE2, SMOE3, SMOE4, SMOE5, SMOE6): Observable < any > {
     // tslint:disable-next-line:max-line-length
-    const url = environment.apilink + 'formsubmit/' + _groupid + '/' + IZ1 + '/' + IZ2 + '/' + IZ3 + '/' + IW1 + '/' + IW2 + '/' + IW3 + '/' + IWE1 + '/' + IWE2 + '/' + IWE3 + '/' + IWE4 + '/' + IK1 + '/' + IK2 + '/' + IK3 + '/' + SMOE1 + '/' + SMOE2 + '/' + SMOE3 + '/' + SMOE4 + '/' + SMOE5 + '/' + SMOE6 + '/' + SMOE7 + '?rnd=' + new Date().getTime();
+    const url = environment.apilink + 'formsubmit/' + _groupid + '/' + IZ1 + '/' + IZ2 + '/' + IZ3 + '/' + IW1 + '/' + IW2 + '/' + IW3 + '/' + IWE1 + '/' + IWE2 + '/' + IWE3 + '/' + IWE4 + '/' + IK1 + '/' + IK2 + '/' + IK3 + '/' + SMOE1 + '/' + SMOE2 + '/' + SMOE3 + '/' + SMOE4 + '/' + SMOE5 + '/' + SMOE6 + '?rnd=' + new Date().getTime();
     // tslint:disable-next-line:prefer-const
     const headers = new Headers({
       'Content-Type': 'application/json'
@@ -516,7 +516,8 @@ export class EdserService {
       'name': _name,
       'lastname': _lastname,
       'email': _email,
-      'type': _type
+      'type': _type,
+      'ww': _ww
     };
     const body = JSON.stringify(upt);
     // const howmanykb = this.byteCount(body);

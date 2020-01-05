@@ -98,8 +98,6 @@ export class TestComponent implements OnInit {
   resultSMOE5;
   SMOE6;
   resultSMOE6;
-  SMOE7;
-  resultSMOE7;
   // test manager
   CW1;
   resultCW1;
@@ -299,7 +297,6 @@ export class TestComponent implements OnInit {
     this.SMOE4 = 0;
     this.SMOE5 = 0;
     this.SMOE6 = 0;
-    this.SMOE7 = 0;
     // test manager
     this.CW1 = 0;
     this.CW2 = 0;
@@ -345,66 +342,47 @@ export class TestComponent implements OnInit {
             case 'IW2':
               this.IW2 = this.IW2 + this.questionArray[index].answer;
               break;
-              break;
             case 'IW3':
               this.IW3 = this.IW3 + this.questionArray[index].answer;
-              break;
               break;
             case 'IWE1':
               this.IWE1 = this.IWE1 + this.questionArray[index].answer;
               break;
-              break;
             case 'IWE2':
               this.IWE2 = this.IWE2 + this.questionArray[index].answer;
-              break;
               break;
             case 'IWE3':
               this.IWE3 = this.IWE3 + this.questionArray[index].answer;
               break;
-              break;
             case 'IWE4':
               this.IWE4 = this.IWE4 + this.questionArray[index].answer;
-              break;
               break;
             case 'IK1':
               this.IK1 = this.IK1 + this.questionArray[index].answer;
               break;
-              break;
             case 'IK2':
               this.IK2 = this.IK2 + this.questionArray[index].answer;
-              break;
               break;
             case 'IK3':
               this.IK3 = this.IK3 + this.questionArray[index].answer;
               break;
-              break;
             case 'SMOE1':
               this.SMOE1 = this.SMOE1 + this.questionArray[index].answer;
-              break;
               break;
             case 'SMOE2':
               this.SMOE2 = this.SMOE2 + this.questionArray[index].answer;
               break;
-              break;
             case 'SMOE3':
               this.SMOE3 = this.SMOE3 + this.questionArray[index].answer;
-              break;
               break;
             case 'SMOE4':
               this.SMOE4 = this.SMOE4 + this.questionArray[index].answer;
               break;
-              break;
             case 'SMOE5':
               this.SMOE5 = this.SMOE5 + this.questionArray[index].answer;
               break;
-              break;
             case 'SMOE6':
               this.SMOE6 = this.SMOE6 + this.questionArray[index].answer;
-              break;
-              break;
-            case 'SMOE7':
-              this.SMOE7 = this.SMOE7 + this.questionArray[index].answer;
-              break;
               break;
 
           }
@@ -468,14 +446,11 @@ export class TestComponent implements OnInit {
             case 'BOR2':
               this.BOR2 = this.BOR2 + this.questionArray[index].answer;
               break;
-              break;
             case 'BOR3':
               this.BOR3 = this.BOR3 + this.questionArray[index].answer;
               break;
-              break;
             case 'BOR4':
               this.BOR4 = this.BOR4 + this.questionArray[index].answer;
-              break;
               break;
           }
         } else {
@@ -498,26 +473,25 @@ export class TestComponent implements OnInit {
         // TODO: Do the mathz
         // TODO: Do the mats
          // this.result1 = Math.round(this.result1 / 8 * 100) / 100;
-        this.IZ1 = Math.round(this.IZ1 / 8 * 100) / 100;
-        this.IZ2 = Math.round(this.IZ2 / 8 * 100) / 100;
-        this.IZ3 = Math.round(this.IZ3 / 8 * 100) / 100;
-        this.IW1 = Math.round(this.IW1 / 8 * 100) / 100;
-        this.IW2 = Math.round(this.IW2 / 8 * 100) / 100;
-        this.IW3 = Math.round(this.IW3 / 8 * 100) / 100;
-        this.IWE1 = Math.round(this.IWE1 / 8 * 100) / 100;
-        this.IWE2 = Math.round(this.IWE2 / 8 * 100) / 100;
-        this.IWE3 = Math.round(this.IWE3 / 8 * 100) / 100;
-        this.IWE4 = Math.round(this.IWE4 / 8 * 100) / 100;
+        this.IZ1 = Math.round(this.IZ1 / 5 * 100) / 100;
+        this.IZ2 = Math.round(this.IZ2 / 4 * 100) / 100;
+        this.IZ3 = Math.round(this.IZ3 / 2 * 100) / 100;
+        this.IW1 = Math.round(this.IW1 / 10 * 100) / 100;
+        this.IW2 = Math.round(this.IW2 / 4 * 100) / 100;
+        this.IW3 = Math.round(this.IW3 / 1 * 100) / 100;
+        this.IWE1 = Math.round(this.IWE1 / 1 * 100) / 100;
+        this.IWE2 = Math.round(this.IWE2 / 1 * 100) / 100;
+        this.IWE3 = Math.round(this.IWE3 / 1 * 100) / 100;
+        this.IWE4 = Math.round(this.IWE4 / 2 * 100) / 100;
         this.IK1 = Math.round(this.IK1 / 8 * 100) / 100;
         this.IK2 = Math.round(this.IK2 / 8 * 100) / 100;
         this.IK3 = Math.round(this.IK3 / 8 * 100) / 100;
-        this.SMOE1 = Math.round(this.SMOE1 / 8 * 100) / 100;
-        this.SMOE2 = Math.round(this.SMOE2 / 8 * 100) / 100;
-        this.SMOE3 = Math.round(this.SMOE3 / 8 * 100) / 100;
-        this.SMOE4 = Math.round(this.SMOE4 / 8 * 100) / 100;
-        this.SMOE5 = Math.round(this.SMOE5 / 8 * 100) / 100;
-        this.SMOE6 = Math.round(this.SMOE6 / 8 * 100) / 100;
-        this.SMOE7 = Math.round(this.SMOE7 / 8 * 100) / 100;
+        this.SMOE1 = Math.round(this.SMOE1 / 1 * 100) / 100;
+        this.SMOE2 = Math.round(this.SMOE2 / 1 * 100) / 100;
+        this.SMOE3 = Math.round(this.SMOE3 / 1 * 100) / 100;
+        this.SMOE4 = Math.round(this.SMOE4 / 1 * 100) / 100;
+        this.SMOE5 = Math.round(this.SMOE5 / 1 * 100) / 100;
+        this.SMOE6 = Math.round(this.SMOE6 / 1 * 100) / 100;
 
       } else if (this.typeTest === 2) {
         this.CW1 = Math.round(this.CW1 / 8 * 100) / 100;
@@ -542,8 +516,8 @@ export class TestComponent implements OnInit {
       // tslint:disable-next-line:max-line-length
 
       ///////////////////////
+            // TODO: make the call
       // tslint:disable-next-line:max-line-length
-      // TODO: make the call
       // this.edSer.API_formsubmit(this.edSer.currentGroupID, this.result1, this.result2, this.result3, this.result4, this.result5).subscribe(value => this.formSend(value));
     } else {
       // feedback to the user that something is empty

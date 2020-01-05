@@ -125,6 +125,8 @@
         </button>
       </div>
       <div class="modal-body">
+        
+        <div class="container">
         <p>Hier kunnen emailadressen aan groepen worden gehangen die de zelfscan moeten uitvoeren</p>
         <p>Ook kunnen hier personen aangewezen worden om de checklist uit te voeren</p>
         
@@ -140,6 +142,10 @@
               <button type="button" 
                 class="btn btn-warning" (click)="addClick('bulk')" data-toggle="modal">
                 <i class="fa fa-plus"></i>&nbsp; Bulk CSV import
+              </button>
+              <button type="button" 
+                class="btn btn-info" (click)="addClick('sendmails')" data-toggle="modal">
+                <i class="fa fa-plus"></i>&nbsp; Mails versturen
               </button>
             </div><br><br>
 
@@ -157,16 +163,16 @@
           <div *ngIf="userAddBulk">
             <fieldset class="form-group has-danger">
               <label class="form-control-label">CSV bestand upload</label>     
-            </fieldset> <button type="button" 
-            class="btn btn-primary" data-toggle="modal">
-            <i class="fa fa-plus"></i>&nbsp;Voeg toe
-          </button></div>
+            </fieldset></div>
+          
+            <div *ngIf="userSendMails">
+              <hr>
+              <p>Klik op de knop hieronder om mails te versturen naar iedereen van deze lijst die de scan nog niet heeft gemaakt</p>
+              <button type="button" style="margin:10px;padding:10px" class="btn btn-info">Mails versturen</button>
+          </div>
+          </div>
 
-          <br> <div class="container">
-            <p>Klik op de knop hieronder om mails te versturen naar iedereen van deze lijst die de scan nog niet heeft gemaakt</p>
-            <button type="button" style="margin:10px;padding:10px" class="btn btn-info">Mails versturen</button>
-           <br><hr><br>
-          </div><br>
+
 
         <ngx-datatable *ngIf="loading == false" class="material" [rows]="groupListUsers" [columns]="columns"
         [columnMode]="'force'" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
@@ -397,7 +403,7 @@
 
     <ul class="navbar-nav px-3">
       <li class="nav-item text-nowrap">
-        <a class="nav-link">Log uit</a>
+        <a (click)="logOut()" class="nav-link">Log uit</a>
       </li>
     </ul>
   </nav>
@@ -438,22 +444,31 @@
                 </ng-template>
 
                 <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                  <div [innerHTML]="row['name']"></div>
+                  <div [innerHTML]="row['name'] + ' ' + row['lastname']"></div>
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="Achternaam" prop="lastname" [sortable]="true">
 
-                <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
-                  <span style="cursor:pointer">
-                    {{column.name}}
-                  </span>
-                </ng-template>
-
+              <ngx-datatable-column name="Acties">
                 <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                  <div [innerHTML]="row['lastname']"></div>
+                  <div class="btn-group" style="border-radius: 10px; color: white" role="group"
+                    aria-label="Basic example">
+                    
+                    <button (click)="openUserToGroupModal(row.id)" type="button" style="color: white"
+                      class="btn btn-primary" data-toggle="modal" data-target=".modal-usertogroups">
+                      <i class="fa fa-group"></i>
+                    </button>
+                    <button (click)="openEditUserModal(row.id)" type="button" style="color: white" class="btn btn-info"
+                      data-toggle="modal" data-target=".modal-useredit">
+                      <i class="fa fa-edit"></i>
+                    </button><br>
+                    <button (click)="openDeleteModal('auser', row.id)" type="button" style="color: white" class="btn btn-danger">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </div>
                 </ng-template>
 
               </ngx-datatable-column>
+              
 
               <ngx-datatable-column name="Email" prop="email" [sortable]="true">
 
@@ -484,23 +499,7 @@
 
               </ngx-datatable-column>
 
-              <ngx-datatable-column name="Acties">
-                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                  <div class="btn-group" style="border-radius: 10px; color: white" role="group"
-                    aria-label="Basic example">
-                    
-                    <button (click)="openUserToGroupModal(row.id)" type="button" style="color: white"
-                      class="btn btn-primary" data-toggle="modal" data-target=".modal-usertogroups">
-                      <i class="fa fa-group"></i> Groeplinks
-                    </button>
-                    <button (click)="openEditUserModal(row.id)" type="button" style="color: white" class="btn btn-info"
-                      data-toggle="modal" data-target=".modal-useredit">
-                      <i class="fa fa-edit"></i> Edit
-                    </button>
-                  </div>
-                </ng-template>
-
-              </ngx-datatable-column>
+              
             </ngx-datatable>
           </tab>
 
@@ -638,16 +637,20 @@
                 <table style="float: left; height: 1028px;" width="100%" cellpadding="10">
                   <tbody>
                     <tr style="height: 23px;">
+                      <td style="height: 23px; width: 15px;" colspan="3"></td>
+                      <td style="height: 23px; width: 15px;" colspan="4"></td>
+                    </tr>
+                    <tr style="height: 23px;">
                       <td style="height: 23px; width: 101px;">Mens</td>
                       <td style="height: 23px; width: 15px;">&nbsp;IZ</td>
                       <td style="height: 23px; width: 125px;">Ik zie</td>
-                      <td style="height: 23px; width: 10px;">IZ 1&nbsp;</td>
+                      <td style="height: 23px; width: 10px;">&nbsp;IZ 1</td>
                       <td style="height: 23px; width: 15px;">&nbsp;IZ 2</td>
                       <td style="height: 23px; width: 15px;">&nbsp;IZ 3</td>
-                      <td style="height: 23px; width: 15px;" rowspan="2">&nbsp;&nbsp;</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;&nbsp;</td>
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 101px;" rowspan="3">&nbsp;&nbsp;&nbsp;</td>
+                      <td style="height: 23px; width: 101px;">&nbsp;&nbsp;&nbsp;</td>
                       <td style="height: 23px; width: 15px;">&nbsp;IW</td>
                       <td style="height: 23px; width: 125px;">Ik wil</td>
                       <td style="height: 23px; width: 10px;">&nbsp;IW 1</td>
@@ -655,6 +658,8 @@
                       <td style="height: 23px; width: 15px;">IW 3&nbsp;</td>
                     </tr>
                     <tr style="height: 23px;">
+                      <td style="height: 23px; width: 101px;">&nbsp;&nbsp;</td>
+
                       <td style="height: 23px; width: 15px;">&nbsp;IWE</td>
                       <td style="height: 23px; width: 125px;">Ik weet</td>
                       <td style="height: 23px; width: 10px;">&nbsp;IWE 1</td>
@@ -663,12 +668,18 @@
                       <td style="height: 23px; width: 15px;">IWE 4</td>
                     </tr>
                     <tr style="height: 23px;">
+                      <td style="height: 23px; width: 101px;">&nbsp;&nbsp;</td>
+
                       <td style="height: 23px; width: 15px;">&nbsp;IK</td>
                       <td style="height: 23px; width: 125px;">Ik kan</td>
                       <td style="height: 23px; width: 10px;">&nbsp;IK 1</td>
                       <td style="height: 23px; width: 15px;">IK 2</td>
                       <td style="height: 23px; width: 15px;">IK 3</td>
-                      <td style="height: 23px; width: 15px;" rowspan="6">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    </tr>
+                    <tr style="height: 23px;">
+                      <td style="height: 23px; width: 15px;" colspan="3"></td>
+                      <td style="height: 23px; width: 15px;" colspan="4"></td>
                     </tr>
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 101px;">Organisatie&nbsp;</td>
@@ -679,7 +690,7 @@
                       <td style="height: 23px; width: 15px;">&nbsp;</td>
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 101px;" rowspan="2">&nbsp;&nbsp;</td>
+                      <td style="height: 23px; width: 101px;">&nbsp;&nbsp;</td>
                       <td style="height: 23px; width: 15px;">&nbsp;VB</td>
                       <td style="height: 23px; width: 125px;">Veiligheidsbeleid</td>
                       <td style="height: 23px; width: 10px;">&nbsp;VB 1</td>
@@ -687,6 +698,8 @@
                       <td style="height: 23px; width: 15px;">VB 3</td>
                     </tr>
                     <tr style="height: 23px;">
+                      <td style="height: 23px; width: 101px;">&nbsp;&nbsp;</td>
+
                       <td style="height: 23px; width: 15px;">&nbsp;OPL</td>
                       <td style="height: 23px; width: 125px;">Opleiding</td>
                       <td style="height: 23px; width: 10px;">OPL 1</td>
@@ -708,6 +721,7 @@
                       <td style="height: 23px; width: 10px;">COM 1</td>
                       <td style="height: 23px; width: 15px;">COM 2</td>
                       <td style="height: 23px; width: 15px;">COM 3</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;</td>
                     </tr>
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 101px;">&nbsp;Borging</td>
@@ -719,39 +733,38 @@
                       <td style="height: 23px; width: 15px;">&nbsp;BOR 4</td>
                     </tr>
                     <tr style="height: 23px;">
+                      <td style="height: 23px; width: 15px;" colspan="3"></td>
+                      <td style="height: 23px; width: 15px;" colspan="4"></td>
+                    </tr>
+                    <tr style="height: 23px;">
                       <td style="height: 23px; width: 101px;">&nbsp;Smoezen</td>
                       <td style="height: 23px; width: 15px;">&nbsp;SMOE1</td>
-                      <td style="height: 23px; width: 250px;">Smoesvraag&nbsp;</td>
+                      <td style="height: 23px; width: 250px;">In ons bedrijf hebben we geen tijd voor veiligheid&nbsp;</td>
                     </tr>
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 101px;">&nbsp;</td>
                       <td style="height: 23px; width: 15px;">&nbsp;SMOE2</td>
-                      <td style="height: 23px; width: 250px;">Smoesvraag&nbsp;</td>
+                      <td style="height: 23px; width: 250px;">Ik ga er van uit dat mij niets overkomt op mijn werk&nbsp;</td>
                     </tr>
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 101px;">&nbsp;</td>
                       <td style="height: 23px; width: 15px;">&nbsp;SMOE3</td>
-                      <td style="height: 23px; width: 250px;">Smoesvraag&nbsp;</td>
+                      <td style="height: 23px; width: 250px;">Voor mij is productie belangrijker dan veiligheid&nbsp;</td>
                     </tr>
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 101px;">&nbsp;</td>
                       <td style="height: 23px; width: 15px;">&nbsp;SMOE4</td>
-                      <td style="height: 23px; width: 250px;">Smoesvraag&nbsp;</td>
+                      <td style="height: 23px; width: 250px;">Niemand werkt echt veilig bij ons&nbsp;</td>
                     </tr>
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 101px;">&nbsp;</td>
                       <td style="height: 23px;">&nbsp;SMOE5</td>
-                      <td style="height: 23px; width: 250px;">Smoesvraag&nbsp;</td>
+                      <td style="height: 23px; width: 250px;">Ik weet wat van mij verwacht wordt rondom veilig werken&nbsp;</td>
                     </tr>
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 101px;">&nbsp;</td>
                       <td style="height: 23px;">&nbsp;SMOE6</td>
-                      <td style="height: 23px; width: 250px;">Smoesvraag&nbsp;</td>
-                    </tr>
-                    <tr style="height: 23px;">
-                      <td style="height: 23px; width: 101px;">&nbsp;</td>
-                      <td style="height: 23px;">&nbsp;SMOE7</td>
-                      <td style="height: 23px; width: 250px;">Smoesvraag&nbsp;</td>
+                      <td style="height: 23px; width: 250px;">Als ik niet veilig kan werken, werk ik niet&nbsp;</td>
                     </tr>
                   </tbody>
                 </table>
