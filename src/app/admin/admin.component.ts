@@ -672,7 +672,7 @@ export class AdminComponent implements OnInit {
     console.log(_event);
   }
 
-  logOut(){
+  logOut() {
     location.reload();
   }
 

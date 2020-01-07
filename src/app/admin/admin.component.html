@@ -1,4 +1,5 @@
-'<div class="modal fade" id="adminModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog"
+<div class="#ppage">
+<div class="modal fade" id="adminModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog"
   aria-labelledby="adminModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -622,13 +623,15 @@
 
             <hr>
             <div *ngIf="showScore">
-              <div class="container">
+              
+              <div class="container" >
                 <button type="button" (click)="showScore = false" class="btn btn-primary" data-toggle="modal">
                   <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Terug naar Overzicht
                 </button>&nbsp;&nbsp;
                 <button type="button" (click)="printResult()" class="btn btn-primary" data-toggle="modal">
                   <i class="fa fa-print"></i>&nbsp;&nbsp;Print resultaat
                 </button>
+                <div class="section-to-print" id="section-to-print">
                 <br><br><br>
                 <h2>{{currentGroup}}</h2>
                 <p>Verstuurd/Ingevuld: <b>{{howManySend}}/..</b><br>
@@ -768,6 +771,7 @@
                     </tr>
                   </tbody>
                 </table>
+              </div>
                 <br><br><br><br>.<br><br><br><br><br>
                 <!-- DivTable.com -->
               </div>
@@ -779,4 +783,5 @@
 
     </div>
   </div>
+</div>
 </div>

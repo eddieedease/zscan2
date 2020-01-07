@@ -1,4 +1,21 @@
+@media print {
+  body * {
+    visibility: hidden;
+  }
 
+  #img{
+    display: none;
+  }
+
+  #section-to-print, #section-to-print * {
+    visibility: visible;
+  }
+  #section-to-print {
+    position: relative;
+    left: 0;
+    top: 0;
+  }
+}
   
   .feather {
     width: 16px;
