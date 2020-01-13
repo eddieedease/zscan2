@@ -30,7 +30,8 @@ export class TestComponent implements OnInit {
 
 
 
-  currentID;
+  currentUserId;
+  currentGroupId;
 
   json;
   questionArray = [];
@@ -153,6 +154,8 @@ export class TestComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private http_: Http, private edSer: EdserService, private thisrouter: Router) {
 
     this.typeTest = this.edSer.getCurrent('usertype');
+    this.currentUserId = this.edSer.getCurrent('userid');
+    this.currentGroupId = this.edSer.getCurrent('groupid');
     this.edSer.debugLog(this.typeTest);
 
     let stringlink = '';
@@ -492,6 +495,8 @@ export class TestComponent implements OnInit {
         this.SMOE4 = Math.round(this.SMOE4 / 1 * 100) / 100;
         this.SMOE5 = Math.round(this.SMOE5 / 1 * 100) / 100;
         this.SMOE6 = Math.round(this.SMOE6 / 1 * 100) / 100;
+        // tslint:disable-next-line:max-line-length
+        this.edSer.API_formsubmit(this.currentGroupId, this.currentUserId, this.IZ1, this.IZ2, this.IZ3, this.IW1, this.IW2, this.IW3, this.IWE1, this.IWE2, this.IWE3, this.IWE4, this.IK1, this.IK2, this.IK3, this.SMOE1, this.SMOE2, this.SMOE3, this.SMOE4, this.SMOE5, this.SMOE6).subscribe(value => this.formSend(value));
 
       } else if (this.typeTest === 2) {
         this.CW1 = Math.round(this.CW1 / 8 * 100) / 100;
@@ -512,13 +517,15 @@ export class TestComponent implements OnInit {
         this.BOR2 = Math.round(this.BOR2 / 8 * 100) / 100;
         this.BOR3 = Math.round(this.BOR3 / 8 * 100) / 100;
         this.BOR4 = Math.round(this.BOR4 / 8 * 100) / 100;
+        // tslint:disable-next-line:max-line-length
+        this.edSer.API_checklistsubmit(this.currentGroupId, this.currentUserId, this.CW1, this.CW2, this.VB1, this.VB2, this.VB3, this.OPL1, this.OPL2, this.OPL3, this.PRO1, this.PRO2, this.PRO3, this.COM1, this.COM2, this.COM3,this.BOR1, this.BOR2, this.BOR3, this.BOR4).subscribe(value => this.formSend(value));
+
       }
       // tslint:disable-next-line:max-line-length
 
       ///////////////////////
             // TODO: make the call
       // tslint:disable-next-line:max-line-length
-      // this.edSer.API_formsubmit(this.edSer.currentGroupID, this.result1, this.result2, this.result3, this.result4, this.result5).subscribe(value => this.formSend(value));
     } else {
       // feedback to the user that something is empty
       this.edSer.debugLog('Not everything is filled in');

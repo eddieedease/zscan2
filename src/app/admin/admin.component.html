@@ -170,7 +170,7 @@
               <hr>
               <p>Klik op de knop hieronder om mails te versturen naar iedereen van deze lijst die de scan nog niet heeft gemaakt</p>
               <button type="button" style="margin:10px;padding:10px" class="btn btn-info">Mails versturen</button>
-          </div>
+          </div><br><br>
           </div>
 
 
@@ -334,7 +334,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Nieuwe Gebruiker toevoegen</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Nieuwe Admin toevoegen</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -392,6 +392,17 @@
 </div>
 
 
+<ng-template #areusure>
+  <!-- (click)="openSureModal(areusure,'deletecourse',row.id) -->
+  <div class="modal-body text-center">
+    <p>Je staat op het punt om dit item te verwijderen</p>
+    <p>Weet je het zeker?</p>
+    <button type="button" class="btn btn-default" (click)="sureModal('no')">Nee</button>&nbsp;&nbsp;
+    <button type="button" class="btn btn-primary" (click)="sureModal('yes')">Ja</button>
+  </div>
+</ng-template>
+
+
 
 
 <!-- content -->
@@ -421,7 +432,7 @@
           </li>
         </ul>
         <tabset [justified]="true">
-          <tab heading="Beheer" *ngIf="admnType === 2"><br><br>
+          <tab heading="Beheer" *ngIf="admnType === 2" (selectTab)="onSelect($event, 'admins')"><br><br>
             <p>Het beheer Admins</p>
 
             <div
@@ -485,7 +496,7 @@
 
               </ngx-datatable-column>
 
-              <ngx-datatable-column name="Type" prop="type" [sortable]="true">
+              <ngx-datatable-column name="type" prop="type" [sortable]="true">
 
                 <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
                   <span style="cursor:pointer">
@@ -504,7 +515,7 @@
             </ngx-datatable>
           </tab>
 
-          <tab heading="Groepen">
+          <tab heading="Groepen"  (selectTab)="onSelect($event, 'groups')">
             <br><br>
             <p>Het beheer van groepen</p>
 

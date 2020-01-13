@@ -13,6 +13,11 @@ import {
 } from '../edser.service';
 
 import {
+  TabDirective
+} from 'ngx-bootstrap/tabs';
+
+
+import {
   environment
 } from '../../environments/environment';
 
@@ -34,6 +39,9 @@ export class AdminComponent implements OnInit {
   // loading visible view
   loading = false;
   admnPwd = '';
+
+  // deletemodal task
+  sureModalTask = '';
 
   admnEmail = '';
   admnId = 0;
@@ -87,7 +95,7 @@ export class AdminComponent implements OnInit {
   tempuserRows = [];
 
 
-  
+
   // Some list of bools which we can use for the styling
   vertrouwen1 = false;
   vertrouwen2 = false;
@@ -131,14 +139,14 @@ export class AdminComponent implements OnInit {
 
     $('html,body').scrollTop(0);
 
-    if (environment.production === false){
+    if (environment.production === false) {
       // fast logging in for development mode
-      // this.serCred.API_admnlogin('demo@demo.nl', 'demo').subscribe(value => this.gotLogin(value));
+     this.serCred.API_admnlogin('demo@demo.nl', 'demo').subscribe(value => this.gotLogin(value));
 
-      $('#adminModal').modal('show', {
+      /* $('#adminModal').modal('show', {
         backdrop: 'static',
         keyboard: false
-      });
+      }); */
 
     } else {
       $('#adminModal').modal('show', {
@@ -147,9 +155,9 @@ export class AdminComponent implements OnInit {
       });
     }
 
-   
 
-   
+
+
   }
 
 
@@ -179,7 +187,7 @@ export class AdminComponent implements OnInit {
       this.serCred.API_getgroups(this.admnId).subscribe(value => this.gotGroups(value));
 
 
-      if (this.admnType === 2){
+      if (this.admnType === 2) {
         this.serCred.API_getausers().subscribe(value => this.gotAusers(value));
       }
     } else {
@@ -189,7 +197,7 @@ export class AdminComponent implements OnInit {
   }
 
 
-  gotAusers(_resp){
+  gotAusers(_resp) {
     this.serCred.debugLog(_resp);
     this.manageRows = _resp;
   }
@@ -336,7 +344,7 @@ export class AdminComponent implements OnInit {
   }
 
 
-  gotGroupList(_resp){
+  gotGroupList(_resp) {
     this.serCred.debugLog(_resp);
     this.groupListUsers = [];
     this.groupListUsers = _resp;
@@ -389,21 +397,33 @@ export class AdminComponent implements OnInit {
   }
 
 
-  addClick(_case){
+  onSelect(data: TabDirective, _case): void {
+    switch (_case) {
+      case 'admins':
+        this.serCred.API_getausers().subscribe(value => this.gotAusers(value));
+        break;
+      case 'groups':
+        this.serCred.API_getgroups(this.admnId).subscribe(value => this.gotGroups(value));
+        break;
+    }
+  }
+
+
+  addClick(_case) {
     switch (_case) {
       case 'user':
-      this.userAddUser = !this.userAddUser;
-      this.userAddBulk = false;
-      this.userSendMails = false;
+        this.userAddUser = !this.userAddUser;
+        this.userAddBulk = false;
+        this.userSendMails = false;
         break;
       case 'bulk':
-      this.userAddUser = false;
-      this.userSendMails = false;
-      this.userAddBulk = !this.userAddBulk;
+        this.userAddUser = false;
+        this.userSendMails = false;
+        this.userAddBulk = !this.userAddBulk;
         break;
-        case 'sendmails':
-      this.userAddUser = false;
-      this.userSendMails = !this.userSendMails;
+      case 'sendmails':
+        this.userAddUser = false;
+        this.userSendMails = !this.userSendMails;
         break;
     }
   }
@@ -414,7 +434,7 @@ export class AdminComponent implements OnInit {
     return re.test(email);
   }
 
-  addUser(){
+  addUser() {
     // value should not be empty
     if (this.emailAdd !== '') {
       if (this.validateEmail(this.emailAdd)) {
@@ -441,7 +461,7 @@ export class AdminComponent implements OnInit {
     this.ausrType = '1';
     this.ausrWw = '';
   }
-  
+
   // TODO: Below needs to be implemented (tip copy of groups)
   makeUser() {
     // TODO: Actually make user CALL, modal is ready
@@ -452,16 +472,16 @@ export class AdminComponent implements OnInit {
       this.serCred.debugLog(this.ausrType);
       this.loading = true;
       // tslint:disable-next-line:max-line-length
-      this.serCred.API_createauser(this.ausrName, this. ausrLastName, this.ausrEmail, this.ausrType, this.ausrWw ).subscribe(value => this.createdAuser(value));
+      this.serCred.API_createauser(this.ausrName, this.ausrLastName, this.ausrEmail, this.ausrType, this.ausrWw).subscribe(value => this.createdAuser(value));
 
     } else {
       this.toastr.warning('Niet alle velden ingevuld', 'Niet opgeslagen');
 
     }
-      
+
   }
 
-  createdAuser(_resp){
+  createdAuser(_resp) {
     this.loading = false;
     this.toastr.success('Gebruiker toegevoegd', '');
     this.serCred.API_getausers().subscribe(value => this.gotAusers(value));
@@ -471,16 +491,16 @@ export class AdminComponent implements OnInit {
 
   // TODO:
   // via modal changes are made, push to server
-  editAusr(){
+  editAusr() {
     // Check if nothing is empty
-    if (this.ausrName !== '' && this.ausrLastName !== '' && this.ausrEmail !== ''){
+    if (this.ausrName !== '' && this.ausrLastName !== '' && this.ausrEmail !== '') {
       this.serCred.debugLog(this.ausrName);
       this.serCred.debugLog(this.ausrLastName);
       this.serCred.debugLog(this.ausrEmail);
       this.serCred.debugLog(this.ausrType);
       this.loading = true;
       // tslint:disable-next-line:max-line-length
-      this.serCred.API_editauser(this.ausrId, this.ausrName, this. ausrLastName, this.ausrEmail, this.ausrType, this.ausrWw ).subscribe(value => this.editteddAuser(value));
+      this.serCred.API_editauser(this.ausrId, this.ausrName, this.ausrLastName, this.ausrEmail, this.ausrType, this.ausrWw).subscribe(value => this.editteddAuser(value));
 
     } else {
       this.toastr.warning('Niet alle velden ingevuld', 'Niet opgeslagen');
@@ -488,7 +508,7 @@ export class AdminComponent implements OnInit {
   }
 
 
-  editteddAuser(_resp){
+  editteddAuser(_resp) {
     this.loading = false;
     this.ausrWw = '';
     this.toastr.success('Gebruiker bewerkt', '');
@@ -502,7 +522,7 @@ export class AdminComponent implements OnInit {
 
       let aaid;
 
-      if (this.admnType === 1){
+      if (this.admnType === 1) {
         aaid = this.admnId;
       } else {
         aaid = 0;
@@ -541,7 +561,7 @@ export class AdminComponent implements OnInit {
   }
 
 
-  openEditUserModal(_id){
+  openEditUserModal(_id) {
     // TODO: Open Edit modal for User
     this.serCred.debugLog('Wauwwwww  ' + _id);
     for (let index = 0; index < this.manageRows.length; index++) {
@@ -566,13 +586,13 @@ export class AdminComponent implements OnInit {
     this.serCred.debugLog('Trying to delete something, but not coded yet');
     switch (_case) {
       case 'auser':
-        
+
         break;
     }
   }
 
 
-  gotUserToGroups(_resp){
+  gotUserToGroups(_resp) {
     this.serCred.debugLog(_resp);
     this.allGroupRows = [];
     this.allGroupRows = _resp.groups;
@@ -580,9 +600,9 @@ export class AdminComponent implements OnInit {
     this.allGroupRows.forEach(grouprow => {
       grouprow.ingroup = false;
       for (let index = 0; index < _resp.usertogroups.length; index++) {
-          if (grouprow.id ===  _resp.usertogroups[index].groupid) {
-           grouprow.ingroup = true;
-          }
+        if (grouprow.id === _resp.usertogroups[index].groupid) {
+          grouprow.ingroup = true;
+        }
       }
       this.loading = false;
     });
@@ -655,20 +675,20 @@ export class AdminComponent implements OnInit {
       const cols: string[] = element.split(csvSeparator);
       csv.push(cols);
     });
-    
+
     this.csvUserArray = csv;
     // this.serCred.API_usersbatchimporttogroup('1', parsedCsv).subscribe(value => this.userbatchResponse(value));
     // TESTING - SENDING TO API
     this.sendNowUserBatch();
   }
 
-  sendNowUserBatch(){
-       this.serCred.API_usersbatchimporttogroup('1', this.csvUserArray).subscribe(value => this.userbatchResponse(value));
+  sendNowUserBatch() {
+    this.serCred.API_usersbatchimporttogroup('1', this.csvUserArray).subscribe(value => this.userbatchResponse(value));
 
   }
 
   // batchuser response
-  userbatchResponse(_event){
+  userbatchResponse(_event) {
     console.log(_event);
   }
 
