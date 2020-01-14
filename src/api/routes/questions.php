@@ -5,7 +5,7 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 // a API CALL TO LOG THE FORM Result
 
 // TODO: adjust the normal ones to the new group, probably make it a post with a proper body. Parameters links will get messy
-$app->get('/formsubmit/{groupid}/{userid}/{IZ1}/{IZ2}/{IZ3}/{IW1}/{IW2}/{IW3}/{IWE1}/{IWE2}/{IWE3}/{IWE4}/{IK1}/{IK2}/{IK3}/{SMOE1}/{SMOE2}/{SMOE3}/{SMOE4}/{SMOE5}/{SMOE6}/{SMOE7}', function (Request $request, Response $response) {
+$app->get('/formsubmit/{groupid}/{userid}/{IZ1}/{IZ2}/{IZ3}/{IW1}/{IW2}/{IW3}/{IWE1}/{IWE2}/{IWE3}/{IWE4}/{IK1}/{IK2}/{IK3}/{SMOE1}/{SMOE2}/{SMOE3}/{SMOE4}/{SMOE5}/{SMOE6}', function (Request $request, Response $response) {
     // what key
     $groupid = $request->getAttribute('groupid');
     $groupid = (int)$groupid;
@@ -44,6 +44,13 @@ $app->get('/formsubmit/{groupid}/{userid}/{IZ1}/{IZ2}/{IZ3}/{IW1}/{IW2}/{IW3}/{I
     $stmtinsertresult = $dbh->prepare($sqlinsertresult);
     $stmtinsertresult->execute();
     // $resultinsertresult = $stmtinsertresult->fetchAll(PDO::FETCH_ASSOC);
+
+    $sqledituser =  "UPDATE users SET filled = 1 WHERE id = '$userid'";
+    $stmtedituser = $dbh->prepare($sqledituser);
+    $stmtedituser->execute();
+    $resultedituser = $stmtedituser->fetchAll(PDO::FETCH_ASSOC);
+
+
 
     // TODO: On a succesfull submit we must set the filled property to true
     // TODO: On a succesfull submit we must set the filled property to true
@@ -99,6 +106,10 @@ $app->get('/checklistsubmit/{groupid}/{userid}/{CW1}/{CW2}/{VB1}/{VB2}/{VB3}/{OP
 
     // TODO: On a succesfull submit we must set the filled property to true
     // TODO: On a succesfull submit we must set the filled property to true
+    $sqledituser =  "UPDATE users SET filled = 1 WHERE id = '$userid'";
+    $stmtedituser = $dbh->prepare($sqledituser);
+    $stmtedituser->execute();
+    $resultedituser = $stmtedituser->fetchAll(PDO::FETCH_ASSOC);
 
     $data = array('query' => $sqlinsertresult, 'status' => "success");
     $response = json_encode($data);

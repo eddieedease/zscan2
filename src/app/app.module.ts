@@ -37,7 +37,7 @@ import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
 
 const appRoutes: Routes = [
-  { path: 'test', component: TestComponent },
+  { path: 'vragenlijst', component: TestComponent },
   { path: 'login', component: LoginComponent },
   { path: 'login/:id/:key', component: LoginComponent },
   { path: 'about', component: AboutComponent },

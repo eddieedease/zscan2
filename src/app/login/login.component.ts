@@ -29,6 +29,9 @@ export class LoginComponent implements OnInit {
   // loading visible view
   loading = false;
 
+
+  alreadyFilled = false;
+
   constructor(private thisrouter: Router, private activeRoute: ActivatedRoute, private serCred: EdserService) {
     // we check if there are any userid + key attached to url. Ifso, make API call to check and log in automatically
     if (activeRoute.url['_value'][1] && activeRoute.url['_value'][2]) {
@@ -66,17 +69,19 @@ export class LoginComponent implements OnInit {
 
       if (_val.user.filled === '1') {
         // TODO: Already filled in, communicate
+
       } else {
         // set the service vars 
         this.serCred.setCurrent('groupid', _val.user[0].grouplink);
         this.serCred.setCurrent('userid', _val.user[0].id);
         this.serCred.setCurrent('usertype', _val.user[0].type);
         this.serCred.__loggedIn = true;
-        this.thisrouter.navigate(['/', 'test']);
+        this.thisrouter.navigate(['/', 'vragenlijst']);
       }
 
     } else {
-
+      // communicate that the form is already filled in
+      this.alreadyFilled = true;
     }
   }
 

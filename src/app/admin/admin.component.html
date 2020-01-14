@@ -292,9 +292,9 @@
             <input [(ngModel)]="ausrEmail" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
               id="usr_name_email">
           </div>
-          
           <div class="form-group">
-              <p>Als onderstaand wachtwoord veld leeg wordt gelaten, veranderd het oude wachtwoord niet.</p>
+          
+              <p>Als onderstaand wachtwoord veld leeg wordt gelaten, verandert het oude wachtwoord niet.</p>
             <label for="group_name_edit" class="col-form-label">Gewenst wachtwoord:</label>
             <input [(ngModel)]="ausrWw" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
               id="usr_ww_edit">
@@ -425,6 +425,7 @@
       <main role="main" class="col-md-12">
         <br>
         <ul class="nav flex-column">
+          <div *ngIf="admnType === 2"><h3 style="color: #d53b2f">Superadmin</h3></div>
           <li class="nav-item">
             <a class="nav-link active">
               <img src="assets/logo.png" class="img-fluid" alt="Responsive image">

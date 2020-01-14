@@ -146,8 +146,8 @@
       <div class="modal-footer">
 
         <br>
-        <div *ngIf="testFinished">Bedankt voor uw waardevolle input.
-          <a [routerLink]="['/login']">Terug naar homepage</a>
+        <div *ngIf="testFinished">Klaar! Bedankt voor uw waardevolle input. U kunt nu dit tabblad/venster sluiten.
+          <!-- <a [routerLink]="['/login']">Terug naar homepage</a> -->
         </div>
         <div style="color:red" *ngIf="testProblem"> Nog niet alle vragen zijn ingevuld;<br>{{whichempty}}</div>
         <button *ngIf="!testFinished" type="button" (click)="finishTest()" class="btn btn-secondary"

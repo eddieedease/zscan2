@@ -214,7 +214,7 @@ export class TestComponent implements OnInit {
       // this.loading = true;
       // this.serCred.API_getcontent(1).subscribe(value => this.gotContent(value));
       // this.doTest();
-    }, 500);
+    }, 300);
   }
 
   nextQuestion() {
@@ -323,7 +323,7 @@ export class TestComponent implements OnInit {
 
 
     // TODO: Set up for both tests
-    if (this.typeTest === 1) {
+    if (this.typeTest === '1') {
       // make some logic for collecting test data, loop through questions
       for (let index = 0; index < this.questionArray.length; index++) {
         // tslint:disable-next-line:max-line-length
@@ -395,7 +395,7 @@ export class TestComponent implements OnInit {
           whichemptyArray.push(index + 1);
         }
       }
-    } else if (this.typeTest === 2) {
+    } else if (this.typeTest === '2') {
       for (let index = 0; index < this.questionArray.length; index++) {
         // tslint:disable-next-line:max-line-length
         if (this.questionArray[index].answer !== null && this.questionArray[index].answer !== undefined && this.questionArray[index].answer !== '') {
@@ -467,12 +467,11 @@ export class TestComponent implements OnInit {
 
     if (somethingempty === false) {
       // toggle feedback template view vars
-      this.testFinished = true;
-      this.testProblem = false;
+     
 
 
       // TODO: Below comes the calculating, we need to know how many items one thing has
-      if (this.typeTest === 1) {
+      if (this.typeTest === '1') {
         // TODO: Do the mathz
         // TODO: Do the mats
          // this.result1 = Math.round(this.result1 / 8 * 100) / 100;
@@ -486,9 +485,9 @@ export class TestComponent implements OnInit {
         this.IWE2 = Math.round(this.IWE2 / 1 * 100) / 100;
         this.IWE3 = Math.round(this.IWE3 / 1 * 100) / 100;
         this.IWE4 = Math.round(this.IWE4 / 2 * 100) / 100;
-        this.IK1 = Math.round(this.IK1 / 8 * 100) / 100;
-        this.IK2 = Math.round(this.IK2 / 8 * 100) / 100;
-        this.IK3 = Math.round(this.IK3 / 8 * 100) / 100;
+        this.IK1 = Math.round(this.IK1 / 1 * 100) / 100;
+        this.IK2 = Math.round(this.IK2 / 6 * 100) / 100;
+        this.IK3 = Math.round(this.IK3 / 1 * 100) / 100;
         this.SMOE1 = Math.round(this.SMOE1 / 1 * 100) / 100;
         this.SMOE2 = Math.round(this.SMOE2 / 1 * 100) / 100;
         this.SMOE3 = Math.round(this.SMOE3 / 1 * 100) / 100;
@@ -498,7 +497,7 @@ export class TestComponent implements OnInit {
         // tslint:disable-next-line:max-line-length
         this.edSer.API_formsubmit(this.currentGroupId, this.currentUserId, this.IZ1, this.IZ2, this.IZ3, this.IW1, this.IW2, this.IW3, this.IWE1, this.IWE2, this.IWE3, this.IWE4, this.IK1, this.IK2, this.IK3, this.SMOE1, this.SMOE2, this.SMOE3, this.SMOE4, this.SMOE5, this.SMOE6).subscribe(value => this.formSend(value));
 
-      } else if (this.typeTest === 2) {
+      } else if (this.typeTest === '2') {
         this.CW1 = Math.round(this.CW1 / 8 * 100) / 100;
         this.CW2 = Math.round(this.CW2 / 8 * 100) / 100;
         this.VB1 = Math.round(this.VB1 / 8 * 100) / 100;
@@ -521,11 +520,8 @@ export class TestComponent implements OnInit {
         this.edSer.API_checklistsubmit(this.currentGroupId, this.currentUserId, this.CW1, this.CW2, this.VB1, this.VB2, this.VB3, this.OPL1, this.OPL2, this.OPL3, this.PRO1, this.PRO2, this.PRO3, this.COM1, this.COM2, this.COM3,this.BOR1, this.BOR2, this.BOR3, this.BOR4).subscribe(value => this.formSend(value));
 
       }
-      // tslint:disable-next-line:max-line-length
-
-      ///////////////////////
-            // TODO: make the call
-      // tslint:disable-next-line:max-line-length
+      this.testFinished = true;
+      this.testProblem = false;
     } else {
       // feedback to the user that something is empty
       this.edSer.debugLog('Not everything is filled in');
@@ -539,6 +535,8 @@ export class TestComponent implements OnInit {
 
 
   formSend(_val) {
+    // TODO: Communicate that send of the form is complete, and that they can close the window
+    this.edSer.debugLog('Asjemenou, form send!')
     this.edSer.debugLog(_val);
   }
 
