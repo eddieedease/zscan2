@@ -421,9 +421,10 @@
   </nav>
 
   <div class="container">
+
     <div class="row">
-      <main role="main" class="col-md-12">
-        <br>
+
+      <div class="col-sm-12 col-md-6">
         <ul class="nav flex-column">
           <div *ngIf="admnType === 2"><h3 style="color: #d53b2f">Superadmin</h3></div>
           <li class="nav-item">
@@ -432,6 +433,19 @@
             </a>
           </li>
         </ul>
+      </div>
+
+      <div class="col-sm-12 col-md-6"> <div class="text-center">
+        <img src="assets/headban.png" class="img-fluid" alt="Responsive image">
+      </div></div>
+      <main role="main" class="col-md-12">
+        <br>
+
+        
+
+
+        
+       
         <tabset [justified]="true">
           <tab heading="Beheer" *ngIf="admnType === 2" (selectTab)="onSelect($event, 'admins')"><br><br>
             <p>Het beheer Admins</p>
