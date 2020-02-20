@@ -1,151 +1,193 @@
 {
     "Veiligheid1": {
         "vraag": "Het beleid bevat een commitment om tenminste te voldoen wet en regelgeving en interne veiligheidsrichtlijn.",
-        "type": "Veiligheid"
+        "type": "Veiligheid",
+        "CW1" : "true"
     },
     "Veiligheid2": {
         "vraag": "Het beleid is schriftelijk vastgelegd",
-        "type": "Veiligheid"
+        "type": "VB1",
+        "CW1" : "true"
     },
     "Veiligheid3": {
         "vraag": "Het beleid is bekend gemaakt aan alle werknemers",
-        "type": "Veiligheid"
+        "type": "VB3",
+        "CW1" : "true"
     },
     "Veiligheid4": {
         "vraag": "Het beleid is beschikbaar voor alle belanghebbende partijen",
-        "type": "Veiligheid"
+        "type": "VB3",
+        "CW1" : "true"
     },
     "Planning1": {
         "vraag": "Er is een procedure voor de vaststelling van risico's in verband met geïdentificeerde gevaren",
-        "type": "Planning"
+        "type": "VB2",
+        "CW1" : "true"
     },
     "Planning2": {
         "vraag": "Er is een procedure voor het geven van een indicatie van het niveau van de risico's en het bepalen of een risico aanvaardbaar is of niet",
-        "type": "Planning"
+        "type": "OPL1",
+        "CW1" : "true",
     },
     "Planning3": {
         "vraag": "Er is een procedure waarin een beschrijving gegeven wordt (of verwezen wordt naar) van de maatregelen voor het monitoren en beheersen van risico's, met name van risico's die niet aanvaardbaar zijn",
-        "type": "Planning"
+        "type": "Planning",
+        "CW1" : "true"
     },
     "Planning4": {
         "vraag": "Er is een procedure voor de identificatie van de eisen met betrekking tot de vakbekwaamheid en opleiding om de beheersmaatregelen te implementeren",
-        "type": "Planning"
+        "type": "OPL1",
+        "CW1" : "true"
     },
     "Structuur1": {
         "vraag": "De veiligheids verantwoordelijkheden en bevoegdheden zijn voor alle relevante werknemers schriftelijk vastgelegd",
-        "type": "Structuur"
+        "type": "VB2",
+        "CW1" : "false"
     },
     "Structuur2": {
         "vraag": "Er is een procedure voor het bekendmaken van de taakverdeling en de verantwoordelijkheden aan alle werknemers en andere relevante partijen",
-        "type": "Structuur"
+        "type": "VB2",
+        "CW1" : "false"
     },
     "Opleiding1": {
         "vraag": "De vakbekwaamheidseisen voor de afzonderlijke taken zijn vastgelegd",
-        "type": "Opleiding"
+        "type": "OPL1",
+        "CW1" : "true"
     },
     "Opleiding2": {
         "vraag": "Er is een analyse van de behoefte aan opleidingen",
-        "type": "Opleiding"
+        "type": "OPL1",
+        "CW1" : "true"
     },
     "Opleiding3": {
         "vraag": "Er zijn opleidingsprogramma's en opleidingsplannen voor de afzonderlijke werknemers",
-        "type": "Opleiding"
+        "type": "OPL2",
+        "CW1" : "true"
     },
     "Opleiding4": {
         "vraag": "De gevolgde opleidingen worden geregistreerd",
-        "type": "Opleiding"
+        "type": "OPL3",
+        "CW1" : "true"
     },
     "Overleg1": {
         "vraag": "Er is formeel overleg tussen de directie en de werknemers, bijvoorbeeld via de ondernemingsraad of een personeelsvertegenwoordiging",
-        "type": "Overleg"
+        "type": "COM1",
+        "CW1" : "true"
     },
     "Overleg2": {
         "vraag": "De werknemers worden betrokken bij de identificatie van gevaren, de risicobeoordeling en de risicobeheersing",
-        "type": "Overleg"
+        "type": "COM2",
+        "CW1" : "true"
     },
     "Overleg3": {
         "vraag": "Er is werkoverleg, waarbij aandacht besteed wordt aan het beoordelen en verbeteren van de arbosituatie op de werkplek",
-        "type": "Overleg"
+        "type": "COM3",
+        "CW1" : "true"
     },
     "Overleg4": {
         "vraag": "Werknemers worden betrokken bij onderzoek van ongevallen en incidenten, periodieke inspecties e.d.",
-        "type": "Overleg"
+        "type": "COM3",
+        "CW1" : "true"
     },
     "Overleg5": {
         "vraag": "Er zijn prikborden aanwezig met gegevens over de veiligheidsprestaties",
-        "type": "Overleg"
+        "type": "COM3",
+        "CW1" : "true"
     },
     "Documentatie1": {
         "vraag": "Er zijn procedures",
-        "type": "Documentatie"
+        "type": "CW2",
+        "CW1" : "false"
     },
     "Documentatie2": {
         "vraag": "Er zijn werkinstructies",
-        "type": "Documentatie"
+        "type": "CW2",
+        "CW1" : "false"
     },
     "Gegevens1": {
         "vraag": "Er is een procedure voor het beheer van documenten, inclusief de toegewezen verantwoordelijkheden en bevoegdheden",
-        "type": "Gegevens"
+        "type": "BOR1",
+        "CW1" : "false"
     },
     "Gegevens2": {
         "vraag": "Er is een overzicht van beheerde documentatie en de locatie ervan",
-        "type": "Gegevens"
+        "type": "BOR1",
+        "CW1" : "false"
     },
     "Gegevens3": {
         "vraag": "Er zijn registraties van documenten die zich in de archieven bevinden",
-        "type": "Gegevens"
+        "type": "BOR1",
+        "CW1" : "false"
     },
     "Beheersing1": {
         "vraag": "Er zijn procedures met betrekking tot het uitvoeren van gevaarlijke werkzaamheden",
-        "type": "Beheersing"
+        "type": "PRO1",
+        "CW1" : "true"
     },
     "Beheersing2": {
         "vraag": "Er zijn procedures voor het omgaan met gevaarlijke materialen",
-        "type": "Beheersing"
+        "type": "PRO2",
+        "CW1" : "true"
+    },
+    "Beheersing3": {
+        "vraag": "Er zijn procedures voor het onderhoud van installaties en uitrusting ten behoeve van de veiligheid",
+        "type": "PRO3",
+        "CW1" : "true"
     },
     "Monitoring1": {
         "vraag": "Er zijn procedures voor meting en monitoring",
-        "type": "Monitoring"
+        "type": "BOR2",
+        "CW1" : "false"
     },
     "Monitoring2": {
         "vraag": "Er zijn schema's en checklists voor inspecties",
-        "type": "Monitoring"
+        "type": "BOR5",
+        "CW1" : "false"
     },
     "Monitoring3": {
         "vraag": "Er zijn lijsten met 'kritieke apparatuur'",
-        "type": "Monitoring"
+        "type": "BOR3",
+        "CW1" : "false"
     },
     "Ongevallen1": {
         "vraag": "Er zijn procedures voor het melden en onderzoeken van ongevallen en afwijkingen",
-        "type": "Ongevallen"
+        "type": "BOR2",
+        "CW1" : "true"
     },
     "Ongevallen2": {
         "vraag": "Er zijn rapporten over geconstateerde afwijkingen",
-        "type": "Ongevallen"
+        "type": "Ongevallen",
+        "CW1" : "true"
     },
     "Ongevallen3": {
         "vraag": "Er is een register van afwijkingen",
-        "type": "Ongevallen"
+        "type": "Ongevallen",
+        "CW1" : "true"
     },
     "Ongevallen4": {
         "vraag": "Er zijn onderzoeksrapporten",
-        "type": "Ongevallen"
+        "type": "Ongevallen",
+        "CW1" : "true"
     },
     "Audit1": {
         "vraag": "Er is een auditplan/programma voor de doorlichting van het veiligheidsmanagementsysteem",
-        "type": "Audit"
+        "type": "BOR5",
+        "CW1" : "false"
     },
     "Audit2": {
         "vraag": "Er zijn procedures voor het uitvoeren van audits",
-        "type": "Audit"
+        "type": "BOR2",
+        "CW1" : "false"
     },
     "Audit3": {
         "vraag": "Er zijn rapporten aanwezig van uitgevoerde audits, inclusief rapporten over afwijkingen, aanbevelingen en correctieve acties",
-        "type": "Audit"
+        "type": "BOR2",
+        "CW1" : "false"
     },
     "Audit4": {
         "vraag": "Er zijn afgetekende en afgehandelde rapporten over afwijkingen",
-        "type": "Audit"
+        "type": "Audit",
+        "CW1" : "false"
     }
 
 }

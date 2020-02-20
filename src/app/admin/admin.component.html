@@ -68,8 +68,8 @@
         </button>
       </div>
       <div class="modal-body"><br>
-        <p>Hier kunnen gebruikers aan groepen worden gehangen</p>
-        <p>Als een admin (niet Superadmin) een groep aanmaakt, wordt deze automatisch aan zijn/haar lijst toegevoegd.
+        <p>Hier kunnen admins aan groepen worden gehangen</p>
+        <p>Als een admin (niet Superadmin) een nieuwe groep aanmaakt, wordt deze automatisch aan zijn/haar hieraan toegevoegd.
         </p>
         <br>
         <ngx-datatable *ngIf="loading == false" class="material" [rows]="allGroupRows" [columns]="columns"
@@ -423,7 +423,7 @@
   <div class="container">
 
     <div class="row">
-
+      <br><br>
       <div class="col-sm-12 col-md-6">
         <ul class="nav flex-column">
           <div *ngIf="admnType === 2"><h3 style="color: #d53b2f">Superadmin</h3></div>
@@ -676,7 +676,6 @@
                       <td style="height: 23px; width: 10px;">&nbsp;IZ 1</td>
                       <td style="height: 23px; width: 15px;">&nbsp;IZ 2</td>
                       <td style="height: 23px; width: 15px;">&nbsp;IZ 3</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;&nbsp;</td>
                     </tr>
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 101px;">&nbsp;&nbsp;&nbsp;</td>
@@ -704,7 +703,6 @@
                       <td style="height: 23px; width: 10px;">&nbsp;IK 1</td>
                       <td style="height: 23px; width: 15px;">IK 2</td>
                       <td style="height: 23px; width: 15px;">IK 3</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                     </tr>
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 15px;" colspan="3"></td>
@@ -716,7 +714,7 @@
                       <td style="height: 23px; width: 125px;">Compliance, wetgeving &amp; richtlijnen</td>
                       <td style="height: 23px; width: 10px;">CW 1</td>
                       <td style="height: 23px; width: 15px;">CW 2</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;</td>
+                      
                     </tr>
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 101px;">&nbsp;&nbsp;</td>
@@ -750,7 +748,6 @@
                       <td style="height: 23px; width: 10px;">COM 1</td>
                       <td style="height: 23px; width: 15px;">COM 2</td>
                       <td style="height: 23px; width: 15px;">COM 3</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;</td>
                     </tr>
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 101px;">&nbsp;Borging</td>
@@ -759,7 +756,8 @@
                       <td style="height: 23px; width: 10px;">BOR 1</td>
                       <td style="height: 23px; width: 15px;">BOR 2</td>
                       <td style="height: 23px; width: 15px;">BOR 3</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;BOR 4</td>
+                      <td style="height: 23px; width: 15px;">BOR 4</td>
+                      <td style="height: 23px; width: 15px;">BOR 5</td>
                     </tr>
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 15px;" colspan="3"></td>
