@@ -62,7 +62,7 @@ $app->get('/formsubmit/{groupid}/{userid}/{IZ1}/{IZ2}/{IZ3}/{IW1}/{IW2}/{IW3}/{I
 
 
 // TODO: adjust the normal ones to the new group, probably make it a post with a proper body. Parameters links will get messy
-$app->get('/checklistsubmit/{groupid}/{userid}/{CW1}/{CW2}/{VB1}/{VB2}/{VB3}/{OPL1}/{OPL2}/{OPL3}/{PRO1}/{PRO2}/{PRO3}/{COM1}/{COM2}/{COM3}/{BOR1}/{BOR2}/{BOR3}/{BOR4}', function (Request $request, Response $response) {
+$app->get('/checklistsubmit/{groupid}/{userid}/{CW1}/{CW2}/{VB1}/{VB2}/{VB3}/{OPL1}/{OPL2}/{OPL3}/{PRO1}/{PRO2}/{PRO3}/{COM1}/{COM2}/{COM3}/{BOR1}/{BOR2}/{BOR3}/{BOR4}/{BOR5}', function (Request $request, Response $response) {
     // what key
     $groupid = $request->getAttribute('groupid');
     $groupid = (int)$groupid;
@@ -94,12 +94,13 @@ $app->get('/checklistsubmit/{groupid}/{userid}/{CW1}/{CW2}/{VB1}/{VB2}/{VB3}/{OP
     $BOR2 = $request->getAttribute('BOR2');
     $BOR3 = $request->getAttribute('BOR3');
     $BOR4 = $request->getAttribute('BOR4');
+    $BOR5 = $request->getAttribute('BOR5');
 
     include 'db.php';
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
 
     // SQL QUERY FOR getting group id with key
-    $sqlinsertresult = "INSERT INTO checkresults (grouplink, CW1, CW2, VB1, VB2, VB3, OPL1, OPL2, OPL3, PRO1, PRO2, PRO3, COM1, COM2, COM3, BOR1, BOR2, BOR3, BOR4) VALUES ('$groupid','$CW1','$CW2','$VB1','$VB2','$VB3','$OPL1','$OPL2','$OPL3','$PRO1','$PRO2','$PRO3','$COM1','$COM2','$COM3','$BOR1','$BOR2','$BOR3','$BOR4')";
+    $sqlinsertresult = "INSERT INTO checkresults (grouplink, CW1, CW2, VB1, VB2, VB3, OPL1, OPL2, OPL3, PRO1, PRO2, PRO3, COM1, COM2, COM3, BOR1, BOR2, BOR3, BOR4, BOR5) VALUES ('$groupid','$CW1','$CW2','$VB1','$VB2','$VB3','$OPL1','$OPL2','$OPL3','$PRO1','$PRO2','$PRO3','$COM1','$COM2','$COM3','$BOR1','$BOR2','$BOR3','$BOR4','$BOR5')";
     $stmtinsertresult = $dbh->prepare($sqlinsertresult);
     $stmtinsertresult->execute();
     // $resultinsertresult = $stmtinsertresult->fetchAll(PDO::FETCH_ASSOC);

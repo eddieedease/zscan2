@@ -96,30 +96,86 @@ export class AdminComponent implements OnInit {
 
 
 
-  // Some list of bools which we can use for the styling
-  vertrouwen1 = false;
-  vertrouwen2 = false;
-  vertrouwen3 = false;
-  conflict1 = false;
-  conflict2 = false;
-  conflict3 = false;
-  commitment1 = false;
-  commitment2 = false;
-  commitment3 = false;
-  verantwoordelijk1 = false;
-  verantwoordelijk2 = false;
-  verantwoordelijk3 = false;
-  resultaat1 = false;
-  resultaat2 = false;
-  resultaat3 = false;
-
-  vertrouwen = 0;
-  conflict = 0;
-  commitment = 0;
-  verantwoordelijk = 0;
-  resultaat = 0;
-
-  // tslint:disable-next-line:max-line-length
+  // Some list of int  which we can use for the styling
+  // 0 = Red, 1 = Orange, 2 = green
+  // last one is sum
+  iz1 = 0;
+  iz1tot = 0;
+  iz2 = 0;
+  iz2tot = 0;
+  iz3 = 0;
+  iz3tot = 0;
+  iz = 0;
+  iw1 = 0;
+  iw1tot = 0;
+  iw2 = 0;
+  iw2tot = 0;
+  iw3 = 0;
+  iw3tot = 0;
+  iw = 0;
+  iwe1 = 0;
+  iwe1tot = 0;
+  iwe2 = 0;
+  iwe2tot = 0;
+  iwe3 = 0;
+  iwe3tot = 0;
+  iwe4 = 0;
+  iwe4tot = 0;
+  iwe = 0;
+  ik1 = 0;
+  ik1tot = 0;
+  ik2 = 0;
+  ik2tot = 0;
+  ik3 = 0;
+  ik3tot = 0;
+  ik = 0;
+  // checklist vars
+  cw1 = 0;
+  cw1tot = 0;
+  cw2 = 0;
+  cw2tot = 0;
+  cw3 = 0;
+  cw3tot = 0;
+  cw = 0;
+  vb1 = 0;
+  vb1tot = 0;
+  vb2 = 0;
+  vb2tot = 0;
+  vb3 = 0;
+  vb3tot = 0;
+  vb = 0;
+  opl1 = 0;
+  opl1tot = 0;
+  opl2 = 0;
+  opl2tot = 0;
+  opl3 = 0;
+  opl3tot = 0;
+  opl = 0;
+  pro1 = 0;
+  pro1tot = 0;
+  pro2 = 0;
+  pro2tot = 0;
+  pro3 = 0;
+  pro3tot = 0;
+  pro = 0;
+  com1 = 0;
+  com1tot = 0;
+  com2 = 0;
+  com2tot = 0;
+  com3 = 0;
+  com3tot = 0;
+  com = 0;
+  bor1 = 0;
+  bor1tot = 0;
+  bor2 = 0;
+  bor2tot = 0;
+  bor3 = 0;
+  bor3tot = 0;
+  bor4 = 0;
+  bor4tot = 0;
+  bor5 = 0;
+  bor5tot = 0;
+  bor = 0;
 
   csvUserArray;
 
@@ -204,21 +260,10 @@ export class AdminComponent implements OnInit {
 
   showResult(_id) {
     // Frist of, reset all bool values for the result table
-    this.vertrouwen1 = false;
-    this.vertrouwen2 = false;
-    this.vertrouwen3 = false;
-    this.conflict1 = false;
-    this.conflict2 = false;
-    this.conflict3 = false;
-    this.commitment1 = false;
-    this.commitment2 = false;
-    this.commitment3 = false;
-    this.verantwoordelijk1 = false;
-    this.verantwoordelijk2 = false;
-    this.verantwoordelijk3 = false;
-    this.resultaat1 = false;
-    this.resultaat2 = false;
-    this.resultaat3 = false;
+   
+    // TODO: RESET ALL VARS?
+
+
     // adjust template view var
     this.showScore = !this.showScore;
 
@@ -243,23 +288,64 @@ export class AdminComponent implements OnInit {
     this.howManySend = _val.length;
 
     // Calculate scores = total of each divided by howManySend
-    let vertrouwen = 0;
-    let conflict = 0;
-    let commitment = 0;
-    let verantwoordelijk = 0;
-    let resultaat = 0;
+    let iz1 = 0;
+    let iz2 = 0;
+    let iz3 = 0;
+    let iw1 = 0;
+    let iw2 = 0;
+    let iw3 = 0;
+    let iwe1 = 0;
+    let iwe2 = 0;
+    let iwe3 = 0;
+    let iwe4 = 0;
+    let ik1 = 0;
+    let ik2 = 0;
+    let ik3 = 0;
+    let cw1 = 0;
+    let cw2 = 0;
+    let cw3 = 0;
+    let vb1 = 0;
+    let vb2 = 0;
+    let vb3 = 0;
+    let opl1 = 0;
+    let opl2 = 0;
+    let opl3 = 0;
+    let pro1 = 0;
+    let pro2 = 0;
+    let pro3 = 0;
+    let com1 = 0;
+    let com2 = 0;
+    let com3 = 0;
+    let bor1 = 0;
+    let bor2 = 0;
+    let bor3 = 0;
+    let bor4 = 0;
+    let bor5 = 0;
+
+
+
+
+
+
+    // TODO: uncommented below and adjust to the checklist and 
+
+
 
     for (let index = 0; index < _val.length; index++) {
-      vertrouwen = vertrouwen + parseFloat(_val[index].result1);
+      /* iz1 = iz1 + parseFloat(_val[index].result1);
       conflict = conflict + parseFloat(_val[index].result2);
       commitment = commitment + parseFloat(_val[index].result3);
       verantwoordelijk = verantwoordelijk + parseFloat(_val[index].result4);
-      resultaat = resultaat + parseFloat(_val[index].result5);
+      resultaat = resultaat + parseFloat(_val[index].result5); */
     }
 
-    // Now round the numbers if is nessy
+    // how to do the round
     // Math.round(vertrouwen * 100) / 100
-    vertrouwen = vertrouwen / this.howManySend;
+
+
+
+
+    /* vertrouwen = vertrouwen / this.howManySend;
     vertrouwen = Math.round(vertrouwen * 100) / 100;
     this.vertrouwen = vertrouwen;
     conflict = conflict / this.howManySend;
@@ -275,11 +361,7 @@ export class AdminComponent implements OnInit {
     resultaat = Math.round(resultaat * 100) / 100;
     this.resultaat = resultaat;
 
-    this.serCred.debugLog(vertrouwen);
-    this.serCred.debugLog(conflict);
-    this.serCred.debugLog(commitment);
-    this.serCred.debugLog(verantwoordelijk);
-    this.serCred.debugLog(resultaat);
+    
 
     // some ugly if else logic right there
     if (vertrouwen >= 3.75) {
@@ -320,7 +402,7 @@ export class AdminComponent implements OnInit {
       this.resultaat2 = true;
     } else if (resultaat <= 3.24) {
       this.resultaat3 = true;
-    }
+    } */
   }
 
   showEdit(_id) {

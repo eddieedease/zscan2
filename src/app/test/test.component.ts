@@ -130,6 +130,8 @@ export class TestComponent implements OnInit {
   resultBOR3;
   BOR4;
   resultBOR4;
+  BOR5;
+  resultBOR5;
   OPL1;
   resultOPL1;
   OPL2;
@@ -319,7 +321,7 @@ export class TestComponent implements OnInit {
     this.BOR2 = 0;
     this.BOR3 = 0;
     this.BOR4 = 0;
-
+    this.BOR5 = 0;
 
 
     // TODO: Set up for both tests
@@ -455,6 +457,9 @@ export class TestComponent implements OnInit {
             case 'BOR4':
               this.BOR4 = this.BOR4 + this.questionArray[index].answer;
               break;
+              case 'BOR5':
+                this.BOR5 = this.BOR5 + this.questionArray[index].answer;
+                break;
           }
         } else {
           // Something is not filled in correctly
@@ -516,8 +521,9 @@ export class TestComponent implements OnInit {
         this.BOR2 = Math.round(this.BOR2 / 8 * 100) / 100;
         this.BOR3 = Math.round(this.BOR3 / 8 * 100) / 100;
         this.BOR4 = Math.round(this.BOR4 / 8 * 100) / 100;
+        this.BOR5 = Math.round(this.BOR5 / 8 * 100) / 100;
         // tslint:disable-next-line:max-line-length
-        this.edSer.API_checklistsubmit(this.currentGroupId, this.currentUserId, this.CW1, this.CW2, this.VB1, this.VB2, this.VB3, this.OPL1, this.OPL2, this.OPL3, this.PRO1, this.PRO2, this.PRO3, this.COM1, this.COM2, this.COM3,this.BOR1, this.BOR2, this.BOR3, this.BOR4).subscribe(value => this.formSend(value));
+        this.edSer.API_checklistsubmit(this.currentGroupId, this.currentUserId, this.CW1, this.CW2, this.VB1, this.VB2, this.VB3, this.OPL1, this.OPL2, this.OPL3, this.PRO1, this.PRO2, this.PRO3, this.COM1, this.COM2, this.COM3,this.BOR1, this.BOR2, this.BOR3, this.BOR4, this.BOR5).subscribe(value => this.formSend(value));
 
       }
       this.testFinished = true;

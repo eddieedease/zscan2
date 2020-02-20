@@ -285,9 +285,9 @@ export class EdserService {
 
 
   // tslint:disable-next-line:max-line-length
-  API_checklistsubmit(_groupid, _userid, CW1, CW2, VB1, VB2, VB3, OPL1, OPL2, OPL3, PRO1, PRO2, PRO3, COM1, COM2, COM3, BOR1, BOR2, BOR3, BOR4): Observable < any > {
+  API_checklistsubmit(_groupid, _userid, CW1, CW2, VB1, VB2, VB3, OPL1, OPL2, OPL3, PRO1, PRO2, PRO3, COM1, COM2, COM3, BOR1, BOR2, BOR3, BOR4, BOR5): Observable < any > {
     // tslint:disable-next-line:max-line-length
-    const url = environment.apilink + 'checklistsubmit/' + _groupid + '/' + _userid + '/' +  CW1 + '/' + CW2 + '/' + VB1 + '/' + VB2 + '/' + VB3 + '/' + OPL1 + '/' + OPL2 + '/' + OPL3 + '/' + PRO1 + '/' + PRO2 + '/' + PRO3 + '/' + COM1 + '/' + COM2 + '/' + COM3 + '/' + BOR1 + '/' + BOR2 + '/' + BOR3 + '/' + BOR4 + '?rnd=' + new Date().getTime();
+    const url = environment.apilink + 'checklistsubmit/' + _groupid + '/' + _userid + '/' +  CW1 + '/' + CW2 + '/' + VB1 + '/' + VB2 + '/' + VB3 + '/' + OPL1 + '/' + OPL2 + '/' + OPL3 + '/' + PRO1 + '/' + PRO2 + '/' + PRO3 + '/' + COM1 + '/' + COM2 + '/' + COM3 + '/' + BOR1 + '/' + BOR2 + '/' + BOR3 + '/' + BOR4 + '/' + BOR5 + '?rnd=' + new Date().getTime();
     // tslint:disable-next-line:prefer-const
     const headers = new Headers({
       'Content-Type': 'application/json'
