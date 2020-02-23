@@ -27,7 +27,7 @@
     "Planning2": {
         "vraag": "Er is een procedure voor het geven van een indicatie van het niveau van de risico's en het bepalen of een risico aanvaardbaar is of niet",
         "type": "OPL1",
-        "CW1" : "true",
+        "CW1" : "true"
     },
     "Planning3": {
         "vraag": "Er is een procedure waarin een beschrijving gegeven wordt (of verwezen wordt naar) van de maatregelen voor het monitoren en beheersen van risico's, met name van risico's die niet aanvaardbaar zijn",

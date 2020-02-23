@@ -435,9 +435,9 @@
         </ul>
       </div>
 
-      <div class="col-sm-12 col-md-6"> <div class="text-center">
+      <!-- <div class="col-sm-12 col-md-6"> <div class="text-center">
         <img src="assets/headban.png" class="img-fluid" alt="Responsive image">
-      </div></div>
+      </div></div> -->
       <main role="main" class="col-md-12">
         <br>
 
@@ -650,7 +650,7 @@
             <hr>
             <div *ngIf="showScore">
               
-              <div class="container" >
+              <div class="container myDivToPrint">
                 <button type="button" (click)="showScore = false" class="btn btn-primary" data-toggle="modal">
                   <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Terug naar Overzicht
                 </button>&nbsp;&nbsp;
@@ -666,98 +666,78 @@
                 <table style="float: left; height: 1028px;" width="100%" cellpadding="10">
                   <tbody>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 15px;" colspan="3"></td>
+                      <td style="height: 23px; width: 15px;" colspan="3">Mens</td>
                       <td style="height: 23px; width: 15px;" colspan="4"></td>
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 101px;">Mens</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;IZ</td>
-                      <td style="height: 23px; width: 125px;">Ik zie</td>
-                      <td style="height: 23px; width: 10px;">&nbsp;IZ 1<br></td>
-                      <td style="height: 23px; width: 15px;">&nbsp;IZ 2<br></td>
-                      <td style="height: 23px; width: 15px;">&nbsp;IZ 3<br></td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IZ<br>Ik zie</td>
+                      <td style="height: 23px; width: 10px;">&nbsp;IZ 1<br>Aansturen op veilig gedrag / voorbeeld gedrag management</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IZ 2<br>Toezicht & handhaving</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IZ 3<br>Aanspreekcultuur</td>
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 101px;">&nbsp;&nbsp;&nbsp;</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;IW</td>
-                      <td style="height: 23px; width: 125px;">Ik wil</td>
-                      <td style="height: 23px; width: 10px;">&nbsp;IW 1<br></td>
-                      <td style="height: 23px; width: 15px;">&nbsp;IW 2<br></td>
-                      <td style="height: 23px; width: 15px;">&nbsp;IW 3<br></td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IW<br>Ik wil</td>
+                      <td style="height: 23px; width: 10px;">&nbsp;IW 1<br>Positieve houding t.a.v. veiligheid</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IW 2<br>Regels volgen / respecteren</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IW 3<br>Opleidingsbehoefte</td>
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 101px;">&nbsp;&nbsp;</td>
-
-                      <td style="height: 23px; width: 15px;">&nbsp;IWE</td>
-                      <td style="height: 23px; width: 125px;">Ik weet</td>
-                      <td style="height: 23px; width: 10px;">&nbsp;IWE 1<br></td>
-                      <td style="height: 23px; width: 15px;">&nbsp;IWE 2<br></td>
-                      <td style="height: 23px; width: 15px;">&nbsp;IWE 3<br></td>
-                      <td style="height: 23px; width: 15px;">&nbsp;IWE 4<br></td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IWE<br>Ik weet</td>
+                      <td style="height: 23px; width: 10px;">&nbsp;IWE 1<br>Vakkennis</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IWE 2<br>Kennis veiligheid algemen</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IWE 3<br>Veiligheidsbewustzijn</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IWE 4<br>Uitwisselen informatie</td>
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 101px;">&nbsp;&nbsp;</td>
-
-                      <td style="height: 23px; width: 15px;">&nbsp;IK</td>
-                      <td style="height: 23px; width: 125px;">Ik kan</td>
-                      <td style="height: 23px; width: 10px;">&nbsp;IK 1<br></td>
-                      <td style="height: 23px; width: 15px;">&nbsp;IK 2<br></td>
-                      <td style="height: 23px; width: 15px;">&nbsp;IK 3<br></td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IK<br>Ik kan</td>
+                      <td style="height: 23px; width: 10px;">&nbsp;IK 1<br>Vaardigheden</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IK 2<br>Randvoorwaarden veilig werken</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IK 3<br>Overleg veiligheid</td>
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 15px;" colspan="3"></td>
+                      <td style="height: 23px; width: 15px;" colspan="3">Organisatie</td>
                       <td style="height: 23px; width: 15px;" colspan="4"></td>
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 101px;">Organisatie&nbsp;</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;CW</td>
-                      <td style="height: 23px; width: 125px;">&nbsp;Compliance, wetgeving &amp; richtlijnen</td>
-                      <td style="height: 23px; width: 10px;">&nbsp;CW 1<br></td>
-                      <td style="height: 23px; width: 15px;">&nbsp;CW 2<br></td>
-                      
+                      <td style="height: 23px; width: 15px;">&nbsp;CW<br>Compliance, wetgeving &amp; richtlijnen</td>
+                      <td style="height: 23px; width: 10px;">&nbsp;CW 1<br>Arbowet</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;CW 2<br>Moederorganisatie</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;CW 3<br>Andere relevante wetgeving</td>
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 101px;">&nbsp;&nbsp;</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;VB</td>
-                      <td style="height: 23px; width: 125px;">Veiligheidsbeleid</td>
-                      <td style="height: 23px; width: 10px;">&nbsp;VB 1<br></td>
-                      <td style="height: 23px; width: 15px;">&nbsp;VB 2<br></td>
-                      <td style="height: 23px; width: 15px;">&nbsp;VB 3<br></td>
+                      <td style="height: 23px; width: 15px;">&nbsp;VB<br>Veiligheidsbeleid</td>
+                      <td style="height: 23px; width: 10px;">&nbsp;VB 1<br>Veiligheidsbeleid vastgelegd</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;VB 2<br>Veiligheidsbeleid vertaald in functieomschrijving</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;VB 3<br>Veiligheidsbeleid bekend &amp; beschikbaar</td>
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 101px;">&nbsp;&nbsp;</td>
-
-                      <td style="height: 23px; width: 15px;">&nbsp;OPL</td>
-                      <td style="height: 23px; width: 125px;">Opleiding</td>
-                      <td style="height: 23px; width: 10px;">&nbsp;OPL 1<br></td>
-                      <td style="height: 23px; width: 15px;">&nbsp;OPL 2<br></td>
-                      <td style="height: 23px; width: 15px;">&nbsp;OPL 3<br></td>
+                      <td style="height: 23px; width: 15px;">&nbsp;OPL<br>Opleiding</td>
+                      <td style="height: 23px; width: 10px;">&nbsp;OPL 1<br>Eisen vastgelegd</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;OPL 2<br>Opleidingsplan</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;OPL 3<br>Registratie</td>
                     </tr>
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 101px;">&nbsp;Proces</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;PRO</td>
-                      <td style="height: 23px; width: 125px;">Beheersing werkzaamheden, beheer &amp; onderhoud</td>
-                      <td style="height: 23px; width: 10px;">&nbsp;PRO 1<br></td>
-                      <td style="height: 23px; width: 15px;">&nbsp;PRO 2<br></td>
-                      <td style="height: 23px; width: 15px;">&nbsp;PRO 3<br></td>
+                      <td style="height: 23px; width: 15px;">&nbsp;PRO<br>Beheersing werkzaamheden, beheer &amp; onderhoud</td>
+                      <td style="height: 23px; width: 10px;">&nbsp;PRO 1<br>Procedures uitvoeren gevaarlijke werkzaamheden</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;PRO 2<br>Procedures omgaan met gevaarlijke materialen</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;PRO 3<br>Procedures onderhoud van installaties &amp; uitrusting t.v.b. de veiligheid</td>
                     </tr>
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 101px;">&nbsp;Communicatie</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;COM</td>
-                      <td style="height: 23px; width: 125px;">Communicatiestructuren&nbsp;</td>
-                      <td style="height: 23px; width: 10px;">&nbsp;COM 1<br></td>
-                      <td style="height: 23px; width: 15px;">&nbsp;COM 2<br></td>
+                      <td style="height: 23px; width: 15px;">&nbsp;COM<br>Communicatiestructuren</td>
+                      <td style="height: 23px; width: 10px;">&nbsp;COM 1<br>Formeel overleg management/werkvloer</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;COM 2<br>Werknemers betrokken bij risicobeoordeling &amp;onderzoek incidenten</td>
                       <td style="height: 23px; width: 15px;">&nbsp;COM 3<br></td>
                     </tr>
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 101px;">&nbsp;Borging</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;BOR</td>
-                      <td style="height: 23px; width: 125px;">Meter, monitoren, bijstellen &amp; borgen</td>
-                      <td style="height: 23px; width: 10px;">&nbsp;BOR 1<br></td>
-                      <td style="height: 23px; width: 15px;">&nbsp;BOR 2<br></td>
-                      <td style="height: 23px; width: 15px;">&nbsp;BOR 3<br></td>
-                      <td style="height: 23px; width: 15px;">&nbsp;BOR 4<br></td>
-                      <td style="height: 23px; width: 15px;">&nbsp;BOR 5<br></td>
+                      <td style="height: 23px; width: 15px;">&nbsp;BOR<br>Meter, monitoren, bijstellen &amp; borgen</td>
+                      <td style="height: 23px; width: 10px;">&nbsp;BOR 1<br>Procedure beheer van documenten, inclusief Verant. &amp; Bevoegdh.</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;BOR 2<br>Evaluatie procedures</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;BOR 3<br>Lijsten met 'kritieke apparatuur'</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;BOR 4<br>Een auditplan/<br>programma</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;BOR 5<br>Afgetekende, afgehandelde rapporten over afwijkingen</td>
                     </tr>
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 15px;" colspan="3"></td>
@@ -766,32 +746,32 @@
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 101px;">&nbsp;Smoezen</td>
                       <td style="height: 23px; width: 15px;">&nbsp;SMOE1</td>
-                      <td style="height: 23px; width: 250px;">In ons bedrijf hebben we geen tijd voor veiligheid&nbsp;</td>
+                      <td style="height: 23px; width: 250px;" colspan="4">In ons bedrijf hebben we geen tijd voor veiligheid&nbsp;</td>
                     </tr>
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 101px;">&nbsp;</td>
                       <td style="height: 23px; width: 15px;">&nbsp;SMOE2</td>
-                      <td style="height: 23px; width: 250px;">Ik ga er van uit dat mij niets overkomt op mijn werk&nbsp;</td>
+                      <td style="height: 23px; width: 250px;" colspan="4">Ik ga er van uit dat mij niets overkomt op mijn werk&nbsp;</td>
                     </tr>
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 101px;">&nbsp;</td>
                       <td style="height: 23px; width: 15px;">&nbsp;SMOE3</td>
-                      <td style="height: 23px; width: 250px;">Voor mij is productie belangrijker dan veiligheid&nbsp;</td>
+                      <td style="height: 23px; width: 250px;" colspan="4">Voor mij is productie belangrijker dan veiligheid&nbsp;</td>
                     </tr>
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 101px;">&nbsp;</td>
                       <td style="height: 23px; width: 15px;">&nbsp;SMOE4</td>
-                      <td style="height: 23px; width: 250px;">Niemand werkt echt veilig bij ons&nbsp;</td>
+                      <td style="height: 23px; width: 250px;" colspan="4">Niemand werkt echt veilig bij ons&nbsp;</td>
                     </tr>
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 101px;">&nbsp;</td>
                       <td style="height: 23px;">&nbsp;SMOE5</td>
-                      <td style="height: 23px; width: 250px;">Ik weet wat van mij verwacht wordt rondom veilig werken&nbsp;</td>
+                      <td style="height: 23px; width: 250px;" colspan="4">Ik weet wat van mij verwacht wordt rondom veilig werken&nbsp;</td>
                     </tr>
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 101px;">&nbsp;</td>
                       <td style="height: 23px;">&nbsp;SMOE6</td>
-                      <td style="height: 23px; width: 250px;">Als ik niet veilig kan werken, werk ik niet&nbsp;</td>
+                      <td style="height: 23px; width: 250px;" colspan="4">Als ik niet veilig kan werken, werk ik niet&nbsp;</td>
                     </tr>
                   </tbody>
                 </table>
