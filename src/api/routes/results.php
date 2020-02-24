@@ -23,14 +23,15 @@ $app->get('/getresultsfromgroup/{groupid}', function (Request $request, Response
     $resultgetresults = $stmtgetresults->fetchAll(PDO::FETCH_ASSOC);
 
 
-    $sqlgetchecklistres = "SELECT * FROM checkchecklistres WHERE grouplink = '$groupid'";
-    $stmtgetchecklistres = $dbh->prepare($sqlgetchecklistres);
-    $stmtgetchecklistres->execute();
-    $resultgetchecklistres = $stmtgetchecklistres->fetchAll(PDO::FETCH_ASSOC);
+    $sqlgetcheckresult = "SELECT * FROM checkresults WHERE grouplink = '$groupid'";
+    $stmtgetcheckresult = $dbh->prepare($sqlgetcheckresult);
+    $stmtgetcheckresult->execute();
+    $resultgetcheckresult = $stmtgetcheckresult->fetchAll(PDO::FETCH_ASSOC);
 
 
-    // $data = array('query' => $sqlgetkey, 'back' => $resultgetkey);
-    $response = json_encode($resultgetresults, $resultgetchecklistres);
+    $data = array('questions' => $resultgetresults, 'checklists' => $resultgetcheckresult);
+
+    $response = json_encode($data);
     return $response;
 });
 
