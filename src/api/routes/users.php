@@ -74,17 +74,44 @@ $app->post('/createauser', function (Request $request, Response $response) {
 
 // TODO: NEEDS ATTENTION, THE BATCH IMPRORT. Userstoadd is array of mail
 $app->post('/usersbatchimporttogroup/{grouplink}', function (Request $request, Response $response) {
-    $userid = $request->getAttribute('grouplink');
     // $userid = (int)$userid;
     $parsedBody = $request->getParsedBody();
     $userstoadd = $parsedBody[userstoadd];
 
+
+    $groupLink = $request->getAttribute('grouplink');
+    $groupLink = (int)$groupLink;
+
+    include 'db.php';
+    $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
+    // must become  INSERT INTO table (a,b) VALUES (1,2), (2,3), (3,4);
+    // $sqlregister = "INSERT INTO users (login, password, token, secret, email, languages_NAME, name, surname, active, user_types_ID) VALUES ('$email','$pwd', '$token', '$secret', '$email','$language','$firstname','$lastname', '$sendemail','$type')";
+
+    // create dynamically ('$email','$pwd', '$token', '$secret', '$email','$language','$firstname','$lastname', '$sendemail','$type')"
+    $query = 'INSERT INTO users (grouplink, email, unlockkey) VALUES ';
+    $query_parts = array();
+    $hashes = [];
+
+    for($x=0; $x<count($userstoadd); $x++){
+
+         $userArray = explode(';', $userstoadd[$x][0]);
+
+         // creating random secret and token
+         $secret = randomSecret();
+         $hashes[$x] = md5($forString);
+
+         $query_parts[] = "('" . $groupLink ."', '" . ($userArray[0]) . "', '" . $secret . "')";
+    }
+
+
+
+    //  ('$email','$pwd', '$token', '$secret', '$email','$language','$firstname','$lastname', '$sendemail','$type')"
+    $query .= implode(',', $query_parts);
+        
     
-    // include 'db.php';
-    // $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
-    // // query
-   
-    $cb = array('status' => 'success', 'user' => $userstoadd);
+    $stmtregister = $dbh->prepare($query);
+    $stmtregister->execute();
+    $cb = array('status' => 'success', 'users' => $userstoadd, 'query' => $query);
     //     convert it all to jSON TODO change result
     $response = json_encode($cb);
     return $response;
@@ -237,7 +264,7 @@ function randomSecret() {
     $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
     $pass = array(); //remember to declare $pass as an array
     $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
-    for ($i = 0; $i < 16; $i++) {
+    for ($i = 0; $i < 6; $i++) {
         $n = rand(0, $alphaLength);
         $pass[] = $alphabet[$n];
     }

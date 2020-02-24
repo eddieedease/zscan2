@@ -32,6 +32,10 @@ declare var $: any;
 })
 
 export class AdminComponent implements OnInit {
+
+
+    // reference to this
+    thisRef;
   // logging var
   adminLogged = false;
   // error message view
@@ -209,7 +213,7 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.thisRef = this;
     $('html,body').scrollTop(0);
 
     if (environment.production === false) {
@@ -918,55 +922,48 @@ export class AdminComponent implements OnInit {
   // CSV DEALINGS
   // TODO: Nog helemaal niet getest
   onFileSelect(input: HTMLInputElement) {
+    this.loading = true;
 
     const files = input.files;
     const content = this.csvContent;
     if (files && files.length) {
-      /*
-       console.log("Filename: " + files[0].name);
-       console.log("Type: " + files[0].type);
-       console.log("Size: " + files[0].size + " bytes");
-       */
 
       const fileToRead = files[0];
 
       const fileReader = new FileReader();
-      fileReader.onload = this.onFileLoad;
-
       fileReader.readAsText(fileToRead, 'UTF-8');
+      fileReader.onload = (event: Event) => {
+        // event.target.result; // This is invalid
+        // fileReader.result; // This is valid
+        const csvSeparator = ',';
+        this.serCred.debugLog(fileReader.result);
+        this.csvContent = fileReader.result;
+
+        const csv = [];
+        const lines = this.csvContent.split('\n');
+        lines.forEach(element => {
+          const cols: string[] = element.split(csvSeparator);
+          csv.push(cols);
+        });
+
+        this.csvUserArray = csv;
+        this.csvUserArray.splice(-1, 1);
+        this.serCred.debugLog(csv);
+        this.serCred.API_usersbatchimporttogroup(this.currentGroupID, this.csvUserArray).subscribe(value => this.userbatchResponse(value));
+        // TESTING - SENDING TO API
+        // this.sendNowUserBatch();
+      };
+
     }
 
   }
 
-  // TODO: not tested fully, need import of csv file (one column)
-  onFileLoad(fileLoadedEvent) {
-    const csvSeparator = ',';
-    const textFromFileLoaded = fileLoadedEvent.target.result;
-    this.csvContent = textFromFileLoaded;
-    // alert(textFromFileLoaded);
-
-    const txt = textFromFileLoaded;
-    const csv = [];
-    const lines = txt.split('\n');
-    lines.forEach(element => {
-      const cols: string[] = element.split(csvSeparator);
-      csv.push(cols);
-    });
-
-    this.csvUserArray = csv;
-    // this.serCred.API_usersbatchimporttogroup('1', parsedCsv).subscribe(value => this.userbatchResponse(value));
-    // TESTING - SENDING TO API
-    this.sendNowUserBatch();
-  }
-
-  sendNowUserBatch() {
-    this.serCred.API_usersbatchimporttogroup('1', this.csvUserArray).subscribe(value => this.userbatchResponse(value));
-
-  }
 
   // batchuser response
   userbatchResponse(_event) {
-    console.log(_event);
+    this.serCred.debugLog(_event);
+    this.serCred.API_getgrouplist(this.currentGroupID).subscribe(value => this.gotGroupList(value));
+
   }
 
   logOut() {

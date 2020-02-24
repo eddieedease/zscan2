@@ -163,7 +163,10 @@
 
           <div *ngIf="userAddBulk">
             <fieldset class="form-group has-danger">
-              <label class="form-control-label">CSV bestand upload</label>     
+              <label class="form-control-label">CSV bestand upload</label>
+               <div class="form-group">
+                    <input type="file" (change)="onFileSelect($event.target)" name="myfile">
+               </div>
             </fieldset></div>
           
             <div *ngIf="userSendMails">
@@ -545,9 +548,7 @@
             </div>
             <div *ngIf="!showScore">
               <br><br>
-              <!-- <div class="form-group">
-                    <input type="file" (change)="onFileSelect($event.target)" name="myfile">
-               </div> -->
+             
               <ngx-datatable [scrollbarH]="true" class="material" [rows]="groupRows" [columns]="columns"
                 [columnMode]="'force'" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
                 <ngx-datatable-column name="Titel" [sortable]="true">

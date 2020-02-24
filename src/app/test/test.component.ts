@@ -503,25 +503,25 @@ export class TestComponent implements OnInit {
         this.edSer.API_formsubmit(this.currentGroupId, this.currentUserId, this.IZ1, this.IZ2, this.IZ3, this.IW1, this.IW2, this.IW3, this.IWE1, this.IWE2, this.IWE3, this.IWE4, this.IK1, this.IK2, this.IK3, this.SMOE1, this.SMOE2, this.SMOE3, this.SMOE4, this.SMOE5, this.SMOE6).subscribe(value => this.formSend(value));
 
       } else if (this.typeTest === '2') {
-        this.CW1 = Math.round(this.CW1 / 8 * 100) / 100;
-        this.CW2 = Math.round(this.CW2 / 8 * 100) / 100;
-        this.VB1 = Math.round(this.VB1 / 8 * 100) / 100;
-        this.VB2 = Math.round(this.VB2 / 8 * 100) / 100;
-        this.VB3 = Math.round(this.VB3 / 8 * 100) / 100;
-        this.OPL1 = Math.round(this.OPL1 / 8 * 100) / 100;
-        this.OPL2 = Math.round(this.OPL2 / 8 * 100) / 100;
-        this.OPL3 = Math.round(this.OPL3 / 8 * 100) / 100;
-        this.PRO1 = Math.round(this.PRO1 / 8 * 100) / 100;
-        this.PRO2 = Math.round(this.PRO2 / 8 * 100) / 100;
-        this.PRO3 = Math.round(this.PRO3 / 8 * 100) / 100;
-        this.COM1 = Math.round(this.COM1 / 8 * 100) / 100;
-        this.COM2 = Math.round(this.COM2 / 8 * 100) / 100;
-        this.COM3 = Math.round(this.COM3 / 8 * 100) / 100;
-        this.BOR1 = Math.round(this.BOR1 / 8 * 100) / 100;
-        this.BOR2 = Math.round(this.BOR2 / 8 * 100) / 100;
-        this.BOR3 = Math.round(this.BOR3 / 8 * 100) / 100;
-        this.BOR4 = Math.round(this.BOR4 / 8 * 100) / 100;
-        this.BOR5 = Math.round(this.BOR5 / 8 * 100) / 100;
+        this.CW1 = Math.round(this.CW1 / 24 * 100) / 100;
+        this.CW2 = Math.round(this.CW2 / 2 * 100) / 100;
+        this.VB1 = Math.round(this.VB1 / 1 * 100) / 100;
+        this.VB2 = Math.round(this.VB2 / 3 * 100) / 100;
+        this.VB3 = Math.round(this.VB3 / 2 * 100) / 100;
+        this.OPL1 = Math.round(this.OPL1 / 3 * 100) / 100;
+        this.OPL2 = Math.round(this.OPL2 / 1 * 100) / 100;
+        this.OPL3 = Math.round(this.OPL3 / 1 * 100) / 100;
+        this.PRO1 = Math.round(this.PRO1 / 1 * 100) / 100;
+        this.PRO2 = Math.round(this.PRO2 / 1 * 100) / 100;
+        this.PRO3 = Math.round(this.PRO3 / 1 * 100) / 100;
+        this.COM1 = Math.round(this.COM1 / 1 * 100) / 100;
+        this.COM2 = Math.round(this.COM2 / 1 * 100) / 100;
+        this.COM3 = Math.round(this.COM3 / 3 * 100) / 100;
+        this.BOR1 = Math.round(this.BOR1 / 3 * 100) / 100;
+        this.BOR2 = Math.round(this.BOR2 / 4 * 100) / 100;
+        this.BOR3 = Math.round(this.BOR3 / 1 * 100) / 100;
+        this.BOR4 = Math.round(this.BOR4 / 2 * 100) / 100;
+        this.BOR5 = Math.round(this.BOR5 / 5 * 100) / 100;
         // tslint:disable-next-line:max-line-length
         this.edSer.API_checklistsubmit(this.currentGroupId, this.currentUserId, this.CW1, this.CW2, this.VB1, this.VB2, this.VB3, this.OPL1, this.OPL2, this.OPL3, this.PRO1, this.PRO2, this.PRO3, this.COM1, this.COM2, this.COM3,this.BOR1, this.BOR2, this.BOR3, this.BOR4, this.BOR5).subscribe(value => this.formSend(value));
 
