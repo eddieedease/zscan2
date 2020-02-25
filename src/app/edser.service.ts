@@ -74,7 +74,7 @@ export class EdserService {
         returnthis = this.currentGroupID;
         break;
       case 'userid':
-        returnthis = this.currentUserType;
+        returnthis = this.currentUserID;
         break;
       case 'usertype':
         returnthis = this.currentUserType;

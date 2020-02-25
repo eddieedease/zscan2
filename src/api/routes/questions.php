@@ -45,7 +45,7 @@ $app->get('/formsubmit/{groupid}/{userid}/{IZ1}/{IZ2}/{IZ3}/{IW1}/{IW2}/{IW3}/{I
     $stmtinsertresult->execute();
     // $resultinsertresult = $stmtinsertresult->fetchAll(PDO::FETCH_ASSOC);
 
-    $sqledituser =  "UPDATE users SET filled = 1 WHERE id = '$userid'";
+    $sqledituser =  "UPDATE users SET filled = '1' WHERE id = '$userid'";
     $stmtedituser = $dbh->prepare($sqledituser);
     $stmtedituser->execute();
     $resultedituser = $stmtedituser->fetchAll(PDO::FETCH_ASSOC);
@@ -55,7 +55,7 @@ $app->get('/formsubmit/{groupid}/{userid}/{IZ1}/{IZ2}/{IZ3}/{IW1}/{IW2}/{IW3}/{I
     // TODO: On a succesfull submit we must set the filled property to true
     // TODO: On a succesfull submit we must set the filled property to true
 
-    $data = array('query' => $sqlinsertresult, 'status' => "success");
+    $data = array('query' => $sqledituser, 'status' => "success");
     $response = json_encode($data);
     return $response;
 });
@@ -107,7 +107,7 @@ $app->get('/checklistsubmit/{groupid}/{userid}/{CW1}/{CW2}/{VB1}/{VB2}/{VB3}/{OP
 
     // TODO: On a succesfull submit we must set the filled property to true
     // TODO: On a succesfull submit we must set the filled property to true
-    $sqledituser =  "UPDATE users SET filled = 1 WHERE id = '$userid'";
+    $sqledituser =  "UPDATE users SET filled = '1' WHERE id = '$userid'";
     $stmtedituser = $dbh->prepare($sqledituser);
     $stmtedituser->execute();
     $resultedituser = $stmtedituser->fetchAll(PDO::FETCH_ASSOC);

@@ -141,7 +141,7 @@
     },
     "Monitoring2": {
         "vraag": "Er zijn schema's en checklists voor inspecties",
-        "type": "BOR5",
+        "type": "BOR4",
         "CW1" : "false"
     },
     "Monitoring3": {
@@ -156,12 +156,12 @@
     },
     "Ongevallen2": {
         "vraag": "Er zijn rapporten over geconstateerde afwijkingen",
-        "type": "Ongevallen",
+        "type": "BOR5",
         "CW1" : "true"
     },
     "Ongevallen3": {
         "vraag": "Er is een register van afwijkingen",
-        "type": "Ongevallen",
+        "type": "BOR5",
         "CW1" : "true"
     },
     "Ongevallen4": {
@@ -171,7 +171,7 @@
     },
     "Audit1": {
         "vraag": "Er is een auditplan/programma voor de doorlichting van het veiligheidsmanagementsysteem",
-        "type": "BOR5",
+        "type": "BOR4",
         "CW1" : "false"
     },
     "Audit2": {
@@ -186,7 +186,7 @@
     },
     "Audit4": {
         "vraag": "Er zijn afgetekende en afgehandelde rapporten over afwijkingen",
-        "type": "Audit",
+        "type": "BOR5",
         "CW1" : "false"
     }
 

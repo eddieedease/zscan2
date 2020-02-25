@@ -507,7 +507,7 @@ export class TestComponent implements OnInit {
         this.VB1 = Math.round(this.VB1 / 1 * 100) / 100;
         this.VB2 = Math.round(this.VB2 / 3 * 100) / 100;
         this.VB3 = Math.round(this.VB3 / 2 * 100) / 100;
-        this.OPL1 = Math.round(this.OPL1 / 3 * 100) / 100;
+        this.OPL1 = Math.round(this.OPL1 / 4 * 100) / 100;
         this.OPL2 = Math.round(this.OPL2 / 1 * 100) / 100;
         this.OPL3 = Math.round(this.OPL3 / 1 * 100) / 100;
         this.PRO1 = Math.round(this.PRO1 / 1 * 100) / 100;
@@ -520,7 +520,7 @@ export class TestComponent implements OnInit {
         this.BOR2 = Math.round(this.BOR2 / 4 * 100) / 100;
         this.BOR3 = Math.round(this.BOR3 / 1 * 100) / 100;
         this.BOR4 = Math.round(this.BOR4 / 2 * 100) / 100;
-        this.BOR5 = Math.round(this.BOR5 / 5 * 100) / 100;
+        this.BOR5 = Math.round(this.BOR5 / 3 * 100) / 100;
         // tslint:disable-next-line:max-line-length
         this.edSer.API_checklistsubmit(this.currentGroupId, this.currentUserId, this.CW1, this.CW2, this.VB1, this.VB2, this.VB3, this.OPL1, this.OPL2, this.OPL3, this.PRO1, this.PRO2, this.PRO3, this.COM1, this.COM2, this.COM3,this.BOR1, this.BOR2, this.BOR3, this.BOR4, this.BOR5).subscribe(value => this.formSend(value));
 
