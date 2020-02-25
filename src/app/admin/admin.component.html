@@ -117,7 +117,7 @@
 
 <div class="modal fade modal-grouplist" id="grouplist" tabindex="-1" role="dialog" aria-labelledby="modal-add"
   aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Groeplijst</h5>
@@ -165,19 +165,22 @@
             <fieldset class="form-group has-danger">
               <label class="form-control-label">CSV bestand upload</label>
                <div class="form-group">
-                    <input type="file" (change)="onFileSelect($event.target)" name="myfile">
+                    <input type="file" [(ngModel)]="fileHolder" [ngModelOptions]="{standalone: true}" (change)="onFileSelect($event.target)" name="myfile">
                </div>
             </fieldset></div>
           
             <div *ngIf="userSendMails">
               <hr>
               <p>Klik op de knop hieronder om mails te versturen naar iedereen van deze lijst die de scan nog niet heeft gemaakt</p>
+              <div class="alert alert-primary" role="alert">
+                Het is belangrijk om ten minste 1 checklist gebruiker aan te merken voor het versturen van de mails
+              </div>
               <button type="button" style="margin:10px;padding:10px" class="btn btn-info">Mails versturen</button>
           </div><br><br>
           </div>
 
-
-
+          <div class="text-center">
+          <div class="fa fa-user fa-2x" style="color:blue"></div> = vragenlijst&nbsp;&nbsp;&nbsp;<div class="fa fa-user-circle fa-2x" style="color:rgb(146, 9, 112)"></div> = Checkklistgebruiker<br><br></div>
         <ngx-datatable *ngIf="loading == false" class="material" [rows]="groupListUsers" [columns]="columns"
         [columnMode]="'force'" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
           <ngx-datatable-column name="Email" [sortable]="true">
@@ -200,26 +203,27 @@
             </ng-template>
 
             <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-              <div [innerHTML]="'/login/' + row['id'] +'/'+ row['unlockkey']"></div>
+              <div [innerHTML]="locc + '/login/' + row['id'] +'/'+ row['unlockkey']"></div>
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Checklist">
+            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+              <div class="text-center" style="cursor: pointer;">
+              <i (click)="changeUserType(row['id'], row['filled'], 2)" *ngIf="row['type'] == '1'" class="fa fa-user fa-3x" style="color:blue" ></i>
+              <i (click)="changeUserType(row['id'], row['filled'], 1)" *ngIf="row['type'] == '2'" class="fa fa-user-circle fa-3x" style="color:rgb(146, 9, 112)" ></i>
+            </div>
             </ng-template>
           </ngx-datatable-column>
 
           <ngx-datatable-column name="Ingevuld">
             <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-              <i class="fa fa-check" aria-hidden="true" style="color: green;"></i>
-              <!-- <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                          <button type="button" *ngIf="!row['ingroup']"
-                            (click)="groupCourseHandler('add',row['id'])" class="btn btn-primary"><i
-                              class="fa fa-plus" aria-hidden="true"></i></button>
-                          <button type="button" *ngIf="row['ingroup']"
-                            (click)="groupCourseHandler('rem',row['id'])" class="btn btn-danger"><i
-                              class="fa fa-minus" aria-hidden="true"></i></button>
-  
-                        </div> -->
+              <i *ngIf="row['filled'] == '1'" class="fa fa-check" aria-hidden="true" style="color: green;"></i>
+              <i *ngIf="row['filled'] == '0'" class="fa fa-times" aria-hidden="true" style="color: red;"></i>
             </ng-template>
           </ngx-datatable-column>
 
-          <ngx-datatable-column name="Verwijder">
+          <ngx-datatable-column name="Verwijder resultaat">
             <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
               <button type="button" (click)="groupCourseHandler('rem',row['id'])"
                   class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
@@ -259,6 +263,7 @@
               id="group_name_edit">
           </div>
         </form>
+        <p><b>TODO: </b> Maak verwijderen groepen mogelijk, met eerst 'weet je het zeker' bericht</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
@@ -523,8 +528,8 @@
                 </ng-template>
 
                 <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                  <div *ngIf="row['type'] === '1'">Admin</div>
-                  <div *ngIf="row['type'] === '2'">Superadmin</div>
+                  <div *ngIf="row['type'] === '1'">Beheerder</div>
+                  <div *ngIf="row['type'] === '2'">Admin</div>
                 </ng-template>
 
               </ngx-datatable-column>

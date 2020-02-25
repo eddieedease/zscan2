@@ -477,8 +477,7 @@ export class TestComponent implements OnInit {
 
       // TODO: Below comes the calculating, we need to know how many items one thing has
       if (this.typeTest === '1') {
-        // TODO: Do the mathz
-        // TODO: Do the mats
+        // rounded up shared by number of questions
          // this.result1 = Math.round(this.result1 / 8 * 100) / 100;
         this.IZ1 = Math.round(this.IZ1 / 5 * 100) / 100;
         this.IZ2 = Math.round(this.IZ2 / 4 * 100) / 100;

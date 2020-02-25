@@ -75,6 +75,8 @@ export class AdminComponent implements OnInit {
   userAddBulk = false;
   userSendMails = false;
 
+  locc;
+
 
   emailAdd = '';
 
@@ -202,6 +204,10 @@ export class AdminComponent implements OnInit {
 
 
   showScore = false;
+
+
+
+  fileHolder = null;
   // columns = [
   //   { prop: 'name' },
   //   { name: 'Gender' },
@@ -214,6 +220,8 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
     this.thisRef = this;
+    this.locc = window.location.hostname;
+    this.serCred.debugLog(this.locc);
     $('html,body').scrollTop(0);
 
     if (environment.production === false) {
@@ -620,6 +628,7 @@ export class AdminComponent implements OnInit {
     this.groupId = _id;
     this.loading = true;
     this.serCred.debugLog(_id);
+    this.currentGroupID = _id;
     this.serCred.API_getgrouplist(_id).subscribe(value => this.gotGroupList(value));
 
   }
@@ -662,6 +671,7 @@ export class AdminComponent implements OnInit {
   gotGroups(_val) {
     this.serCred.debugLog(_val);
 
+
     // Ok, so we parse the boolean string to an int for the checkbox
     _val.forEach(function (value) {
       console.log(value.status);
@@ -669,6 +679,7 @@ export class AdminComponent implements OnInit {
     });
 
     this.groupRows = _val;
+    this.groupRows.reverse();
     this.loading = false;
   }
 
@@ -903,6 +914,26 @@ export class AdminComponent implements OnInit {
     this.toastr.success('Groep gewijzigd', '');
     /////////////////////////
     this.serCred.API_getgroups(this.admnId).subscribe(value => this.gotGroups(value));
+  } 
+
+
+  changeUserType(_userid, _userfilled, _usertype){
+    this.serCred.debugLog(_usertype);
+    if (_userfilled === '1'){
+      this.toastr.warning('Formulier is al ingevuld, kan type niet meer veranderen', '');
+    } else {
+      this.loading = true;
+      // do change
+      this.serCred.API_editusertype(_userid, _usertype).subscribe(value => this.userTypeChanged(value));
+    }
+  }
+
+
+  userTypeChanged(_resp){
+    this.serCred.debugLog(_resp);
+    this.loading = false;
+    this.serCred.API_getgrouplist(this.currentGroupID).subscribe(value => this.gotGroupList(value));
+    this.toastr.success('Type gebruiker aangepast', '');
   }
 
 
@@ -962,6 +993,7 @@ export class AdminComponent implements OnInit {
   // batchuser response
   userbatchResponse(_event) {
     this.serCred.debugLog(_event);
+    this.fileHolder = null;
     this.serCred.API_getgrouplist(this.currentGroupID).subscribe(value => this.gotGroupList(value));
 
   }

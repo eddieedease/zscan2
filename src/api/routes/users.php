@@ -88,7 +88,7 @@ $app->post('/usersbatchimporttogroup/{grouplink}', function (Request $request, R
     // $sqlregister = "INSERT INTO users (login, password, token, secret, email, languages_NAME, name, surname, active, user_types_ID) VALUES ('$email','$pwd', '$token', '$secret', '$email','$language','$firstname','$lastname', '$sendemail','$type')";
 
     // create dynamically ('$email','$pwd', '$token', '$secret', '$email','$language','$firstname','$lastname', '$sendemail','$type')"
-    $query = 'INSERT INTO users (grouplink, email, unlockkey) VALUES ';
+    $query = 'INSERT INTO users (grouplink, email, unlockkey, type) VALUES ';
     $query_parts = array();
     $hashes = [];
 
@@ -100,7 +100,7 @@ $app->post('/usersbatchimporttogroup/{grouplink}', function (Request $request, R
          $secret = randomSecret();
          $hashes[$x] = md5($forString);
 
-         $query_parts[] = "('" . $groupLink ."', '" . ($userArray[0]) . "', '" . $secret . "')";
+         $query_parts[] = "('" . $groupLink ."', '" . ($userArray[0]) . "', '" . $secret . "', '1')";
     }
 
 
@@ -210,6 +210,34 @@ $app->post('/edituser/{userid}', function (Request $request, Response $response)
     return $response;
 }
 );
+
+$app->get('/editusertype/{userid}/{usertype}', function (Request $request, Response $response) {
+    $userid = $request->getAttribute('userid');
+    $userid = (int)$userid;
+
+    $usertype = $request->getAttribute('usertype');
+    $usertype = (int)$usertype;
+    
+
+    
+
+    include 'db.php';
+    $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
+    
+    $sqledituser =  "UPDATE users SET type = $usertype WHERE id = '$userid'";
+    $stmtedituser = $dbh->prepare($sqledituser);
+    $stmtedituser->execute();
+    $resultedituser = $stmtedituser->fetchAll(PDO::FETCH_ASSOC);
+    
+    $cb = array('status' => 'success', 'debug' => $sqledituser);
+    //     convert it all to jSON TODO change result
+    $response = json_encode($cb);
+    return $response;
+}
+);
+
+
+
 
 
 // TODO: Edit user

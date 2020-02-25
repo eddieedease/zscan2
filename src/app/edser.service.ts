@@ -507,6 +507,23 @@ export class EdserService {
   }
 
 
+  API_editusertype(_userid, _usertype): Observable < any > {
+    console.log(_usertype)
+    const url = environment.apilink + 'editusertype/' + _userid + '/' + _usertype + '?rnd=' + new Date().getTime();
+    // tslint:disable-next-line:prefer-const
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    const options = new RequestOptions({
+      headers: headers
+    });
+    // tslint:disable-next-line:max-line-length
+    return this.http_.get(url, options)
+      .throttleTime(5000)
+      .map(res => res.json());
+  }
+
+
 
   API_editauser(_userid, _name, _lastname, _email, _type, _ww): Observable < any > {
     // tslint:disable-next-line:max-line-length
