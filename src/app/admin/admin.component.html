@@ -71,9 +71,13 @@
         <p>Hier kunnen admins aan groepen worden gehangen</p>
         <p>Als een admin (niet Superadmin) een nieuwe groep aanmaakt, wordt deze automatisch aan zijn/haar hieraan toegevoegd.
         </p>
+        <div class="alert alert-primary" role="alert">
+          Er moet 1 checklist gebruiker gekoppeld zijn aan een groep. Meerdere is niet mogelijk.
+        </div>
         <br>
+        <input [(ngModel)]="searchadminstogroup" [ngModelOptions]="{standalone: true}" type="text" class="form-control" (keyup)="updateFilter('admintogroups',$event)" placeholder="Zoeken..">&nbsp;&nbsp;<br>
         <ngx-datatable *ngIf="loading == false" class="material" [rows]="allGroupRows" [columns]="columns"
-          [columnMode]="'force'" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
+          [columnMode]="'force'" [messages]="tableMessages" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
           <ngx-datatable-column name="Titel" [sortable]="true">
             <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
               <span (click)="sort()" style="cursor:pointer">
@@ -120,15 +124,14 @@
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Groeplijst</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Groepslijst</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        
         <div class="container">
-        <p>Hier kunnen emailadressen aan groepen worden gehangen die de zelfscan moeten uitvoeren</p>
+        <p>Hier kunnen emailadressen aan groepen worden gekoppeld die de zelfscan moeten uitvoeren</p>
         <p>Ook kunnen hier personen aangewezen worden om de checklist uit te voeren</p>
         <div class="btn-group">
         <button type="button" 
@@ -167,17 +170,17 @@
             <div *ngIf="userSendMails">
               <hr>
               <p>Klik op de knop hieronder om mails te versturen naar iedereen van deze lijst die de scan nog niet heeft gemaakt</p>
-              <div class="alert alert-primary" role="alert">
-                Het is belangrijk om ten minste 1 checklist gebruiker aan te merken voor het versturen van de mails
-              </div>
+              
               <button type="button" style="margin:10px;padding:10px" class="btn btn-info">Mails versturen</button>
           </div><br><br>
           </div>
 
           <div class="text-center">
-          <div class="fa fa-user fa-2x" style="color:blue"></div> = vragenlijst&nbsp;&nbsp;&nbsp;<div class="fa fa-user-circle fa-2x" style="color:rgb(146, 9, 112)"></div> = Checkklistgebruiker<br><br></div>
+          <div class="fa fa-user fa-2x" style="color:blue"></div> = vragenlijst&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="fa fa-user-circle fa-2x" style="color:rgb(146, 9, 112)"></div> = Checklistgebruiker<br><br></div>
+          <br> <input [(ngModel)]="searchusersemail" [ngModelOptions]="{standalone: true}" type="text" class="form-control" (keyup)="updateFilter('usersemail',$event)" placeholder="Zoeken op email..">&nbsp;&nbsp;<br>
+
         <ngx-datatable *ngIf="loading == false" class="material" [rows]="groupListUsers" [columns]="columns"
-        [columnMode]="'force'" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
+        [columnMode]="'force'" [messages]="tableMessages" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
           <ngx-datatable-column name="Email" [sortable]="true">
             <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
               <span (click)="sort()" style="cursor:pointer">
@@ -400,7 +403,7 @@
   <div class="modal-body text-center">
     <p>Je staat op het punt om dit item te verwijderen</p>
     <p>Weet je het zeker?</p>
-    <button type="button" class="btn btn-default" (click)="sureModal('no')">Nee</button>&nbsp;&nbsp;
+    <button type="button" class="btn btn-default" (click)="sureModal('no')">Nee</button>&nbsp;&nbsp;&nbsp;&nbsp;
     <button type="button" class="btn btn-primary" (click)="sureModal('yes')">Ja</button>
   </div>
 </ng-template>
@@ -462,9 +465,9 @@
               </button>
             </div>
 
-
+            <input [(ngModel)]="adminname" [ngModelOptions]="{standalone: true}" type="text" class="form-control" (keyup)="updateFilter('adminname',$event)" placeholder="Zoeken op naam..">&nbsp;&nbsp;<br>
             <ngx-datatable class="material" [scrollbarH]="true" [rows]="manageRows" [columns]="columns"
-              [columnMode]="'force'" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
+              [columnMode]="'force'" [messages]="tableMessages" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
               <ngx-datatable-column name="Naam" prop="name" [sortable]="true">
 
                 <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
@@ -547,10 +550,10 @@
               </button>
             </div>
             <div *ngIf="!showScore">
-              <br><br>
+              <br>        <input [(ngModel)]="searchgroupname" [ngModelOptions]="{standalone: true}" type="text" class="form-control" (keyup)="updateFilter('groupname',$event)" placeholder="Zoeken..">&nbsp;&nbsp;<br>
              
               <ngx-datatable [scrollbarH]="true" class="material" [rows]="groupRows" [columns]="columns"
-                [columnMode]="'force'" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
+                [columnMode]="'force'" [messages]="tableMessages" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
                 <ngx-datatable-column name="Titel" [sortable]="true">
                   <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
                     <span (click)="sort()" style="cursor:pointer">
@@ -653,10 +656,10 @@
               
               <div class="container ">
                 <button type="button" (click)="showScore = false" class="btn btn-primary" data-toggle="modal">
-                  <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Terug naar Overzicht
-                </button>&nbsp;&nbsp;
+                  <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;&nbsp;Terug naar Overzicht
+                </button>&nbsp;&nbsp;&nbsp;&nbsp;
                 <button type="button" (click)="printResult()" class="btn btn-primary" data-toggle="modal">
-                  <i class="fa fa-print"></i>&nbsp;&nbsp;Print resultaat / Sla op als PDF
+                  <i class="fa fa-print"></i>&nbsp;&nbsp;&nbsp;&nbsp;Print resultaat / Sla op als PDF
                 </button>
                 <div class="myDivToPrint" id="myDivToPrint">
                 <br>
@@ -671,71 +674,71 @@
                       <td style="height: 23px; width: 15px;" colspan="4"></td>
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 15px;"  [style.background-color] = "iz1 > 4 ? 'green' : iz1 < 3.5 ? 'orange' : red">&nbsp;IZ&nbsp;&nbsp;<b>{{iz1}}</b><br>Ik zie</td>
-                      <td style="height: 23px; width: 10px;">&nbsp;IZ 1&nbsp;&nbsp;<b>{{iz1}}</b><br>Aansturen op veilig gedrag / voorbeeld gedrag management<br><br></td>
-                      <td style="height: 23px; width: 15px;">&nbsp;IZ 2&nbsp;&nbsp;<b>{{iz2}}</b><br>Toezicht & handhaving</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;IZ 3&nbsp;&nbsp;<b>{{iz3}}</b><br>Aanspreekcultuur</td>
+                      <td style="height: 23px; width: 15px;"  [style.background-color] = "iz1 > 4 ? 'green' : iz1 < 3.5 ? 'orange' : red">&nbsp;IZ&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iztot}}</b><br>Ik zie</td>
+                      <td style="height: 23px; width: 10px;">&nbsp;IZ 1&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iz1}}</b><br>Aansturen op veilig gedrag / voorbeeld gedrag management<br><br></td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IZ 2&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iz2}}</b><br>Toezicht & handhaving</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IZ 3&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iz3}}</b><br>Aanspreekcultuur</td>
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 15px;">&nbsp;IW&nbsp;&nbsp;<b>{{iw}}</b><br>Ik wil</td>
-                      <td style="height: 23px; width: 10px;">&nbsp;IW 1&nbsp;&nbsp;<b>{{iw1}}</b><br>Positieve houding t.a.v. veiligheid</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;IW 2&nbsp;&nbsp;<b>{{iw2}}</b><br>Regels volgen / respecteren</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;IW 3&nbsp;&nbsp;<b>{{iw3}}</b><br>Opleidingsbehoefte</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IW&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iwtot}}</b><br>Ik wil</td>
+                      <td style="height: 23px; width: 10px;">&nbsp;IW 1&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iw1}}</b><br>Positieve houding t.a.v. veiligheid</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IW 2&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iw2}}</b><br>Regels volgen / respecteren</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IW 3&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iw3}}</b><br>Opleidingsbehoefte</td>
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 15px;">&nbsp;IWE&nbsp;&nbsp;<b>{{iwe1}}</b><br>Ik weet</td>
-                      <td style="height: 23px; width: 10px;">&nbsp;IWE 1&nbsp;&nbsp;<b>{{iwe1}}</b><br>Vakkennis</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;IWE 2&nbsp;&nbsp;<b>{{iwe2}}</b><br>Kennis veiligheid algemen</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;IWE 3&nbsp;&nbsp;<b>{{iwe3}}</b><br>Veiligheidsbewustzijn</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;IWE 4&nbsp;&nbsp;<b>{{iwe4}}</b><br>Uitwisselen informatie</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IWE&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iwetot}}</b><br>Ik weet</td>
+                      <td style="height: 23px; width: 10px;">&nbsp;IWE 1&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iwe1}}</b><br>Vakkennis</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IWE 2&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iwe2}}</b><br>Kennis veiligheid algemen</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IWE 3&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iwe3}}</b><br>Veiligheidsbewustzijn</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IWE 4&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iwe4}}</b><br>Uitwisselen informatie</td>
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 15px;">&nbsp;IK&nbsp;&nbsp;<b>{{ik1}}</b><br>Ik kan</td>
-                      <td style="height: 23px; width: 10px;">&nbsp;IK 1&nbsp;&nbsp;<b>{{ik1}}</b><br>Vaardigheden</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;IK 2&nbsp;&nbsp;<b>{{ik2}}</b><br>Randvoorwaarden veilig werken</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;IK 3&nbsp;&nbsp;<b>{{iz3}}</b><br>Overleg veiligheid</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IK&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iktot}}</b><br>Ik kan</td>
+                      <td style="height: 23px; width: 10px;">&nbsp;IK 1&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ik1}}</b><br>Vaardigheden</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IK 2&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ik2}}</b><br>Randvoorwaarden veilig werken</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;IK 3&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iz3}}</b><br>Overleg veiligheid</td>
                     </tr>
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 15px;" colspan="3">Organisatie</td>
                       <td style="height: 23px; width: 15px;" colspan="4"></td>
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 15px;">&nbsp;CW&nbsp;&nbsp;<b>{{cw1}}</b><br>Compliance, wetgeving &amp; richtlijnen</td>
-                      <td style="height: 23px; width: 10px;">&nbsp;CW 1&nbsp;&nbsp;<b>{{cw1}}</b><br>Arbowet</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;CW 2&nbsp;&nbsp;<b>{{cw2}}</b><br>Moederorganisatie</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;CW 3&nbsp;&nbsp;<b>{{cw3}}</b><br>Andere relevante wetgeving</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;CW&nbsp;&nbsp;&nbsp;&nbsp;<b>{{cwtot}}</b><br>Compliance, wetgeving &amp; richtlijnen</td>
+                      <td style="height: 23px; width: 10px;">&nbsp;CW 1&nbsp;&nbsp;&nbsp;&nbsp;<b>{{cw1}}</b><br>Arbowet</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;CW 2&nbsp;&nbsp;&nbsp;&nbsp;<b>{{cw2}}</b><br>Moederorganisatie</td>
+                      <!-- <td style="height: 23px; width: 15px;">&nbsp;CW 3&nbsp;&nbsp;&nbsp;&nbsp;<b>{{cw3}}</b><br>Andere relevante wetgeving</td> -->
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 15px;">&nbsp;VB&nbsp;&nbsp;<b>{{vb1}}</b><br>Veiligheidsbeleid</td>
-                      <td style="height: 23px; width: 10px;">&nbsp;VB 1&nbsp;&nbsp;<b>{{vb1}}</b><br>Veiligheidsbeleid vastgelegd</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;VB 2&nbsp;&nbsp;<b>{{vb2}}</b><br>Veiligheidsbeleid vertaald in functieomschrijving</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;VB 3&nbsp;&nbsp;<b>{{vb3}}</b><br>Veiligheidsbeleid bekend &amp; beschikbaar</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;VB&nbsp;&nbsp;&nbsp;&nbsp;<b>{{vbtot}}</b><br>Veiligheidsbeleid</td>
+                      <td style="height: 23px; width: 10px;">&nbsp;VB 1&nbsp;&nbsp;&nbsp;&nbsp;<b>{{vb1}}</b><br>Veiligheidsbeleid vastgelegd</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;VB 2&nbsp;&nbsp;&nbsp;&nbsp;<b>{{vb2}}</b><br>Veiligheidsbeleid vertaald in functieomschrijving</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;VB 3&nbsp;&nbsp;&nbsp;&nbsp;<b>{{vb3}}</b><br>Veiligheidsbeleid bekend &amp; beschikbaar</td>
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 15px;">&nbsp;OPL&nbsp;&nbsp;<b>{{opl1}}</b><br>Opleiding</td>
-                      <td style="height: 23px; width: 10px;">&nbsp;OPL 1&nbsp;&nbsp;<b>{{opl1}}</b><br>Eisen vastgelegd</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;OPL 2&nbsp;&nbsp;<b>{{opl2}}</b><br>Opleidingsplan</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;OPL 3&nbsp;&nbsp;<b>{{opl3}}</b><br>Registratie</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;OPL&nbsp;&nbsp;&nbsp;&nbsp;<b>{{opltot}}</b><br>Opleiding</td>
+                      <td style="height: 23px; width: 10px;">&nbsp;OPL 1&nbsp;&nbsp;&nbsp;&nbsp;<b>{{opl1}}</b><br>Eisen vastgelegd</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;OPL 2&nbsp;&nbsp;&nbsp;&nbsp;<b>{{opl2}}</b><br>Opleidingsplan</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;OPL 3&nbsp;&nbsp;&nbsp;&nbsp;<b>{{opl3}}</b><br>Registratie</td>
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 101px;">&nbsp;Proces&nbsp;&nbsp;<b>{{pro1}}</b><br>Beheersing werkzaamheden, beheer &amp; onderhoud</td>
-                      <td style="height: 23px; width: 10px;">&nbsp;PRO 1&nbsp;&nbsp;<b>{{pro1}}</b><br>Procedures uitvoeren gevaarlijke werkzaamheden</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;PRO 2&nbsp;&nbsp;<b>{{pro2}}</b><br>Procedures omgaan met gevaarlijke materialen</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;PRO 3&nbsp;&nbsp;<b>{{pro3}}</b><br>Procedures onderhoud van installaties &amp; uitrusting t.v.b. de veiligheid</td>
+                      <td style="height: 23px; width: 101px;">&nbsp;Proces&nbsp;&nbsp;&nbsp;&nbsp;<b>{{protot}}</b><br>Beheersing werkzaamheden, beheer &amp; onderhoud</td>
+                      <td style="height: 23px; width: 10px;">&nbsp;PRO 1&nbsp;&nbsp;&nbsp;&nbsp;<b>{{pro1}}</b><br>Procedures uitvoeren gevaarlijke werkzaamheden</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;PRO 2&nbsp;&nbsp;&nbsp;&nbsp;<b>{{pro2}}</b><br>Procedures omgaan met gevaarlijke materialen</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;PRO 3&nbsp;&nbsp;&nbsp;&nbsp;<b>{{pro3}}</b><br>Procedures onderhoud van installaties &amp; uitrusting t.v.b. de veiligheid</td>
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 101px;">&nbsp;Communicatie&nbsp;&nbsp;<b>{{com1}}</b><br>Communicatiestructuren</td>
-                      <td style="height: 23px; width: 10px;">&nbsp;COM 1&nbsp;&nbsp;<b>{{com1}</b><br>Formeel overleg management/werkvloer</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;COM 2&nbsp;&nbsp;<b>{{com2}}</b><br>Werknemers betrokken bij risicobeoordeling &amp;onderzoek incidenten</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;COM 3&nbsp;&nbsp;<b>{{com3}}</b><br></td>
+                      <td style="height: 23px; width: 101px;">&nbsp;Communicatie&nbsp;&nbsp;&nbsp;&nbsp;<b>{{comtot}}</b><br>Communicatiestructuren</td>
+                      <td style="height: 23px; width: 10px;">&nbsp;COM 1&nbsp;&nbsp;&nbsp;&nbsp;<b>{{com1}}</b><br>Formeel overleg management/werkvloer</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;COM 2&nbsp;&nbsp;&nbsp;&nbsp;<b>{{com2}}</b><br>Werknemers betrokken bij risicobeoordeling &amp;onderzoek incidenten</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;COM 3&nbsp;&nbsp;&nbsp;&nbsp;<b>{{com3}}</b><br>Communicatie veiligheidsprestaties</td>
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 101px;">&nbsp;Borging&nbsp;&nbsp;<b>{{bor1}}</b><br>Meter, monitoren, bijstellen &amp; borgen</td>
-                      <td style="height: 23px; width: 10px;">&nbsp;BOR 1&nbsp;&nbsp;<b>{{bor1}}</b><br>Procedure beheer van documenten, inclusief Verant. &amp; Bevoegdh.</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;BOR 2&nbsp;&nbsp;<b>{{bor2}}</b><br>Evaluatie procedures</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;BOR 3&nbsp;&nbsp;<b>{{bor3}}</b><br>Lijsten met 'kritieke apparatuur'</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;BOR 4&nbsp;&nbsp;<b>{{bor4}}</b><br>Een auditplan/<br>programma</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;BOR 5&nbsp;&nbsp;<b>{{bor5}}</b><br>Afgetekende, afgehandelde rapporten over afwijkingen</td>
+                      <td style="height: 23px; width: 101px;">&nbsp;Borging&nbsp;&nbsp;&nbsp;&nbsp;<b>{{bortot}}</b><br>Meter, monitoren, bijstellen &amp; borgen</td>
+                      <td style="height: 23px; width: 10px;">&nbsp;BOR 1&nbsp;&nbsp;&nbsp;&nbsp;<b>{{bor1}}</b><br>Procedure beheer van documenten, inclusief Verant. &amp; Bevoegdh.</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;BOR 2&nbsp;&nbsp;&nbsp;&nbsp;<b>{{bor2}}</b><br>Evaluatie procedures</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;BOR 3&nbsp;&nbsp;&nbsp;&nbsp;<b>{{bor3}}</b><br>Lijsten met 'kritieke apparatuur'</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;BOR 4&nbsp;&nbsp;&nbsp;&nbsp;<b>{{bor4}}</b><br>Een auditplan/<br>programma</td>
+                      <td style="height: 23px; width: 15px;">&nbsp;BOR 5&nbsp;&nbsp;&nbsp;&nbsp;<b>{{bor5}}</b><br>Afgetekende, afgehandelde rapporten over afwijkingen</td>
                     </tr>
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 15px;" colspan="3"></td>
@@ -743,32 +746,32 @@
                     </tr>
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 101px;">&nbsp;Smoezen</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;SMOE1&nbsp;&nbsp;<b>{{smoe1}}</b></td>
+                      <td style="height: 23px; width: 15px;">&nbsp;SMOE1&nbsp;&nbsp;&nbsp;&nbsp;<b>{{smoe1}}</b></td>
                       <td style="height: 23px; width: 250px;" colspan="4">In ons bedrijf hebben we geen tijd voor veiligheid&nbsp;</td>
                     </tr>
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 101px;">&nbsp;</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;SMOE2&nbsp;&nbsp;<b>{{smoe2}}</b></td>
+                      <td style="height: 23px; width: 15px;">&nbsp;SMOE2&nbsp;&nbsp;&nbsp;&nbsp;<b>{{smoe2}}</b></td>
                       <td style="height: 23px; width: 250px;" colspan="4">Ik ga er van uit dat mij niets overkomt op mijn werk&nbsp;</td>
                     </tr>
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 101px;">&nbsp;</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;SMOE3&nbsp;&nbsp;<b>{{smoe3}}</b></td>
+                      <td style="height: 23px; width: 15px;">&nbsp;SMOE3&nbsp;&nbsp;&nbsp;&nbsp;<b>{{smoe3}}</b></td>
                       <td style="height: 23px; width: 250px;" colspan="4">Voor mij is productie belangrijker dan veiligheid&nbsp;</td>
                     </tr>
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 101px;">&nbsp;</td>
-                      <td style="height: 23px; width: 15px;">&nbsp;SMOE4&nbsp;&nbsp;<b>{{smoe4}}</b></td>
+                      <td style="height: 23px; width: 15px;">&nbsp;SMOE4&nbsp;&nbsp;&nbsp;&nbsp;<b>{{smoe4}}</b></td>
                       <td style="height: 23px; width: 250px;" colspan="4">Niemand werkt echt veilig bij ons&nbsp;</td>
                     </tr>
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 101px;">&nbsp;</td>
-                      <td style="height: 23px;">&nbsp;SMOE5&nbsp;&nbsp;<b>{{smoe5}}</b></td>
+                      <td style="height: 23px; width: 15px;">&nbsp;SMOE5&nbsp;&nbsp;&nbsp;&nbsp;<b>{{smoe5}}</b></td>
                       <td style="height: 23px; width: 250px;" colspan="4">Ik weet wat van mij verwacht wordt rondom veilig werken&nbsp;</td>
                     </tr>
                     <tr style="height: 23px;">
                       <td style="height: 23px; width: 101px;">&nbsp;</td>
-                      <td style="height: 23px;">&nbsp;SMOE6&nbsp;&nbsp;<b>{{smoe6}}</b></td>
+                      <td style="height: 23px; width: 15px;">&nbsp;SMOE6&nbsp;&nbsp;&nbsp;&nbsp;<b>{{smoe6}}</b></td>
                       <td style="height: 23px; width: 250px;" colspan="4">Als ik niet veilig kan werken, werk ik niet&nbsp;</td>
                     </tr>
                   </tbody>

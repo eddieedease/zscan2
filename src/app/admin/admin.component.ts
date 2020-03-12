@@ -1,6 +1,7 @@
 import {
   Component,
-  OnInit
+  OnInit,
+  ViewChild
 } from '@angular/core';
 import {
   Router
@@ -16,6 +17,9 @@ import {
   TabDirective
 } from 'ngx-bootstrap/tabs';
 
+import {
+  DatatableComponent
+} from '@swimlane/ngx-datatable';
 
 import {
   environment
@@ -33,9 +37,11 @@ declare var $: any;
 
 export class AdminComponent implements OnInit {
 
-
-    // reference to this
-    thisRef;
+  @ViewChild(DatatableComponent, {
+    static: false
+  }) table: DatatableComponent;
+  // reference to this
+  thisRef;
   // logging var
   adminLogged = false;
   // error message view
@@ -88,18 +94,17 @@ export class AdminComponent implements OnInit {
     // { name: 'Molly', gender: 'Female', company: 'Burger King' },
   ];
   tempgroupRows = [];
-
   groupListUsers = [];
   tempgroupListUsers = [];
-
   allGroupRows = [];
   tempallGroupRows = [];
-
-
   manageRows = [];
   tempmanageRows = [];
   userRows = [];
   tempuserRows = [];
+
+
+
 
 
 
@@ -208,6 +213,23 @@ export class AdminComponent implements OnInit {
 
 
   fileHolder = null;
+
+
+  tableMessages = {
+    emptyMessage: `
+      <div>
+        <span class="classname">Geen resultaten gevonden</span>
+      </div>
+    `
+  };
+
+
+  // search vars
+  searchgroupname = '';
+  searchusersemail = '';
+  searchadminname = '';
+  searchadminemail = '';
+  searchadminstogroup = '';
   // columns = [
   //   { prop: 'name' },
   //   { name: 'Gender' },
@@ -243,6 +265,75 @@ export class AdminComponent implements OnInit {
 
 
 
+  }
+
+  // tempgroupRows = [];
+  // groupListUsers = [];
+  // tempgroupListUsers = [];
+  // allGroupRows = [];
+  // tempallGroupRows = [];
+  // manageRows = [];
+  // tempmanageRows = [];
+  // userRows = [];
+  // tempuserRows = [];
+
+
+  // searchgroupname = '';
+  // searchusersemail = '';
+  // searchadminname = '';
+  // searchadminemail = '';
+
+  // Functionality for the searching filter in the tables
+  updateFilter(_type, event) {
+    this.serCred.debugLog(event);
+    const val = event.target.value.toLowerCase();
+    // lets switch it up ;)
+    // in what table are we searching
+    switch (_type) {
+      case 'groupname':
+        // filter our data
+        const temp = this.tempgroupRows.filter(function (d) {
+          return d.name.toLowerCase().indexOf(val) !== -1 || !val;
+        });
+        // update the rows
+        this.groupRows = temp;
+        break;
+      case 'usersemail':
+        // filter our data
+        const temp1 = this.tempgroupListUsers.filter(function (d) {
+          return d.email.toLowerCase().indexOf(val) !== -1 || !val;
+        });
+        // update the rows
+        this.groupListUsers = temp1;
+        break;
+      case 'adminname':
+        // filter our data
+        const temp3 = this.tempmanageRows.filter(function (d) {
+          return d.name.toLowerCase().indexOf(val) !== -1 || !val;
+        });
+        // update the rows
+        this.manageRows = temp3;
+        break;
+      case 'adminemail':
+        // filter our data
+        const temp4 = this.tempmanageRows.filter(function (d) {
+          return d.email.toLowerCase().indexOf(val) !== -1 || !val;
+        });
+        // update the rows
+        this.manageRows = temp4;
+        break;
+      case 'admintogroups':
+        // filter our data
+        const temp5 = this.tempallGroupRows.filter(function (d) {
+          return d.name.toLowerCase().indexOf(val) !== -1 || !val;
+        });
+        // update the rows
+        this.allGroupRows = temp5;
+        break;
+
+    }
+    // Whenever the filter changes, always go back to the first page
+    this.table.offset = 0;
   }
 
 
@@ -285,6 +376,7 @@ export class AdminComponent implements OnInit {
   gotAusers(_resp) {
     this.serCred.debugLog(_resp);
     this.manageRows = _resp;
+    this.tempmanageRows = [..._resp];
   }
 
   showResult(_id) {
@@ -445,7 +537,7 @@ export class AdminComponent implements OnInit {
     this.smoe2 = smoe2;
     smoe3 = smoe3 / this.howManySendQuestions;
     smoe3 = Math.round(smoe3 * 100) / 100;
-    this.iz1 = smoe3;
+    this.smoe3 = smoe3;
     smoe4 = smoe4 / this.howManySendQuestions;
     smoe4 = Math.round(smoe4 * 100) / 100;
     this.smoe4 = smoe4;
@@ -468,29 +560,28 @@ export class AdminComponent implements OnInit {
     // Loop through checklist
     for (let index = 0; index < _val['checklists'].length; index++) {
 
-      cw1 = cw1 + parseFloat(_val['checklists'][index].IZ1);
-      cw2 = cw2 + parseFloat(_val['checklists'][index].IZ1);
-      cw3 = cw3 + parseFloat(_val['checklists'][index].IZ1);
-      vb1 = vb1 + parseFloat(_val['checklists'][index].IZ1);
-      vb2 = vb2 + parseFloat(_val['checklists'][index].IZ1);
-      vb3 = vb3 + parseFloat(_val['checklists'][index].IZ1);
-      opl1 = opl1 + parseFloat(_val['checklists'][index].IZ1);
-      opl2 = opl2 + parseFloat(_val['checklists'][index].IZ1);
-      opl3 = opl3 + parseFloat(_val['checklists'][index].IZ1);
-      pro1 = pro1 + parseFloat(_val['checklists'][index].IZ1);
-      pro2 = pro2 + parseFloat(_val['checklists'][index].IZ1);
-      pro3 = pro3 + parseFloat(_val['checklists'][index].IZ1);
-      com1 = com1 + parseFloat(_val['checklists'][index].IZ1);
-      com2 = com2 + parseFloat(_val['checklists'][index].IZ1);
-      com3 = com3 + parseFloat(_val['checklists'][index].IZ1);
-      bor1 = bor1 + parseFloat(_val['checklists'][index].IZ1);
-      bor2 = bor2 + parseFloat(_val['checklists'][index].IZ1);
-      bor3 = bor3 + parseFloat(_val['checklists'][index].IZ1);
-      bor4 = bor4 + parseFloat(_val['checklists'][index].IZ1);
-      bor5 = bor5 + parseFloat(_val['checklists'][index].IZ1);
+      cw1 = cw1 + parseFloat(_val['checklists'][index].CW1);
+      cw2 = cw2 + parseFloat(_val['checklists'][index].CW2);
+      vb1 = vb1 + parseFloat(_val['checklists'][index].VB1);
+      vb2 = vb2 + parseFloat(_val['checklists'][index].VB2);
+      vb3 = vb3 + parseFloat(_val['checklists'][index].VB3);
+      opl1 = opl1 + parseFloat(_val['checklists'][index].OPL1);
+      opl2 = opl2 + parseFloat(_val['checklists'][index].OPL2);
+      opl3 = opl3 + parseFloat(_val['checklists'][index].OPL3);
+      pro1 = pro1 + parseFloat(_val['checklists'][index].PRO1);
+      pro2 = pro2 + parseFloat(_val['checklists'][index].PRO2);
+      pro3 = pro3 + parseFloat(_val['checklists'][index].PRO3);
+      com1 = com1 + parseFloat(_val['checklists'][index].COM1);
+      com2 = com2 + parseFloat(_val['checklists'][index].COM2);
+      com3 = com3 + parseFloat(_val['checklists'][index].COM3);
+      bor1 = bor1 + parseFloat(_val['checklists'][index].BOR1);
+      bor2 = bor2 + parseFloat(_val['checklists'][index].BOR2);
+      bor3 = bor3 + parseFloat(_val['checklists'][index].BOR3);
+      bor4 = bor4 + parseFloat(_val['checklists'][index].BOR4);
+      bor5 = bor5 + parseFloat(_val['checklists'][index].BOR5);
     }
 
-// Now calculate the average, round up on 2 dec
+    // Now calculate the average, round up on 2 dec
     cw1 = cw1 / this.howManySendChecklist;
     cw1 = Math.round(cw1 * 100) / 100;
     this.cw1 = cw1;
@@ -555,7 +646,7 @@ export class AdminComponent implements OnInit {
 
 
     // TODO: Maybe we must put a check here to see if nothing is '0'. Cause that means nothing is filled in
-    
+
 
 
 
@@ -638,6 +729,7 @@ export class AdminComponent implements OnInit {
     this.serCred.debugLog(_resp);
     this.groupListUsers = [];
     this.groupListUsers = _resp;
+    this.tempgroupListUsers = [..._resp];
     this.loading = false;
   }
 
@@ -679,6 +771,7 @@ export class AdminComponent implements OnInit {
     });
 
     this.groupRows = _val;
+    this.tempgroupRows = [..._val];
     this.groupRows.reverse();
     this.loading = false;
   }
@@ -889,6 +982,8 @@ export class AdminComponent implements OnInit {
     this.allGroupRows = [];
     this.allGroupRows = _resp.groups;
 
+    this.tempallGroupRows = [..._resp.groups];
+
     this.allGroupRows.forEach(grouprow => {
       grouprow.ingroup = false;
       for (let index = 0; index < _resp.usertogroups.length; index++) {
@@ -914,22 +1009,41 @@ export class AdminComponent implements OnInit {
     this.toastr.success('Groep gewijzigd', '');
     /////////////////////////
     this.serCred.API_getgroups(this.admnId).subscribe(value => this.gotGroups(value));
-  } 
+  }
 
 
-  changeUserType(_userid, _userfilled, _usertype){
+  changeUserType(_userid, _userfilled, _usertype) {
     this.serCred.debugLog(_usertype);
-    if (_userfilled === '1'){
+    if (_userfilled === '1') {
       this.toastr.warning('Formulier is al ingevuld, kan type niet meer veranderen', '');
     } else {
-      this.loading = true;
+
+
+      let morethan1 = false;
+
+      // TODO: here the logic for cathing one
+      if (_usertype === 2) {
+
+        this.groupListUsers.forEach(element => {
+          if (element['type'] == '2') {
+            morethan1 = true;
+          }
+        });
+      }
+
+      if (!morethan1) {
+        this.loading = true;
+        this.serCred.API_editusertype(_userid, _usertype).subscribe(value => this.userTypeChanged(value));
+      } else {
+
+        this.toastr.warning('Er mag maar 1 checklist gebruiker aan de groep gekoppeld zitten, haal deze weg bij de andere persoon', '');
+      }
       // do change
-      this.serCred.API_editusertype(_userid, _usertype).subscribe(value => this.userTypeChanged(value));
     }
   }
 
 
-  userTypeChanged(_resp){
+  userTypeChanged(_resp) {
     this.serCred.debugLog(_resp);
     this.loading = false;
     this.serCred.API_getgrouplist(this.currentGroupID).subscribe(value => this.gotGroupList(value));

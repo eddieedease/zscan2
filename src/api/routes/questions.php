@@ -19,6 +19,7 @@ $app->get('/formsubmit/{groupid}/{userid}/{IZ1}/{IZ2}/{IZ3}/{IW1}/{IW2}/{IW3}/{I
 
     $IW1 = $request->getAttribute('IW1');
     $IW2 = $request->getAttribute('IW2');
+    $IW3 = $request->getAttribute('IW3');
 
     $IWE1 = $request->getAttribute('IWE1');
     $IWE2 = $request->getAttribute('IWE2');

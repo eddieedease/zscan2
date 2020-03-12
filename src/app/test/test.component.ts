@@ -402,6 +402,16 @@ export class TestComponent implements OnInit {
         // tslint:disable-next-line:max-line-length
         if (this.questionArray[index].answer !== null && this.questionArray[index].answer !== undefined && this.questionArray[index].answer !== '') {
           console.log(this.questionArray[index].answer);
+
+          // catch the CW1 situation
+          switch (this.questionArray[index].CW1) {
+            case 'true':
+              this.CW1 = this.CW1 + this.questionArray[index].answer;
+              break;
+            case 'false':
+              break;
+          }
+
           switch (this.questionArray[index].type) {
             case 'CW1':
               this.CW1 = this.CW1 + this.questionArray[index].answer;
