@@ -1,7 +1,8 @@
 import {
   Component,
   OnInit,
-  ViewChild
+  ViewChild,
+  TemplateRef
 } from '@angular/core';
 import {
   Router
@@ -12,6 +13,13 @@ import {
 import {
   EdserService
 } from '../edser.service';
+
+import {
+  BsModalService
+} from 'ngx-bootstrap/modal';
+import {
+  BsModalRef
+} from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 import {
   TabDirective
@@ -42,6 +50,14 @@ export class AdminComponent implements OnInit {
   }) table: DatatableComponent;
   // reference to this
   thisRef;
+
+
+
+
+   // modalRef
+   modalRef: BsModalRef;
+
+
   // logging var
   adminLogged = false;
   // error message view
@@ -236,7 +252,11 @@ export class AdminComponent implements OnInit {
   //   { name: 'Company' }
   // ];
 
-  constructor(private thisrouter: Router, private serCred: EdserService, private toastr: ToastrService) {
+  // deleting vars
+  currentCase = '';
+  currentId = '';
+
+  constructor(private thisrouter: Router, private serCred: EdserService, private toastr: ToastrService, private modalService: BsModalService) {
 
   }
 
@@ -1116,5 +1136,24 @@ export class AdminComponent implements OnInit {
     location.reload();
   }
 
+
+  // Deleting the
+  openSureModal(template: TemplateRef < any > , _case, _id){
+    this.modalRef = this.modalService.show(template);
+    //this.currentUserId = _id;
+  }
+
+  sureModal(_case) {
+    // TODO: Delete user
+    switch (_case) {
+      case 'yes':
+        this.loading = true;
+        // this.serCred.API_deleteuser(this.currentUserId).subscribe(value => this.userDeleted(value));
+        break;
+        case 'no':
+          this.modalRef.hide();
+          break;
+    };
+  };
 
 }
