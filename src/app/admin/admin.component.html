@@ -71,9 +71,7 @@
         <p>Hier kunnen admins aan groepen worden gehangen</p>
         <p>Als een admin (niet Superadmin) een nieuwe groep aanmaakt, wordt deze automatisch aan zijn/haar hieraan toegevoegd.
         </p>
-        <div class="alert alert-primary" role="alert">
-          Er moet 1 checklist gebruiker gekoppeld zijn aan een groep. Meerdere is niet mogelijk.
-        </div>
+        
         <br>
         <input [(ngModel)]="searchadminstogroup" [ngModelOptions]="{standalone: true}" type="text" class="form-control" (keyup)="updateFilter('admintogroups',$event)" placeholder="Zoeken..">&nbsp;&nbsp;<br>
         <ngx-datatable *ngIf="loading == false" class="material" [rows]="allGroupRows" [columns]="columns"
@@ -606,7 +604,7 @@
                       aria-label="Basic example">
                       <button (click)="showGroupList(row.id)" type="button" style="color: white" class="btn btn-primary"
                         data-toggle="modal" data-target=".modal-grouplist">
-                        <i class="fa fa-list"></i> Groeplijst
+                        <i class="fa fa-list"></i> Groepslijst
                       </button>
                       <button (click)="showEdit(row.id)" type="button" style="color: white" class="btn btn-info"
                         data-toggle="modal" data-target=".modal-edit">

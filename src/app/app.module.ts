@@ -17,7 +17,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AppComponent } from './app.component';
 import { TestComponent } from './test/test.component';
 import { AboutComponent } from './about/about.component';
-
+import { ModalModule } from 'ngx-bootstrap/modal';
 // import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
@@ -66,6 +66,7 @@ const appRoutes: Routes = [
     BrowserModule,
     HttpModule,
     JsonpModule,
+    ModalModule.forRoot(),
     FormsModule,
     BrowserAnimationsModule, // required animations module
     NgxPaginationModule,
