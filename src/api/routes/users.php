@@ -122,25 +122,7 @@ $app->post('/usersbatchimporttogroup/{grouplink}', function (Request $request, R
 
 
 
-// TODO: Delete specifc user 
-$app->get('/deleteuser/{userid}', function (Request $request, Response $response) {
-    $userid = $request->getAttribute('userid');
 
-    include 'db.php';
-    $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
-
-    $sqlgetdeleteusr =  "DELETE FROM users WHERE id = $userid";
-    $stmtgetdeleteusr = $dbh->prepare($sqlgetdeleteusr);
-    $stmtgetdeleteusr->execute();
-    $resultgetdeleteusr = $stmtgetdeleteusr->fetchAll(PDO::FETCH_ASSOC);
-
-    $cb = array('status' => 'success');
-
-    //     convert it all to jSON TODO change result
-    $response = json_encode($cb);
-    return $response;
-}
-);
 
 // Get Ausers
 $app->get('/getausers', function (Request $request, Response $response) {
@@ -158,29 +140,6 @@ $app->get('/getausers', function (Request $request, Response $response) {
     return $response;
 }
 );
-
-
-
-// TODO: Delete specifc user 
-$app->get('/deleteauser/{userid}', function (Request $request, Response $response) {
-    $userid = $request->getAttribute('userid');
-
-    include 'db.php';
-    $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
-
-    $sqlgetdeleteusr =  "DELETE FROM ausers WHERE id = $userid";
-    $stmtgetdeleteusr = $dbh->prepare($sqlgetdeleteusr);
-    $stmtgetdeleteusr->execute();
-    $resultgetdeleteusr = $stmtgetdeleteusr->fetchAll(PDO::FETCH_ASSOC);
-
-    $cb = array('status' => 'success');
-
-    //     convert it all to jSON TODO change result
-    $response = json_encode($cb);
-    return $response;
-}
-);
-
 
 
 

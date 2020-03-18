@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  apilink: 'http://localhost/zscan/src/api/'
+  apilink: 'http://localhost/zscan2/src/api/'
 };

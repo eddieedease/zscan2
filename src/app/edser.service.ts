@@ -557,24 +557,8 @@ export class EdserService {
   }
 
 
-  API_deleteuser(_userid): Observable < any > {
-    const url = environment.apilink + 'deleteuser/' + _userid + new Date().getTime();
-    // tslint:disable-next-line:prefer-const
-    const headers = new Headers({
-      'Content-Type': 'application/json'
-    });
-    const options = new RequestOptions({
-      headers: headers
-    });
-    // tslint:disable-next-line:max-line-length
-    return this.http_.get(url, options)
-      .throttleTime(5000)
-      .map(res => res.json());
-  }
-
-
-  API_deleteauser(_userid): Observable < any > {
-    const url = environment.apilink + 'deleteauser/' + _userid + new Date().getTime();
+  API_deleteIdtem(_case, _userid): Observable < any > {
+    const url = environment.apilink + 'deleteitem/' + _case   + '/' + _userid + new Date().getTime();
     // tslint:disable-next-line:prefer-const
     const headers = new Headers({
       'Content-Type': 'application/json'

@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
 
 
   alreadyFilled = false;
+  formClosed = false;
 
   constructor(private thisrouter: Router, private activeRoute: ActivatedRoute, private serCred: EdserService) {
     // we check if there are any userid + key attached to url. Ifso, make API call to check and log in automatically
@@ -61,7 +62,7 @@ export class LoginComponent implements OnInit {
   }
 
   gotLogin(_val) {
-    this.serCred.debugLog(_val.user);
+    this.serCred.debugLog(_val);
     this.loading = false;
 
 
@@ -79,9 +80,13 @@ export class LoginComponent implements OnInit {
         this.thisrouter.navigate(['/', 'vragenlijst']);
       }
 
-    } else {
+    } else if (_val.status === 'alreadyfilled') {
       // communicate that the form is already filled in
       this.alreadyFilled = true;
+    } else if (_val.status === 'formclosed') {
+      this.formClosed = true;
+    } else {
+      
     }
   }
 

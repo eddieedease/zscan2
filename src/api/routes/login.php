@@ -18,6 +18,10 @@ $app->get('/login/{userid}/{keyy}', function (Request $request, Response $respon
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
 
 
+    
+
+
+
     // first check type, normal or checklist user. 2 different tables query
     // 2 check key
     // 3 Give back type, userID, groupID
@@ -29,12 +33,32 @@ $app->get('/login/{userid}/{keyy}', function (Request $request, Response $respon
     $resultgetuser = $stmtgetuser->fetchAll(PDO::FETCH_ASSOC);
 
     $keymatch = $resultgetuser[0][unlockkey];
+    $grouplink = $resultgetuser[0][grouplink];
+
+
+
+
+
+
+
 
     if ($keyy === $keymatch){
         // right key acces granted
 
+        
+        // Is this users group still active?
+        $sqlgetactive = "SELECT id, status, made FROM groups WHERE id = $grouplink";
+        $stmtgetactive = $dbh->prepare($sqlgetactive);
+        $stmtgetactive->execute();
+        $resultgetactive = $stmtgetactive->fetchAll(PDO::FETCH_ASSOC);
+
+        $isActive = $resultgetactive[0][status];
+
+
         if ($resultgetuser[0][filled] == 1){
-            $data = array('status' => 'already filled');
+            $data = array('status' => 'alreadyfilled');
+        } elseif ($isActive == 0) {
+            $data = array('status' => 'formclosed');
         } else {
             $data = array('status' => 'success', 'user' => $resultgetuser);
         }

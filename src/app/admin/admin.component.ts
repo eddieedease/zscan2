@@ -254,7 +254,7 @@ export class AdminComponent implements OnInit {
 
   // deleting vars
   currentCase = '';
-  currentId = '';
+  currentId;
 
   constructor(private thisrouter: Router, private serCred: EdserService, private toastr: ToastrService, private modalService: BsModalService) {
 
@@ -1141,19 +1141,31 @@ export class AdminComponent implements OnInit {
   openSureModal(template: TemplateRef < any > , _case, _id){
     this.modalRef = this.modalService.show(template);
     //this.currentUserId = _id;
+
+    this.currentCase = _case;
+    this.currentId = _id;
   }
 
-  sureModal(_case) {
+  sureModal(_yesno) {
     // TODO: Delete user
-    switch (_case) {
+    switch (_yesno) {
       case 'yes':
         this.loading = true;
-        // this.serCred.API_deleteuser(this.currentUserId).subscribe(value => this.userDeleted(value));
+        this.serCred.API_deleteIdtem(this.currentCase, this.currentId).subscribe(value => this.itemDeleted(value, this.currentCase));
         break;
         case 'no':
           this.modalRef.hide();
           break;
     };
   };
+
+  // TODO: handle deleting
+  itemDeleted(_resp, _case){
+    switch (this.currentCase) {
+      case 'case1':
+        
+        break;
+    }
+  }
 
 }
