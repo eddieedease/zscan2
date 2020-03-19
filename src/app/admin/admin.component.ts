@@ -54,8 +54,8 @@ export class AdminComponent implements OnInit {
 
 
 
-   // modalRef
-   modalRef: BsModalRef;
+  // modalRef
+  modalRef: BsModalRef;
 
 
   // logging var
@@ -1138,7 +1138,7 @@ export class AdminComponent implements OnInit {
 
 
   // Deleting the
-  openSureModal(template: TemplateRef < any > , _case, _id){
+  openSureModal(template: TemplateRef < any > , _case, _id) {
     this.modalRef = this.modalService.show(template);
     //this.currentUserId = _id;
 
@@ -1151,21 +1151,30 @@ export class AdminComponent implements OnInit {
     switch (_yesno) {
       case 'yes':
         this.loading = true;
-        this.serCred.API_deleteIdtem(this.currentCase, this.currentId).subscribe(value => this.itemDeleted(value, this.currentCase));
+        this.serCred.API_deleteItem(this.currentCase, this.currentId).subscribe(value => this.itemDeleted(value, this.currentCase));
         break;
-        case 'no':
-          this.modalRef.hide();
-          break;
+      case 'no':
+        this.modalRef.hide();
+        break;
     };
   };
 
   // TODO: handle deleting
-  itemDeleted(_resp, _case){
+  itemDeleted(_resp, _case) {
+    this.serCred.debugLog(_resp);
+    this.modalRef.hide();
     switch (this.currentCase) {
-      case 'case1':
-        
+      case 'deletegroup':
+        this.serCred.API_getgroups(this.admnId).subscribe(value => this.gotGroups(value));
+        break;
+      case 'deleteadmin':
+        this.serCred.API_getausers().subscribe(value => this.gotAusers(value));
+        break;
+      case 'deletegroupuser':
+        this.serCred.API_getgrouplist(this.currentGroupID).subscribe(value => this.gotGroupList(value));
         break;
     }
+    this.loading = false;
   }
 
 }

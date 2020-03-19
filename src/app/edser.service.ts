@@ -557,8 +557,9 @@ export class EdserService {
   }
 
 
-  API_deleteIdtem(_case, _userid): Observable < any > {
-    const url = environment.apilink + 'deleteitem/' + _case   + '/' + _userid + new Date().getTime();
+  API_deleteItem(_case, _userid): Observable < any > {
+    const url = environment.apilink + 'deleteitem/' + _case  + '/' + _userid + '?rnd=' + new Date().getTime();
+    console.log(url);
     // tslint:disable-next-line:prefer-const
     const headers = new Headers({
       'Content-Type': 'application/json'

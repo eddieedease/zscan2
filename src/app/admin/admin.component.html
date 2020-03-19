@@ -219,9 +219,9 @@
             </ng-template>
           </ngx-datatable-column>
 
-          <ngx-datatable-column name="Verwijder resultaat">
+          <ngx-datatable-column name="Verwijder persoon van groep">
             <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-              <button type="button" (click)="groupCourseHandler('rem',row['id'])"
+              <button type="button" (click)="openSureModal(areusure, 'deletegroupuser', row['id'])"
                   class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
               <!-- <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                           <button type="button" *ngIf="!row['ingroup']"
@@ -259,7 +259,11 @@
               id="group_name_edit">
           </div>
         </form>
-        <p><b>TODO: </b> Maak verwijderen groepen mogelijk, met eerst 'weet je het zeker' bericht</p>
+        
+
+        <br><br>
+        <p><b>LET OP: </b> Via onderstaande knop kun je de groep verwijderen, hiermee zal alle data van deze groep verloren gaan.</p>
+        <button (click)="openSureModal(areusure, 'deletegroup', currentGroupID)" type="button" class="btn btn-danger" data-dismiss="modal">Verwijder</button>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
@@ -397,7 +401,6 @@
 
 
 <ng-template #areusure>
-  <!-- (click)="openSureModal(areusure,'deletecourse',row.id) -->
   <div class="modal-body text-center">
     <p>Je staat op het punt om dit item te verwijderen</p>
     <p>Weet je het zeker?</p>
@@ -492,7 +495,7 @@
                       data-toggle="modal" data-target=".modal-useredit">
                       <i class="fa fa-edit"></i>
                     </button><br>
-                    <button (click)="openDeleteModal('auser', row.id)" type="button" style="color: white" class="btn btn-danger">
+                    <button (click)="openSureModal(areusure, 'deleteadmin', row['id'])" type="button" style="color: white" class="btn btn-danger">
                       <i class="fa fa-trash"></i>
                     </button>
                   </div>
@@ -775,7 +778,6 @@
                   </tbody>
                 </table>
               </div>
-                <br><br><br><br>.<br><br><br><br><br>
                 <!-- DivTable.com -->
               </div>
               <!-- DivTable.com -->
