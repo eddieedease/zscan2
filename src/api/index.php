@@ -45,6 +45,7 @@ require 'routes/login.php';
 require 'routes/groups.php';
 require 'routes/users.php';
 require 'routes/orgs.php';
+require 'routes/mail.php';
 require 'routes/questions.php';
 require 'routes/results.php';
 
