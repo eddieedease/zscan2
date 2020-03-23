@@ -21,17 +21,17 @@ $app->get('/sendlinktouser/{userid}', function (Request $request, Response $resp
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
     
     // first off, get user row info, get pwd and email
-    $sqlgetuser = "SELECT id, unlockkey  FROM users WHERE id = '$userid";
+    $sqlgetuser = "SELECT id, email, unlockkey  FROM users WHERE id = '$userid'";
     $stmtgetuser = $dbh->prepare($sqlgetuser);
     $stmtgetuser->execute();
     $resultgetuser = $stmtgetuser->fetchAll(PDO::FETCH_ASSOC);
     $aiid = $resultgetuser[0]['id'];
     $aiunlockkey = $resultgetuser[0]['unlockkey'];
+    $aiemail = $resultgetuser[0]['email'];
 
 
 
-    $personUrl = $aaid + '/' + $aiunlockkey;
-
+    $personUrl = $aiid .'/' . $aiunlockkey;
 
 
 

@@ -199,7 +199,7 @@
             </ng-template>
 
             <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-              <div [innerHTML]="locc + '/login/' + row['id'] +'/'+ row['unlockkey']"></div>
+              <div [innerHTML]="'https://' + locc + '/login/' + row['id'] +'/'+ row['unlockkey']"></div>
             </ng-template>
           </ngx-datatable-column>
 
@@ -226,7 +226,7 @@
                   class="btn btn-info"><i class="fa fa-envelope" aria-hidden="true"></i> Mail</button>
 
               <button type="button" (click)="openSureModal(areusure, 'deletegroupuser', row['id'])"
-                  class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"> </i>DEL</button>
+                  class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"> </i> DEL</button>
                 </div>
               
               <!-- <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
@@ -681,26 +681,26 @@
                       <td style="height: 23px; width: 15px;" colspan="4"></td>
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 15px;">&nbsp;IZ&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iztot}}</b><br>Ik zie</td>
+                      <td style="height: 23px; width: 15px;" style="color: black;">&nbsp;<b>IZ</b>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iztot}}</b><br>Ik zie</td>
                       <td style="height: 23px; width: 10px;" [style.background-color] = "iz1 >= 3.5 ? 'green' : iz1 < 3.5 && iz1 > 2.5 ? 'orange' : 'red'">&nbsp;IZ 1&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iz1}}</b><br>Aansturen op veilig gedrag / voorbeeld gedrag management<br><br></td>
                       <td style="height: 23px; width: 15px;" [style.background-color] = "iz2 >= 3.5 ? 'green' : iz2 < 3.5 && iz2 > 2.5 ? 'orange' : 'red'">&nbsp;IZ 2&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iz2}}</b><br>Toezicht & handhaving</td>
                       <td style="height: 23px; width: 15px;" [style.background-color] = "iz3 >= 3.5 ? 'green' : iz3 < 3.5 && iz3 > 2.5 ? 'orange' : 'red'">&nbsp;IZ 3&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iz3}}</b><br>Aanspreekcultuur</td>
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 15px;">&nbsp;IW&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iwtot}}</b><br>Ik wil</td>
+                      <td style="height: 23px; width: 15px;" style="color: black;">&nbsp;<b>IW</b>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iwtot}}</b><br>Ik wil</td>
                       <td style="height: 23px; width: 10px;" [style.background-color] = "iw1 >= 3.5 ? 'green' : iw1 < 3.5 && iw1 > 2.5 ? 'orange' : 'red'">&nbsp;IW 1&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iw1}}</b><br>Positieve houding t.a.v. veiligheid</td>
                       <td style="height: 23px; width: 15px;" [style.background-color] = "iw2 >= 3.5 ? 'green' : iw2 < 3.5 && iw2 > 2.5 ? 'orange' : 'red'">&nbsp;IW 2&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iw2}}</b><br>Regels volgen / respecteren</td>
                       <td style="height: 23px; width: 15px;" [style.background-color] = "iw3 >= 3.5 ? 'green' : iw3 < 3.5 && iw3 > 2.5 ? 'orange' : 'red'">&nbsp;IW 3&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iw3}}</b><br>Opleidingsbehoefte</td>
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 15px;">&nbsp;IWE&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iwetot}}</b><br>Ik weet</td>
+                      <td style="height: 23px; width: 15px;" style="color: black;">&nbsp;<b>IWE</b>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iwetot}}</b><br>Ik weet</td>
                       <td style="height: 23px; width: 10px;" [style.background-color] = "iwe1 >= 3.5 ? 'green' : iwe1 < 3.5 && iwe1 > 2.5 ? 'orange' : 'red'">&nbsp;IWE 1&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iwe1}}</b><br>Vakkennis</td>
                       <td style="height: 23px; width: 15px;" [style.background-color] = "iwe2 >= 3.5 ? 'green' : iwe2 < 3.5 && iwe2 > 2.5 ? 'orange' : 'red'">&nbsp;IWE 2&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iwe2}}</b><br>Kennis veiligheid algemen</td>
                       <td style="height: 23px; width: 15px;" [style.background-color] = "iwe3 >= 3.5 ? 'green' : iwe3 < 3.5 && iwe3 > 2.5 ? 'orange' : 'red'">&nbsp;IWE 3&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iwe3}}</b><br>Veiligheidsbewustzijn</td>
                       <td style="height: 23px; width: 15px;" [style.background-color] = "iwe4 >= 3.5 ? 'green' : iwe4 < 3.5 && iwe4 > 2.5 ? 'orange' : 'red'">&nbsp;IWE 4&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iwe4}}</b><br>Uitwisselen informatie</td>
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 15px;">&nbsp;IK&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iktot}}</b><br>Ik kan</td>
+                      <td style="height: 23px; width: 15px;" style="color: black;">&nbsp;<b>IK</b>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iktot}}</b><br>Ik kan</td>
                       <td style="height: 23px; width: 10px;" [style.background-color] = "ik1 >= 3.5 ? 'green' : ik1 < 3.5 && ik1 > 2.5 ? 'orange' : 'red'">&nbsp;IK 1&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ik1}}</b><br>Vaardigheden</td>
                       <td style="height: 23px; width: 15px;" [style.background-color] = "ik2 >= 3.5 ? 'green' : ik2 < 3.5 && ik2 > 2.5 ? 'orange' : 'red'">&nbsp;IK 2&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ik2}}</b><br>Randvoorwaarden veilig werken</td>
                       <td style="height: 23px; width: 15px;" [style.background-color] = "ik3 >= 3.5 ? 'green' : ik3 < 3.5 && ik3 > 2.5 ? 'orange' : 'red'">&nbsp;IK 3&nbsp;&nbsp;&nbsp;&nbsp;<b>{{iz3}}</b><br>Overleg veiligheid</td>
@@ -710,37 +710,37 @@
                       <td style="height: 23px; width: 15px;" colspan="4"></td>
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 15px;">&nbsp;CW&nbsp;&nbsp;&nbsp;&nbsp;<b>{{cwtot}}</b><br>Compliance, wetgeving &amp; richtlijnen</td>
+                      <td style="height: 23px; width: 15px;" style="color: black;">&nbsp;<b>CW</b>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{cwtot}}</b><br>Compliance, wetgeving &amp; richtlijnen</td>
                       <td style="height: 23px; width: 10px;" [style.background-color] = "cw1 >= 3.5 ? 'green' : cw1 < 3.5 && cw1 > 2.5 ? 'orange' : 'red'">&nbsp;CW 1&nbsp;&nbsp;&nbsp;&nbsp;<b>{{cw1}}</b><br>Arbowet</td>
                       <td style="height: 23px; width: 15px;" [style.background-color] = "cw2 >= 3.5 ? 'green' : cw2 < 3.5 && cw2 > 2.5 ? 'orange' : 'red'">&nbsp;CW 2&nbsp;&nbsp;&nbsp;&nbsp;<b>{{cw2}}</b><br>Moederorganisatie</td>
                       <!-- <td style="height: 23px; width: 15px;">&nbsp;CW 3&nbsp;&nbsp;&nbsp;&nbsp;<b>{{cw3}}</b><br>Andere relevante wetgeving</td> -->
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 15px;">&nbsp;VB&nbsp;&nbsp;&nbsp;&nbsp;<b>{{vbtot}}</b><br>Veiligheidsbeleid</td>
+                      <td style="height: 23px; width: 15px;" style="color: black;">&nbsp;<b>VB</b>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{vbtot}}</b><br>Veiligheidsbeleid</td>
                       <td style="height: 23px; width: 10px;" [style.background-color] = "vb1 >= 3.5 ? 'green' : vb1 < 3.5 && vb1 > 2.5 ? 'orange' : 'red'">&nbsp;VB 1&nbsp;&nbsp;&nbsp;&nbsp;<b>{{vb1}}</b><br>Veiligheidsbeleid vastgelegd</td>
                       <td style="height: 23px; width: 15px;" [style.background-color] = "vb2 >= 3.5 ? 'green' : vb2 < 3.5 && vb2 > 2.5 ? 'orange' : 'red'">&nbsp;VB 2&nbsp;&nbsp;&nbsp;&nbsp;<b>{{vb2}}</b><br>Veiligheidsbeleid vertaald in functieomschrijving</td>
                       <td style="height: 23px; width: 15px;" [style.background-color] = "vb3 >= 3.5 ? 'green' : vb3 < 3.5 && vb3 > 2.5 ? 'orange' : 'red'">&nbsp;VB 3&nbsp;&nbsp;&nbsp;&nbsp;<b>{{vb3}}</b><br>Veiligheidsbeleid bekend &amp; beschikbaar</td>
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 15px;">&nbsp;OPL&nbsp;&nbsp;&nbsp;&nbsp;<b>{{opltot}}</b><br>Opleiding</td>
+                      <td style="height: 23px; width: 15px;" style="color: black;">&nbsp;<b>OPL</b>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{opltot}}</b><br>Opleiding</td>
                       <td style="height: 23px; width: 10px;" [style.background-color] = "opl1 >= 3.5 ? 'green' : opl1 < 3.5 && opl1 > 2.5 ? 'orange' : 'red'">&nbsp;OPL 1&nbsp;&nbsp;&nbsp;&nbsp;<b>{{opl1}}</b><br>Eisen vastgelegd</td>
                       <td style="height: 23px; width: 15px;" [style.background-color] = "opl2 >= 3.5 ? 'green' : opl2 < 3.5 && opl2 > 2.5 ? 'orange' : 'red'">&nbsp;OPL 2&nbsp;&nbsp;&nbsp;&nbsp;<b>{{opl2}}</b><br>Opleidingsplan</td>
                       <td style="height: 23px; width: 15px;" [style.background-color] = "opl3 >= 3.5 ? 'green' : opl3 < 3.5 && opl3 > 2.5 ? 'orange' : 'red'">&nbsp;OPL 3&nbsp;&nbsp;&nbsp;&nbsp;<b>{{opl3}}</b><br>Registratie</td>
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 101px;">&nbsp;Proces&nbsp;&nbsp;&nbsp;&nbsp;<b>{{protot}}</b><br>Beheersing werkzaamheden, beheer &amp; onderhoud</td>
+                      <td style="height: 23px; width: 101px;" style="color: black;">&nbsp;<b>PRO</b>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{protot}}</b><br>Procedures, Beheersing werkzaamheden, beheer &amp; onderhoud</td>
                       <td style="height: 23px; width: 10px;" [style.background-color] = "pro1 >= 3.5 ? 'green' : pro1 < 3.5 && pro1 > 2.5 ? 'orange' : 'red'">&nbsp;PRO 1&nbsp;&nbsp;&nbsp;&nbsp;<b>{{pro1}}</b><br>Procedures uitvoeren gevaarlijke werkzaamheden</td>
                       <td style="height: 23px; width: 15px;" [style.background-color] = "pro2 >= 3.5 ? 'green' : pro2 < 3.5 && pro2 > 2.5 ? 'orange' : 'red'">&nbsp;PRO 2&nbsp;&nbsp;&nbsp;&nbsp;<b>{{pro2}}</b><br>Procedures omgaan met gevaarlijke materialen</td>
                       <td style="height: 23px; width: 15px;" [style.background-color] = "pro3 >= 3.5 ? 'green' : pro3 < 3.5 && pro3 > 2.5 ? 'orange' : 'red'">&nbsp;PRO 3&nbsp;&nbsp;&nbsp;&nbsp;<b>{{pro3}}</b><br>Procedures onderhoud van installaties &amp; uitrusting t.v.b. de veiligheid</td>
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 101px;">&nbsp;Communicatie&nbsp;&nbsp;&nbsp;&nbsp;<b>{{comtot}}</b><br>Communicatiestructuren</td>
+                      <td style="height: 23px; width: 101px;" style="color: black;">&nbsp;<b>Communicatie</b>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{comtot}}</b><br>Communicatiestructuren</td>
                       <td style="height: 23px; width: 10px;" [style.background-color] = "com1 >= 3.5 ? 'green' : com1 < 3.5 && com1 > 2.5 ? 'orange' : 'red'">&nbsp;COM 1&nbsp;&nbsp;&nbsp;&nbsp;<b>{{com1}}</b><br>Formeel overleg management/werkvloer</td>
                       <td style="height: 23px; width: 15px;" [style.background-color] = "com2 >= 3.5 ? 'green' : com2 < 3.5 && com2 > 2.5 ? 'orange' : 'red'">&nbsp;COM 2&nbsp;&nbsp;&nbsp;&nbsp;<b>{{com2}}</b><br>Werknemers betrokken bij risicobeoordeling &amp;onderzoek incidenten</td>
                       <td style="height: 23px; width: 15px;" [style.background-color] = "com3 >= 3.5 ? 'green' : com3 < 3.5 && com3 > 2.5 ? 'orange' : 'red'">&nbsp;COM 3&nbsp;&nbsp;&nbsp;&nbsp;<b>{{com3}}</b><br>Communicatie veiligheidsprestaties</td>
                     </tr>
                     <tr style="height: 23px;">
-                      <td style="height: 23px; width: 101px;">&nbsp;Borging&nbsp;&nbsp;&nbsp;&nbsp;<b>{{bortot}}</b><br>Meter, monitoren, bijstellen &amp; borgen</td>
+                      <td style="height: 23px; width: 101px;" style="color: black;">&nbsp;<b>Borging</b>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{bortot}}</b><br>Meter, monitoren, bijstellen &amp; borgen</td>
                       <td style="height: 23px; width: 10px;" [style.background-color] = "bor1 >= 3.5 ? 'green' : bor1 < 3.5 && bor1 > 2.5 ? 'orange' : 'red'">&nbsp;BOR 1&nbsp;&nbsp;&nbsp;&nbsp;<b>{{bor1}}</b><br>Procedure beheer van documenten, inclusief Verant. &amp; Bevoegdh.</td>
                       <td style="height: 23px; width: 15px;" [style.background-color] = "bor2 >= 3.5 ? 'green' : bor2 < 3.5 && bor2 > 2.5 ? 'orange' : 'red'">&nbsp;BOR 2&nbsp;&nbsp;&nbsp;&nbsp;<b>{{bor2}}</b><br>Evaluatie procedures</td>
                       <td style="height: 23px; width: 15px;" [style.background-color] = "bor3 >= 3.5 ? 'green' : bor3 < 3.5 && bor3 > 2.5 ? 'orange' : 'red'">&nbsp;BOR 3&nbsp;&nbsp;&nbsp;&nbsp;<b>{{bor3}}</b><br>Lijsten met 'kritieke apparatuur'</td>
@@ -783,7 +783,9 @@
                     </tr>
                   </tbody>
                 </table>
+                
               </div>
+              .<br><br><br><br><br><br><br><br><br><br><br><br>.
                 <!-- DivTable.com -->
               </div>
               <!-- DivTable.com -->
