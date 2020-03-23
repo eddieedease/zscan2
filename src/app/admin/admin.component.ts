@@ -1177,4 +1177,25 @@ export class AdminComponent implements OnInit {
     this.loading = false;
   }
 
+
+  sendUserLink(_id, _filled){
+   
+    if (_filled === '1'){
+      this.toastr.warning('Is al ingevuld, hoeft niet meer te mailen', '');
+    } else {
+      this.loading = true;
+      this.serCred.API_sendlinktouser(_id).subscribe(value => this.userGotEmailed(value));
+    }
+
+    
+  }
+
+
+
+  userGotEmailed(_resp){
+    this.loading = false;
+  }
+
+
+
 }
