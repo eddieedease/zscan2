@@ -19,6 +19,15 @@
     vertical-align: text-bottom;
   }
   
+
+
+  .square {
+    height: 20px;
+    width: 20px;
+    background-color: black;
+  }
+
+
   /*
    * Sidebar
    */

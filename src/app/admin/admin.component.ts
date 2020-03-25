@@ -100,6 +100,8 @@ export class AdminComponent implements OnInit {
   locc;
 
 
+  dateToday;
+
   emailAdd = '';
 
 
@@ -128,34 +130,33 @@ export class AdminComponent implements OnInit {
   // 0 = Red, 1 = Orange, 2 = green
   // last one is sum
   iz1 = 0;
-  iz1tot = 0;
+  iztot = 0;
   iz2 = 0;
-  iz2tot = 0;
+
   iz3 = 0;
-  iz3tot = 0;
   iz = 0;
   iw1 = 0;
-  iw1tot = 0;
+  iwtot = 0;
+
   iw2 = 0;
-  iw2tot = 0;
   iw3 = 0;
-  iw3tot = 0;
+
   iw = 0;
   iwe1 = 0;
-  iwe1tot = 0;
+  iwetot = 0;
   iwe2 = 0;
-  iwe2tot = 0;
+
   iwe3 = 0;
-  iwe3tot = 0;
+
   iwe4 = 0;
-  iwe4tot = 0;
+
   iwe = 0;
   ik1 = 0;
-  ik1tot = 0;
+  iktot = 0;
   ik2 = 0;
-  ik2tot = 0;
+
   ik3 = 0;
-  ik3tot = 0;
+
   ik = 0;
 
   smoe1 = 0;
@@ -175,50 +176,50 @@ export class AdminComponent implements OnInit {
 
   // checklist vars
   cw1 = 0;
-  cw1tot = 0;
+  cwtot = 0;
   cw2 = 0;
-  cw2tot = 0;
+
   cw3 = 0;
-  cw3tot = 0;
+
   cw = 0;
   vb1 = 0;
-  vb1tot = 0;
+  vbtot = 0;
   vb2 = 0;
-  vb2tot = 0;
+
   vb3 = 0;
-  vb3tot = 0;
+
   vb = 0;
   opl1 = 0;
-  opl1tot = 0;
+  opltot = 0;
   opl2 = 0;
-  opl2tot = 0;
+
   opl3 = 0;
-  opl3tot = 0;
+
   opl = 0;
   pro1 = 0;
-  pro1tot = 0;
+  protot = 0;
   pro2 = 0;
-  pro2tot = 0;
+
   pro3 = 0;
-  pro3tot = 0;
+
   pro = 0;
   com1 = 0;
-  com1tot = 0;
+  comtot = 0;
   com2 = 0;
-  com2tot = 0;
+
   com3 = 0;
-  com3tot = 0;
+
   com = 0;
   bor1 = 0;
-  bor1tot = 0;
+  bortot = 0;
   bor2 = 0;
-  bor2tot = 0;
+
   bor3 = 0;
-  bor3tot = 0;
+
   bor4 = 0;
-  bor4tot = 0;
+
   bor5 = 0;
-  bor5tot = 0;
+
   bor = 0;
 
   csvUserArray;
@@ -283,7 +284,7 @@ export class AdminComponent implements OnInit {
     }
 
 
-
+    this.dateToday = new Date();
 
   }
 
@@ -665,9 +666,108 @@ export class AdminComponent implements OnInit {
 
 
 
-    // TODO: Maybe we must put a check here to see if nothing is '0'. Cause that means nothing is filled in
+    // TODO: Let the ugly happen
+
+    if (this.iz1 <= 2.5 || this.iz2 <= 2.5 || this.iz3 <= 2.5){
+      this.iztot = 1;
+    } else if (this.iz1 >= 3.5 && this.iz2 >= 3.5 && this.iz3 >= 3.5) {
+      this.iztot = 3;
+    } else {
+      this.iztot = 2;
+    }
 
 
+    // iw
+    if (this.iw1 <= 2.5 || this.iw2 <= 2.5 || this.iw3 <= 2.5){
+      this.iwtot = 1;
+    } else if (this.iw1 >= 3.5 && this.iw2 >= 3.5 && this.iw3 >= 3.5) {
+      this.iwtot = 3;
+    } else {
+      this.iwtot = 2;
+    }
+
+
+
+    // iwe
+    if (this.iwe1 <= 2.5 || this.iwe2 <= 2.5 || this.iwe3 <= 2.5 || this.iwe4 <= 2.5){
+      this.iwetot = 1;
+    } else if (this.iwe1 >= 3.5 && this.iwe2 >= 3.5 && this.iwe3 >= 3.5 && this.iwe4 >= 3.5) {
+      this.iwetot = 3;
+    } else {
+      this.iwetot = 2;
+    }
+
+
+    // ik
+    if (this.ik1 <= 2.5 || this.ik2 <= 2.5 || this.ik3 <= 2.5){
+      this.iktot = 1;
+    } else if (this.ik1 >= 3.5 && this.ik2 >= 3.5 && this.ik3 >= 3.5) {
+      this.iktot = 3;
+    } else {
+      this.iktot = 2;
+    }
+
+
+
+    //cw
+    if (this.cw1 <= 2.5 || this.cw2 <= 2.5){
+      this.cwtot = 1;
+    } else if (this.cw1 >= 3.5 && this.cw2 >= 3.5) {
+      this.cwtot = 3;
+    } else {
+      this.cwtot = 2;
+    }
+
+
+    // vb
+    if (this.vb1 <= 2.5 || this.vb2 <= 2.5 || this.vb3 <= 2.5){
+      this.vbtot = 1;
+    } else if (this.vb1 >= 3.5 && this.vb2 >= 3.5 && this.vb3 >= 3.5) {
+      this.vbtot = 3;
+    } else {
+      this.vbtot = 2;
+    }
+
+
+
+    // opl
+    if (this.opl1 <= 2.5 || this.opl2 <= 2.5 || this.opl3 <= 2.5){
+      this.opltot = 1;
+    } else if (this.opl1 >= 3.5 && this.opl2 >= 3.5 && this.opl3 >= 3.5) {
+      this.opltot = 3;
+    } else {
+      this.opltot = 2;
+    }
+
+
+    // pro
+    if (this.pro1 <= 2.5 || this.pro2 <= 2.5 || this.pro3 <= 2.5){
+      this.protot = 1;
+    } else if (this.pro1 >= 3.5 && this.pro2 >= 3.5 && this.pro3 >= 3.5) {
+      this.protot = 3;
+    } else {
+      this.protot = 2;
+    }
+
+
+    // com
+    if (this.com1 <= 2.5 || this.com2 <= 2.5 || this.com3 <= 2.5){
+      this.comtot = 1;
+    } else if (this.com1 >= 3.5 && this.com2 >= 3.5 && this.com3 >= 3.5) {
+      this.comtot = 3;
+    } else {
+      this.comtot = 2;
+    }
+
+
+    // bor
+    if (this.bor1 <= 2.5 || this.bor2 <= 2.5 || this.bor3 <= 2.5 || this.bor4 <= 2.5 || this.bor5 <= 2.5 ){
+      this.bortot = 1;
+    } else if (this.bor1 >= 3.5 && this.bor2 >= 3.5 && this.bor3 >= 3.5 && this.bor4 >= 3.5 && this.bor5 >= 3.5) {
+      this.bortot = 3;
+    } else {
+      this.bortot = 2;
+    }
 
 
 
@@ -916,7 +1016,7 @@ export class AdminComponent implements OnInit {
   editteddAuser(_resp) {
     this.loading = false;
     this.ausrWw = '';
-    this.toastr.success('Gebruiker bewerkt', '');
+    this.toastr.success('Gebruiker bijgewerkt', '');
     this.serCred.API_getausers().subscribe(value => this.gotAusers(value));
   }
 
@@ -1179,23 +1279,31 @@ export class AdminComponent implements OnInit {
 
 
   sendUserLink(_id, _filled){
-   
     if (_filled === '1'){
       this.toastr.warning('Is al ingevuld, hoeft niet meer te mailen', '');
     } else {
       this.loading = true;
       this.serCred.API_sendlinktouser(_id).subscribe(value => this.userGotEmailed(value));
     }
-
-    
   }
 
 
 
   userGotEmailed(_resp){
     this.loading = false;
+    this.toastr.success('Persoon gemaild', '');
+
   }
 
+  sendGroupBulkLink(){
+    this.loading = true;
+    this.serCred.API_sendlinktobulk(this.currentGroupID).subscribe(value => this.bulkGroupLinkSend(value));
+  }
+
+  bulkGroupLinkSend(_resp){
+    this.loading = false;
+    this.toastr.success('Mail gestuurd naar de groepsleden met inloglink', '');
+  }
 
 
 }
