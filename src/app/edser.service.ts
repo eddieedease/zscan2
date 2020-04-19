@@ -267,19 +267,29 @@ export class EdserService {
   // API QUESTIONS
 
   // tslint:disable-next-line:max-line-length
-  API_formsubmit(_groupid, _userid, IZ1, IZ2, IZ3, IW1, IW2, IW3, IWE1, IWE2, IWE3, IWE4, IK1, IK2, IK3, SMOE1, SMOE2, SMOE3, SMOE4, SMOE5, SMOE6): Observable < any > {
-    this.debugLog('SMOE3 = '  + SMOE3)
+  API_formsubmit(_groupid, _userid, IZ1, IZ2, IZ3, IW1, IW2, IW3, IWE1, IWE2, IWE3, IWE4, IK1, IK2, IK3, SMOE1, SMOE2, SMOE3, SMOE4, SMOE5, SMOE6, _openq): Observable < any > {
     // tslint:disable-next-line:max-line-length
     const url = environment.apilink + 'formsubmit/' + _groupid + '/' + _userid + '/' + IZ1 + '/' + IZ2 + '/' + IZ3 + '/' + IW1 + '/' + IW2 + '/' + IW3 + '/' + IWE1 + '/' + IWE2 + '/' + IWE3 + '/' + IWE4 + '/' + IK1 + '/' + IK2 + '/' + IK3 + '/' + SMOE1 + '/' + SMOE2 + '/' + SMOE3 + '/' + SMOE4 + '/' + SMOE5 + '/' + SMOE6 + '?rnd=' + new Date().getTime();
     // tslint:disable-next-line:prefer-const
+    const upt = {
+      'openq': _openq
+    };
+    const body = JSON.stringify(upt);
+    // const howmanykb = this.byteCount(body);
+    // Line beneath show how many KB
     const headers = new Headers({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Cache-control': 'no-cache',
+      'Expires': '0',
+      'Pragma': 'no-cache'
+      /*  ,'Authorization': 'bearer ' + this.curTOKEN */
     });
     const options = new RequestOptions({
-      headers: headers
+      headers: headers,
+      method: 'post'
     });
     // tslint:disable-next-line:max-line-length
-    return this.http_.get(url, options)
+    return this.http_.post(url, body, options)
       .throttleTime(5000)
       .map(res => res.json());
   }

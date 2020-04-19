@@ -178,5 +178,9 @@
     "Vraag45": {
         "vraag": "Ik voer vrijwillig extra taken of activiteiten uit die helpen om de veiligheid op de werkplek te verbeteren",
         "type": "IW1"
+    },
+    "Vraag46": {
+        "vraag": "Wat is jouw advies om in het bedrijf veiliger te kunnen werken?",
+        "type": "OPEN"
     }
 }

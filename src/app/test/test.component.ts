@@ -140,7 +140,7 @@ export class TestComponent implements OnInit {
   resultOPL3;
 
 
-
+  openQ;
 
 
   questionloadBuffer = true;
@@ -509,7 +509,7 @@ export class TestComponent implements OnInit {
         this.SMOE5 = Math.round(this.SMOE5 / 1 * 100) / 100;
         this.SMOE6 = Math.round(this.SMOE6 / 1 * 100) / 100;
         // tslint:disable-next-line:max-line-length
-        this.edSer.API_formsubmit(this.currentGroupId, this.currentUserId, this.IZ1, this.IZ2, this.IZ3, this.IW1, this.IW2, this.IW3, this.IWE1, this.IWE2, this.IWE3, this.IWE4, this.IK1, this.IK2, this.IK3, this.SMOE1, this.SMOE2, this.SMOE3, this.SMOE4, this.SMOE5, this.SMOE6).subscribe(value => this.formSend(value));
+        this.edSer.API_formsubmit(this.currentGroupId, this.currentUserId, this.IZ1, this.IZ2, this.IZ3, this.IW1, this.IW2, this.IW3, this.IWE1, this.IWE2, this.IWE3, this.IWE4, this.IK1, this.IK2, this.IK3, this.SMOE1, this.SMOE2, this.SMOE3, this.SMOE4, this.SMOE5, this.SMOE6, this.openQ).subscribe(value => this.formSend(value));
 
       } else if (this.typeTest === '2') {
         this.CW1 = Math.round(this.CW1 / 24 * 100) / 100;

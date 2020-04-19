@@ -227,6 +227,8 @@ export class AdminComponent implements OnInit {
 
   showScore = false;
 
+  feedbackArray = [];
+
 
 
   fileHolder = null;
@@ -424,7 +426,7 @@ export class AdminComponent implements OnInit {
   }
 
   gotResults(_val) {
-
+    
     this.loading = false;
     this.serCred.debugLog(_val);
     this.howManySendQuestions = _val['questions'].length;
@@ -432,6 +434,8 @@ export class AdminComponent implements OnInit {
     // NOTE: This gives back 2 arrays
     // _val['questions'] = userArray
     // _val['checklists'] = managerArray
+    // reset feedback array
+    this.feedbackArray = [];
 
     // Calculate scores = total of each divided by howManySend
     let iz1 = 0;
@@ -508,6 +512,11 @@ export class AdminComponent implements OnInit {
       smoe5 = smoe5 + parseFloat(_val['questions'][index].SMOE5);
       smoe6 = smoe6 + parseFloat(_val['questions'][index].SMOE6);
       /* smoe7 = smoe7 + parseFloat(_val['questions'][index].SMOE7); */
+
+      // Also, store the feedback in array (if value != ''
+      if (_val['questions'][index].openq != ""){
+        this.feedbackArray.push(_val['questions'][index].openq);
+      }
     }
 
     // Now calculate the average, round up on 2 dec

@@ -786,7 +786,13 @@
                 </table>
                 
               </div>
-              .<br><br><br><br><br><br><br><br><br><br><br><br>.
+              <br><br><br><br>Open vragen antwoorden:<br>
+              <ul>
+                <li *ngFor="let item of feedbackArray; let i = index">
+                {{item}}
+                </li>
+              </ul>
+              <br><br><br><br><br><br><br>.
                 <!-- DivTable.com -->
               </div>
               <!-- DivTable.com -->

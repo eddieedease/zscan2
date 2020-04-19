@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.6.6deb5
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 18, 2020 at 11:34 AM
--- Server version: 5.7.24
--- PHP Version: 7.3.7
+-- Generation Time: Apr 19, 2020 at 12:43 PM
+-- Server version: 5.7.29-0ubuntu0.18.04.1
+-- PHP Version: 7.2.24-0ubuntu0.18.04.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -35,17 +33,6 @@ CREATE TABLE `admin_to_groups` (
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `admin_to_groups`
---
-
-INSERT INTO `admin_to_groups` (`id`, `userid`, `groupid`, `date`) VALUES
-(3, 1, 4, '2019-11-29 07:24:47'),
-(13, 2, 3, '2020-01-05 20:01:47'),
-(14, 2, 5, '2020-01-07 11:25:52'),
-(15, 2, 1, '2020-01-07 11:25:53'),
-(16, 1, 2, '2020-03-17 09:28:32');
-
 -- --------------------------------------------------------
 
 --
@@ -61,13 +48,6 @@ CREATE TABLE `ausers` (
   `type` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `ausers`
---
-
-INSERT INTO `ausers` (`id`, `name`, `lastname`, `email`, `ww`, `type`) VALUES
-(1, 'Eddie', 'Maas', 'demo@demo.nl', 'fe01ce2a7fbac8fafaed7c982a04e229', 2);
-
 -- --------------------------------------------------------
 
 --
@@ -78,13 +58,6 @@ CREATE TABLE `cfg` (
   `id` int(11) NOT NULL,
   `pwd` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `cfg`
---
-
-INSERT INTO `cfg` (`id`, `pwd`) VALUES
-(1, 'goudvis');
 
 -- --------------------------------------------------------
 
@@ -113,8 +86,7 @@ CREATE TABLE `checkresults` (
   `BOR1` decimal(4,2) DEFAULT NULL,
   `BOR2` decimal(4,2) DEFAULT NULL,
   `BOR3` decimal(4,2) DEFAULT NULL,
-  `BOR4` decimal(4,2) DEFAULT NULL,
-  `BOR5` decimal(4,2) DEFAULT NULL
+  `BOR4` decimal(4,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -160,7 +132,7 @@ CREATE TABLE `results` (
   `SMOE4` decimal(4,2) DEFAULT NULL,
   `SMOE5` decimal(4,2) DEFAULT NULL,
   `SMOE6` decimal(4,2) DEFAULT NULL,
-  `SMOE7` decimal(4,2) DEFAULT NULL
+  `openq` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -178,6 +150,15 @@ CREATE TABLE `users` (
   `mailsend` int(11) NOT NULL DEFAULT '0',
   `filled` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `grouplink`, `email`, `unlockkey`, `type`, `mailsend`, `filled`) VALUES
+(1, 1, 'adres@adres.nl', 'wdmlij', 1, 0, 0),
+(2, 3, 'eddie@edease.nl', 'uprood', 1, 0, 0),
+(3, 3, 'nog1@asda.nl', 'fvpxku', 1, 0, 0);
 
 --
 -- Indexes for dumped tables
@@ -233,45 +214,37 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin_to_groups`
 --
 ALTER TABLE `admin_to_groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `ausers`
 --
 ALTER TABLE `ausers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `cfg`
 --
 ALTER TABLE `cfg`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `checkresults`
 --
 ALTER TABLE `checkresults`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `results`
 --
 ALTER TABLE `results`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-COMMIT;
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

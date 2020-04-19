@@ -5,13 +5,18 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 // a API CALL TO LOG THE FORM Result
 
 // TODO: adjust the normal ones to the new group, probably make it a post with a proper body. Parameters links will get messy
-$app->get('/formsubmit/{groupid}/{userid}/{IZ1}/{IZ2}/{IZ3}/{IW1}/{IW2}/{IW3}/{IWE1}/{IWE2}/{IWE3}/{IWE4}/{IK1}/{IK2}/{IK3}/{SMOE1}/{SMOE2}/{SMOE3}/{SMOE4}/{SMOE5}/{SMOE6}', function (Request $request, Response $response) {
+$app->post('/formsubmit/{groupid}/{userid}/{IZ1}/{IZ2}/{IZ3}/{IW1}/{IW2}/{IW3}/{IWE1}/{IWE2}/{IWE3}/{IWE4}/{IK1}/{IK2}/{IK3}/{SMOE1}/{SMOE2}/{SMOE3}/{SMOE4}/{SMOE5}/{SMOE6}', function (Request $request, Response $response) {
     // what key
     $groupid = $request->getAttribute('groupid');
     $groupid = (int)$groupid;
 
     $userid = $request->getAttribute('userid');
     $userid = (int)$userid;
+
+    // get post vars
+    $parsedBody = $request->getParsedBody();
+    $openq = $parsedBody[openq];
+
     //  IZ1, IZ2, IZ3, IW1, IW2, IW3, IWE1, IWE2, IWE3, IWE4, IK1, IK2, IK3, SMOE1, SMOE2, SMOE3, SMOE4, SMOE5, SMOE6, SMOE7
     $IZ1 = $request->getAttribute('IZ1');
     $IZ2 = $request->getAttribute('IZ2');
@@ -41,7 +46,7 @@ $app->get('/formsubmit/{groupid}/{userid}/{IZ1}/{IZ2}/{IZ3}/{IW1}/{IW2}/{IW3}/{I
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
 
     // SQL QUERY FOR getting group id with key
-    $sqlinsertresult = "INSERT INTO results (grouplink, IZ1, IZ2, IZ3, IW1, IW2, IW3, IWE1, IWE2, IWE3, IWE4, IK1, IK2, IK3, SMOE1, SMOE2, SMOE3, SMOE4, SMOE5, SMOE6) VALUES ('$groupid','$IZ1','$IZ2','$IZ3','$IW1','$IW2','$IW3','$IWE1','$IWE2','$IWE3','$IWE4','$IK1','$IK2','$IK3','$SMOE1','$SMOE2','$SMOE3','$SMOE4','$SMOE5','$SMOE6')";
+    $sqlinsertresult = "INSERT INTO results (grouplink, IZ1, IZ2, IZ3, IW1, IW2, IW3, IWE1, IWE2, IWE3, IWE4, IK1, IK2, IK3, SMOE1, SMOE2, SMOE3, SMOE4, SMOE5, SMOE6, openq) VALUES ('$groupid','$IZ1','$IZ2','$IZ3','$IW1','$IW2','$IW3','$IWE1','$IWE2','$IWE3','$IWE4','$IK1','$IK2','$IK3','$SMOE1','$SMOE2','$SMOE3','$SMOE4','$SMOE5','$SMOE6' ,'$openq')";
     $stmtinsertresult = $dbh->prepare($sqlinsertresult);
     $stmtinsertresult->execute();
     // $resultinsertresult = $stmtinsertresult->fetchAll(PDO::FETCH_ASSOC);

@@ -88,7 +88,7 @@
                 <p class="animm" *ngIf="questionloadBuffer">{{question.vraag}}</p><br><br>
                 <br>
                 <div class="container" *ngIf="questionloadBuffer" style="max-width:500px"><p style="float:left!important">Oneens</p><p style="float:right!important">Eens</p></div><br><br>
-                <div *ngIf="questionloadBuffer">
+                <div *ngIf="questionloadBuffer && question.type != 'OPEN'">
                   <label class="btn btn-danger">&nbsp;1&nbsp;
                     <br>
                     <input type="radio" (click)="nextQuestionPre(1 * (p - 1) + i, 1)" name="{{'group' + (p+1) }}" [value]=1 [(ngModel)]="question.answer"
@@ -127,6 +127,10 @@
                  
                   
 
+                </div>
+                <div *ngIf="questionloadBuffer && question.type == 'OPEN'">
+                  <br>
+                  <input type="text" [(ngModel)]="openQ" [ngModelOptions]="{standalone: true}" />
                 </div>
                 <br>
                 <!-- {{question.answer}} -->
