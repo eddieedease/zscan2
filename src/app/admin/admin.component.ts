@@ -33,6 +33,10 @@ import {
   environment
 } from '../../environments/environment';
 
+import * as jsPDF from 'jspdf';
+import * as html2canvas from "html2canvas";
+
+
 
 
 declare var $: any;
@@ -122,7 +126,7 @@ export class AdminComponent implements OnInit {
   tempuserRows = [];
 
 
-
+  pngDownload;
 
 
 
@@ -426,7 +430,7 @@ export class AdminComponent implements OnInit {
   }
 
   gotResults(_val) {
-    
+
     this.loading = false;
     this.serCred.debugLog(_val);
     this.howManySendQuestions = _val['questions'].length;
@@ -514,7 +518,7 @@ export class AdminComponent implements OnInit {
       /* smoe7 = smoe7 + parseFloat(_val['questions'][index].SMOE7); */
 
       // Also, store the feedback in array (if value != ''
-      if (_val['questions'][index].openq != ""){
+      if (_val['questions'][index].openq != "") {
         this.feedbackArray.push(_val['questions'][index].openq);
       }
     }
@@ -677,7 +681,7 @@ export class AdminComponent implements OnInit {
 
     // TODO: Let the ugly happen
 
-    if (this.iz1 <= 2.5 || this.iz2 <= 2.5 || this.iz3 <= 2.5){
+    if (this.iz1 <= 2.5 || this.iz2 <= 2.5 || this.iz3 <= 2.5) {
       this.iztot = 1;
     } else if (this.iz1 >= 3.5 && this.iz2 >= 3.5 && this.iz3 >= 3.5) {
       this.iztot = 3;
@@ -687,7 +691,7 @@ export class AdminComponent implements OnInit {
 
 
     // iw
-    if (this.iw1 <= 2.5 || this.iw2 <= 2.5 || this.iw3 <= 2.5){
+    if (this.iw1 <= 2.5 || this.iw2 <= 2.5 || this.iw3 <= 2.5) {
       this.iwtot = 1;
     } else if (this.iw1 >= 3.5 && this.iw2 >= 3.5 && this.iw3 >= 3.5) {
       this.iwtot = 3;
@@ -698,7 +702,7 @@ export class AdminComponent implements OnInit {
 
 
     // iwe
-    if (this.iwe1 <= 2.5 || this.iwe2 <= 2.5 || this.iwe3 <= 2.5 || this.iwe4 <= 2.5){
+    if (this.iwe1 <= 2.5 || this.iwe2 <= 2.5 || this.iwe3 <= 2.5 || this.iwe4 <= 2.5) {
       this.iwetot = 1;
     } else if (this.iwe1 >= 3.5 && this.iwe2 >= 3.5 && this.iwe3 >= 3.5 && this.iwe4 >= 3.5) {
       this.iwetot = 3;
@@ -708,7 +712,7 @@ export class AdminComponent implements OnInit {
 
 
     // ik
-    if (this.ik1 <= 2.5 || this.ik2 <= 2.5 || this.ik3 <= 2.5){
+    if (this.ik1 <= 2.5 || this.ik2 <= 2.5 || this.ik3 <= 2.5) {
       this.iktot = 1;
     } else if (this.ik1 >= 3.5 && this.ik2 >= 3.5 && this.ik3 >= 3.5) {
       this.iktot = 3;
@@ -719,7 +723,7 @@ export class AdminComponent implements OnInit {
 
 
     //cw
-    if (this.cw1 <= 2.5 || this.cw2 <= 2.5){
+    if (this.cw1 <= 2.5 || this.cw2 <= 2.5) {
       this.cwtot = 1;
     } else if (this.cw1 >= 3.5 && this.cw2 >= 3.5) {
       this.cwtot = 3;
@@ -729,7 +733,7 @@ export class AdminComponent implements OnInit {
 
 
     // vb
-    if (this.vb1 <= 2.5 || this.vb2 <= 2.5 || this.vb3 <= 2.5){
+    if (this.vb1 <= 2.5 || this.vb2 <= 2.5 || this.vb3 <= 2.5) {
       this.vbtot = 1;
     } else if (this.vb1 >= 3.5 && this.vb2 >= 3.5 && this.vb3 >= 3.5) {
       this.vbtot = 3;
@@ -740,7 +744,7 @@ export class AdminComponent implements OnInit {
 
 
     // opl
-    if (this.opl1 <= 2.5 || this.opl2 <= 2.5 || this.opl3 <= 2.5){
+    if (this.opl1 <= 2.5 || this.opl2 <= 2.5 || this.opl3 <= 2.5) {
       this.opltot = 1;
     } else if (this.opl1 >= 3.5 && this.opl2 >= 3.5 && this.opl3 >= 3.5) {
       this.opltot = 3;
@@ -750,7 +754,7 @@ export class AdminComponent implements OnInit {
 
 
     // pro
-    if (this.pro1 <= 2.5 || this.pro2 <= 2.5 || this.pro3 <= 2.5){
+    if (this.pro1 <= 2.5 || this.pro2 <= 2.5 || this.pro3 <= 2.5) {
       this.protot = 1;
     } else if (this.pro1 >= 3.5 && this.pro2 >= 3.5 && this.pro3 >= 3.5) {
       this.protot = 3;
@@ -760,7 +764,7 @@ export class AdminComponent implements OnInit {
 
 
     // com
-    if (this.com1 <= 2.5 || this.com2 <= 2.5 || this.com3 <= 2.5){
+    if (this.com1 <= 2.5 || this.com2 <= 2.5 || this.com3 <= 2.5) {
       this.comtot = 1;
     } else if (this.com1 >= 3.5 && this.com2 >= 3.5 && this.com3 >= 3.5) {
       this.comtot = 3;
@@ -770,7 +774,7 @@ export class AdminComponent implements OnInit {
 
 
     // bor
-    if (this.bor1 <= 2.5 || this.bor2 <= 2.5 || this.bor3 <= 2.5 || this.bor4 <= 2.5 || this.bor5 <= 2.5 ){
+    if (this.bor1 <= 2.5 || this.bor2 <= 2.5 || this.bor3 <= 2.5 || this.bor4 <= 2.5 || this.bor5 <= 2.5) {
       this.bortot = 1;
     } else if (this.bor1 >= 3.5 && this.bor2 >= 3.5 && this.bor3 >= 3.5 && this.bor4 >= 3.5 && this.bor5 >= 3.5) {
       this.bortot = 3;
@@ -863,8 +867,32 @@ export class AdminComponent implements OnInit {
   }
 
   printResult() {
-    window.print();
-  }
+    // window.print();
+    html2canvas(document.getElementById('pdfcourse'), {
+      scale: 0.6
+    }).then(function (canvas) {
+      const img = canvas.toDataURL('image/png', 1);
+      const doc = new jsPDF();
+      doc.addImage(img, 'JPEG', 0, 0);
+      const stringg = 'Rapport_.pdf';
+      doc.save(stringg);
+    });
+  };
+
+  printResultPng() {
+    // window.print();
+    html2canvas(document.getElementById('pdfcourse'), {
+      scale: 1
+    }).then(function (canvas) {
+      const img = canvas.toDataURL('image/png', 1);
+      let iframe = "<iframe width='100%' height='100%' src='" + img + "'></iframe>"
+      let x = window.open();
+      x.document.open();
+      x.document.write(iframe);
+      x.document.close();
+
+    });
+  };
 
   publishToggle(_id, _status) {
     console.log(_status);
@@ -1287,8 +1315,8 @@ export class AdminComponent implements OnInit {
   }
 
 
-  sendUserLink(_id, _filled){
-    if (_filled === '1'){
+  sendUserLink(_id, _filled) {
+    if (_filled === '1') {
       this.toastr.warning('Is al ingevuld, hoeft niet meer te mailen', '');
     } else {
       this.loading = true;
@@ -1298,18 +1326,18 @@ export class AdminComponent implements OnInit {
 
 
 
-  userGotEmailed(_resp){
+  userGotEmailed(_resp) {
     this.loading = false;
     this.toastr.success('Persoon gemaild', '');
 
   }
 
-  sendGroupBulkLink(){
+  sendGroupBulkLink() {
     this.loading = true;
     this.serCred.API_sendlinktobulk(this.currentGroupID).subscribe(value => this.bulkGroupLinkSend(value));
   }
 
-  bulkGroupLinkSend(_resp){
+  bulkGroupLinkSend(_resp) {
     this.loading = false;
     this.toastr.success('Mail gestuurd naar de groepsleden met inloglink', '');
   }
