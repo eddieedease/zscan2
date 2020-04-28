@@ -15,6 +15,10 @@ import {
 } from '../edser.service';
 
 import {
+  DatePipe
+} from '@angular/common';
+
+import {
   BsModalService
 } from 'ngx-bootstrap/modal';
 import {
@@ -32,6 +36,8 @@ import {
 import {
   environment
 } from '../../environments/environment';
+
+
 
 import * as jsPDF from 'jspdf';
 import * as html2canvas from "html2canvas";
@@ -263,7 +269,20 @@ export class AdminComponent implements OnInit {
   currentCase = '';
   currentId;
 
-  constructor(private thisrouter: Router, private serCred: EdserService, private toastr: ToastrService, private modalService: BsModalService) {
+
+  // date vars
+   // DATE vars
+
+    // start and end date
+  date1;
+   bsValue = new Date();
+   bsRangeValue: Date[];
+   maxDate = new Date();
+
+   // colorpicker
+   styleColor = '#fff ';
+
+  constructor(private thisrouter: Router, private datePipe: DatePipe, private serCred: EdserService, private toastr: ToastrService, private modalService: BsModalService) {
 
   }
 
@@ -509,6 +528,8 @@ export class AdminComponent implements OnInit {
       ik1 = ik1 + parseFloat(_val['questions'][index].IK1);
       ik2 = ik2 + parseFloat(_val['questions'][index].IK2);
       ik3 = ik3 + parseFloat(_val['questions'][index].IK3);
+
+      // TODO: These need to be catched and reversed
       smoe1 = smoe1 + parseFloat(_val['questions'][index].SMOE1);
       smoe2 = smoe2 + parseFloat(_val['questions'][index].SMOE2);
       smoe3 = smoe3 + parseFloat(_val['questions'][index].SMOE3);
@@ -1340,6 +1361,19 @@ export class AdminComponent implements OnInit {
   bulkGroupLinkSend(_resp) {
     this.loading = false;
     this.toastr.success('Mail gestuurd naar de groepsleden met inloglink', '');
+  }
+
+
+  // datepicker functions
+  transformDate(date) {
+    return this.datePipe.transform(date, 'yyyy-MM-dd');
+  }
+
+   // the button is pressed
+   dateFilter() {
+    this.loading = true;
+    this.date1 = this.transformDate(this.bsValue);
+    // Alright send it to API
   }
 
 

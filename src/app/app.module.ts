@@ -19,6 +19,18 @@ import { TestComponent } from './test/test.component';
 import { AboutComponent } from './about/about.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 // import { CarouselModule } from 'ngx-bootstrap/carousel';
+import {
+  ColorPickerModule
+} from 'ngx-color-picker';
+
+
+import {
+  BsDatepickerModule
+} from 'ngx-bootstrap/datepicker';
+
+import {
+  DatePipe
+} from '@angular/common'
 
 import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
 
@@ -67,9 +79,11 @@ const appRoutes: Routes = [
     HttpModule,
     JsonpModule,
     ModalModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     FormsModule,
     BrowserAnimationsModule, // required animations module
     NgxPaginationModule,
+    ColorPickerModule,
     ToastrModule.forRoot(), // ToastrModule added,
     TabsModule.forRoot(),
     NgxDatatableModule,
@@ -77,7 +91,7 @@ const appRoutes: Routes = [
     // CarouselModule.forRoot(),
     ProgressbarModule.forRoot()
   ],
-  providers: [EdserService],
+  providers: [EdserService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -19,6 +19,7 @@
             "assets": [
               "src/assets",
               "src/api",
+              "src/uploads",
               "src/favicon.ico"
             ],
             "styles": [
@@ -30,7 +31,8 @@
               "src/styles.css",
               "node_modules/@swimlane/ngx-datatable/index.css",
               "node_modules/@swimlane/ngx-datatable/themes/material.css",
-              "node_modules/@swimlane/ngx-datatable/assets/icons.css"            ],
+              "node_modules/@swimlane/ngx-datatable/assets/icons.css"
+            ],
             "scripts": [
               "node_modules/popper.js/dist/umd/popper.js",
               "node_modules/jquery/dist/jquery.js",

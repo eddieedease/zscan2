@@ -1,236 +1,222 @@
 <div class="#ppage">
-<div class="modal fade" id="adminModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog"
-  aria-labelledby="adminModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Admin inlog</h5>
+  <div class="modal fade" id="adminModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Admin inlog</h5>
 
-      </div>
-      <div class="modal-body">
-        <form class="">
+        </div>
+        <div class="modal-body">
+          <form class="">
 
-          <fieldset class="form-group has-danger">
-            <label for="password" class="form-control-label">Emailadres:</label>
-            <input [(ngModel)]="admnEmail" [ngModelOptions]="{standalone: true}" type="email"
-              class="form-control form-control-danger" id="password">
-          </fieldset>
+            <fieldset class="form-group has-danger">
+              <label for="password" class="form-control-label">Emailadres:</label>
+              <input [(ngModel)]="admnEmail" [ngModelOptions]="{standalone: true}" type="email" class="form-control form-control-danger" id="password">
+            </fieldset>
 
-          <fieldset class="form-group has-danger">
-            <label for="password" class="form-control-label">Wachtwoord:</label>
-            <input [(ngModel)]="admnPwd" [ngModelOptions]="{standalone: true}" type="password"
-              class="form-control form-control-danger" id="email">
-          </fieldset>
-          <button (click)="loginAttempt()" class="btn btn-primary btn-lg">Login</button>
-        </form>
-        <br>
-        <div style='color:orangered' *ngIf="errorMsg == true">Geen juiste inloggegevens
+            <fieldset class="form-group has-danger">
+              <label for="password" class="form-control-label">Wachtwoord:</label>
+              <input [(ngModel)]="admnPwd" [ngModelOptions]="{standalone: true}" type="password" class="form-control form-control-danger" id="email">
+            </fieldset>
+            <button (click)="loginAttempt()" class="btn btn-primary btn-lg">Login</button>
+          </form>
+          <br>
+          <div style='color:orangered' *ngIf="errorMsg == true">Geen juiste inloggegevens
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="modal fade modal-add" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Nieuwe groep toevoegen</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="group_name_add" class="col-form-label">Nieuwe groepnaam:</label>
-            <input [(ngModel)]="groupName" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
-              id="group_name_add">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
-        <button type="button" (click)="makeGroup()" data-dismiss="modal" class="btn btn-primary">Toevoegen</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade modal-usertogroups" id="usertogroupModal" tabindex="-1" role="dialog" aria-labelledby="modal-add"
-  aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Groepen aan admins</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body"><br>
-        <p>Hier kunnen admins aan groepen worden gehangen</p>
-        <p>Als een admin (niet Superadmin) een nieuwe groep aanmaakt, wordt deze automatisch aan zijn/haar hieraan toegevoegd.
-        </p>
-        
-        <br>
-        <input [(ngModel)]="searchadminstogroup" [ngModelOptions]="{standalone: true}" type="text" class="form-control" (keyup)="updateFilter('admintogroups',$event)" placeholder="Zoeken..">&nbsp;&nbsp;<br>
-        <ngx-datatable *ngIf="loading == false" class="material" [rows]="allGroupRows" [columns]="columns"
-          [columnMode]="'force'" [messages]="tableMessages" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
-          <ngx-datatable-column name="Titel" [sortable]="true">
-            <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
-              <span (click)="sort()" style="cursor:pointer">
-                {{column.name}}
-              </span>
-            </ng-template>
-
-            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-              <div [innerHTML]="row['name']"></div>
-            </ng-template>
-          </ngx-datatable-column>
-
-          <ngx-datatable-column name="Aan groep">
-            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-              <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                <button type="button" *ngIf="!row['ingroup']" (click)="groupCourseHandler('add',row['id'])"
-                  class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                <button type="button" *ngIf="row['ingroup']" (click)="groupCourseHandler('rem',row['id'])"
-                  class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i></button>
-
-              </div>
-            </ng-template>
-
-          </ngx-datatable-column>
-
-
-
-
-
-
-        </ngx-datatable>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
+  <div class="modal fade modal-add" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Nieuwe groep toevoegen</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="group_name_add" class="col-form-label">Nieuwe groepnaam:</label>
+              <input [(ngModel)]="groupName" [ngModelOptions]="{standalone: true}" type="text" class="form-control" id="group_name_add">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
+          <button type="button" (click)="makeGroup()" data-dismiss="modal" class="btn btn-primary">Toevoegen</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+
+  <div class="modal fade modal-usertogroups" id="usertogroupModal" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Groepen aan admins</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body"><br>
+          <p>Hier kunnen admins aan groepen worden gehangen</p>
+          <p>Als een admin (niet Superadmin) een nieuwe groep aanmaakt, wordt deze automatisch aan zijn/haar hieraan toegevoegd.
+          </p>
+
+          <br>
+          <input [(ngModel)]="searchadminstogroup" [ngModelOptions]="{standalone: true}" type="text" class="form-control" (keyup)="updateFilter('admintogroups',$event)" placeholder="Zoeken..">&nbsp;&nbsp;<br>
+          <ngx-datatable *ngIf="loading == false" class="material" [rows]="allGroupRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
+            <ngx-datatable-column name="Titel" [sortable]="true">
+              <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+                <span (click)="sort()" style="cursor:pointer">
+                  {{column.name}}
+                </span>
+              </ng-template>
+
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <div [innerHTML]="row['name']"></div>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Aan groep">
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                  <button type="button" *ngIf="!row['ingroup']" (click)="groupCourseHandler('add',row['id'])" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                  <button type="button" *ngIf="row['ingroup']" (click)="groupCourseHandler('rem',row['id'])" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i></button>
+
+                </div>
+              </ng-template>
+
+            </ngx-datatable-column>
 
 
-<div class="modal fade modal-grouplist" id="grouplist" tabindex="-1" role="dialog" aria-labelledby="modal-add"
-  aria-hidden="true">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Groepslijst</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+
+
+
+
+          </ngx-datatable>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
+        </div>
       </div>
-      <div class="modal-body">
-        <div class="container">
-        <p>Hier kunnen emailadressen aan groepen worden gekoppeld die de zelfscan moeten uitvoeren</p>
-        <p>Ook kunnen hier personen aangewezen worden om de checklist uit te voeren</p><br>
-        <h5>Groepsopties</h5>
-        <div class="btn-group">
-        <button type="button" 
-                class="btn btn-primary" (click)="addClick('user')" data-toggle="modal">
+    </div>
+  </div>
+
+
+  <div class="modal fade modal-grouplist" id="grouplist" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Groepslijst</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <p>Hier kunnen emailadressen aan groepen worden gekoppeld die de zelfscan moeten uitvoeren</p>
+            <p>Ook kunnen hier personen aangewezen worden om de checklist uit te voeren</p><br>
+            <h5>Groepsopties</h5>
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary" (click)="addClick('user')" data-toggle="modal">
                 <i class="fa fa-plus"></i>&nbsp; Email toevoegen
               </button>
-              <button type="button" 
-                class="btn btn-warning" (click)="addClick('bulk')" data-toggle="modal">
+              <button type="button" class="btn btn-warning" (click)="addClick('bulk')" data-toggle="modal">
                 <i class="fa fa-plus"></i>&nbsp; Bulk CSV import
               </button> </div>
-              &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" 
-                class="btn btn-info" (click)="addClick('sendmails')" data-toggle="modal">
-                <i class="fa fa-plus"></i>&nbsp; Mails versturen
-              </button>
-           <br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-info" (click)="addClick('sendmails')" data-toggle="modal">
+              <i class="fa fa-plus"></i>&nbsp; Mails versturen
+            </button>
+            <br><br>
 
             <div *ngIf="userAddUser">
-            <fieldset class="form-group has-danger">
-              <label class="form-control-label">Emailadres:</label>
-              <input [(ngModel)]="emailAdd" [ngModelOptions]="{standalone: true}" type="email"
-                class="form-control form-control-danger" id="emailadd">
-               
-            </fieldset> <button type="button" (click)="addUser()"
-            class="btn btn-primary" data-toggle="modal">
-            <i class="fa fa-plus"></i>&nbsp;Voeg toe
-          </button></div>
+              <fieldset class="form-group has-danger">
+                <label class="form-control-label">Emailadres:</label>
+                <input [(ngModel)]="emailAdd" [ngModelOptions]="{standalone: true}" type="email" class="form-control form-control-danger" id="emailadd">
 
-          <div *ngIf="userAddBulk">
-            <fieldset class="form-group has-danger">
-              <label class="form-control-label">CSV bestand upload</label>
-               <div class="form-group">
-                    <input type="file" [(ngModel)]="fileHolder" [ngModelOptions]="{standalone: true}" (change)="onFileSelect($event.target)" name="myfile">
-               </div>
-            </fieldset></div>
-          
+              </fieldset> <button type="button" (click)="addUser()" class="btn btn-primary" data-toggle="modal">
+                <i class="fa fa-plus"></i>&nbsp;Voeg toe
+              </button>
+            </div>
+
+            <div *ngIf="userAddBulk">
+              <fieldset class="form-group has-danger">
+                <label class="form-control-label">CSV bestand upload</label>
+                <div class="form-group">
+                  <input type="file" [(ngModel)]="fileHolder" [ngModelOptions]="{standalone: true}" (change)="onFileSelect($event.target)" name="myfile">
+                </div>
+              </fieldset>
+            </div>
+
             <div *ngIf="userSendMails">
               <hr>
               <p>Klik op de knop hieronder om mails te versturen naar iedereen van deze lijst die de scan nog niet heeft gemaakt</p>
-              
+
               <button type="button" (click)="sendGroupBulkLink()" style="margin:10px;padding:10px" class="btn btn-info">Verstuur mails</button>
-          </div><br><br>
+            </div><br><br>
           </div>
 
           <div class="text-center">
-          <div class="fa fa-user fa-2x" style="color:blue"></div> = vragenlijst&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="fa fa-user-circle fa-2x" style="color:rgb(146, 9, 112)"></div> = Checklistgebruiker<br><br></div>
+            <div class="fa fa-user fa-2x" style="color:blue"></div> = vragenlijst&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="fa fa-user-circle fa-2x" style="color:rgb(146, 9, 112)"></div> = Checklistgebruiker<br><br>
+          </div>
           <br> <input [(ngModel)]="searchusersemail" [ngModelOptions]="{standalone: true}" type="text" class="form-control" (keyup)="updateFilter('usersemail',$event)" placeholder="Zoeken op email..">&nbsp;&nbsp;<br>
 
-        <ngx-datatable *ngIf="loading == false" class="material" [rows]="groupListUsers" [columns]="columns"
-        [columnMode]="'force'" [messages]="tableMessages" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
-          <ngx-datatable-column name="Email" [sortable]="true">
-            <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
-              <span (click)="sort()" style="cursor:pointer">
-                {{column.name}}
-              </span>
-            </ng-template>
+          <ngx-datatable *ngIf="loading == false" class="material" [rows]="groupListUsers" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
+            <ngx-datatable-column name="Email" [sortable]="true">
+              <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+                <span (click)="sort()" style="cursor:pointer">
+                  {{column.name}}
+                </span>
+              </ng-template>
 
-            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-              <div [innerHTML]="row['email']"></div>
-            </ng-template>
-          </ngx-datatable-column>
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <div [innerHTML]="row['email']"></div>
+              </ng-template>
+            </ngx-datatable-column>
 
-          <ngx-datatable-column name="Link" [sortable]="true">
-            <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
-              <span (click)="sort()" style="cursor:pointer">
-                {{column.name}}
-              </span>
-            </ng-template>
+            <ngx-datatable-column name="Link" [sortable]="true">
+              <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+                <span (click)="sort()" style="cursor:pointer">
+                  {{column.name}}
+                </span>
+              </ng-template>
 
-            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-              <div [innerHTML]="'https://' + locc + '/login/' + row['id'] +'/'+ row['unlockkey']"></div>
-            </ng-template>
-          </ngx-datatable-column>
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <div [innerHTML]="'https://' + locc + '/login/' + row['id'] +'/'+ row['unlockkey']"></div>
+              </ng-template>
+            </ngx-datatable-column>
 
-          <ngx-datatable-column name="Checklist">
-            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-              <div class="text-center" style="cursor: pointer;">
-              <i (click)="changeUserType(row['id'], row['filled'], 2)" *ngIf="row['type'] == '1'" class="fa fa-user fa-3x" style="color:blue" ></i>
-              <i (click)="changeUserType(row['id'], row['filled'], 1)" *ngIf="row['type'] == '2'" class="fa fa-user-circle fa-3x" style="color:rgb(146, 9, 112)" ></i>
-            </div>
-            </ng-template>
-          </ngx-datatable-column>
-
-          <ngx-datatable-column name="Ingevuld">
-            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-              <i *ngIf="row['filled'] == '1'" class="fa fa-check" aria-hidden="true" style="color: green;"></i>
-              <i *ngIf="row['filled'] == '0'" class="fa fa-times" aria-hidden="true" style="color: red;"></i>
-            </ng-template>
-          </ngx-datatable-column>
-
-          <ngx-datatable-column name="Acties">
-            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-              <div class="btn-group" role="group" aria-label="Basic example">
-              <button type="button" (click)="sendUserLink(row['id'],row['filled'])"
-                  class="btn btn-info"><i class="fa fa-envelope" aria-hidden="true"></i> Mail</button>
-
-              <button type="button" (click)="openSureModal(areusure, 'deletegroupuser', row['id'])"
-                  class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"> </i> DEL</button>
+            <ngx-datatable-column name="Checklist">
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <div class="text-center" style="cursor: pointer;">
+                  <i (click)="changeUserType(row['id'], row['filled'], 2)" *ngIf="row['type'] == '1'" class="fa fa-user fa-3x" style="color:blue"></i>
+                  <i (click)="changeUserType(row['id'], row['filled'], 1)" *ngIf="row['type'] == '2'" class="fa fa-user-circle fa-3x" style="color:rgb(146, 9, 112)"></i>
                 </div>
-              
-              <!-- <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Ingevuld">
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <i *ngIf="row['filled'] == '1'" class="fa fa-check" aria-hidden="true" style="color: green;"></i>
+                <i *ngIf="row['filled'] == '0'" class="fa fa-times" aria-hidden="true" style="color: red;"></i>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Acties">
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <button type="button" (click)="sendUserLink(row['id'],row['filled'])" class="btn btn-info"><i class="fa fa-envelope" aria-hidden="true"></i> Mail</button>
+
+                  <button type="button" (click)="openSureModal(areusure, 'deletegroupuser', row['id'])" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"> </i> DEL</button>
+                </div>
+
+                <!-- <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                           <button type="button" *ngIf="!row['ingroup']"
                             (click)="groupCourseHandler('add',row['id'])" class="btn btn-primary"><i
                               class="fa fa-plus" aria-hidden="true"></i></button>
@@ -239,330 +225,242 @@
                               class="fa fa-minus" aria-hidden="true"></i></button>
   
                         </div> -->
-            </ng-template>
-          </ngx-datatable-column>
-        </ngx-datatable>
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="modal fade modal-edit" tabindex="-1" role="dialog" aria-labelledby="modal-edit" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Bewerk groep</h5>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="group_name_edit" class="col-form-label">Groepnaam:</label>
-            <input [(ngModel)]="groupName" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
-              id="group_name_edit">
-          </div>
-        </form>
-        
-
-        <br><br>
-        <p><b>LET OP: </b> Via onderstaande knop kun je de groep verwijderen, hiermee zal alle data van deze groep verloren gaan.</p>
-        <button (click)="openSureModal(areusure, 'deletegroup', currentGroupID)" type="button" class="btn btn-danger" data-dismiss="modal">Verwijder</button>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
-        <button type="button" (click)="editGroup()" class="btn btn-primary" data-dismiss="modal">Wijzigingen
-          opslaan</button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 
-<div class="modal fade modal-useredit" tabindex="-1" role="dialog" aria-labelledby="modal-edit" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Bewerk gebruiker</h5>
+  <div class="modal fade modal-edit" tabindex="-1" role="dialog" aria-labelledby="modal-edit" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Bewerk groep</h5>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="group_name_edit" class="col-form-label">Groepnaam:</label>
+              <input [(ngModel)]="groupName" [ngModelOptions]="{standalone: true}" type="text" class="form-control" id="group_name_edit">
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-6">
+                <h6>Einddatum kiezen</h6><input type="text" class="form-control" #dp="bsDatepicker" [bsConfig]="{ dateInputFormat: 'YYYY-DD-MM' }" bsDatepicker [bsValue]="bsValue" [(ngModel)]="bsValue" [ngModelOptions]="{standalone: true}">
+                <br>
+              </div>
+              <div class="col-6">
+                <h6>Hoofdkleur kiezen</h6><span>Kies een donkere kleur: </span>
+                <input [(colorPicker)]="styleColor" [style.background]="styleColor" />
+                <br><br>
+              </div>
+            </div>
+          </form>
+
+
+          <br><br>
+        </div>
+        <div class="modal-footer">
+          <button (click)="openSureModal(areusure, 'deletegroup', currentGroupID)" style="float:left" type="button" class="btn btn-danger" data-dismiss="modal">Verwijder</button>
+
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
+          <button type="button" (click)="editGroup()" class="btn btn-primary" data-dismiss="modal">Wijzigingen
+            opslaan</button>
+        </div>
       </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="group_name_edit" class="col-form-label">Naam:</label>
-            <input [(ngModel)]="ausrName" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
-              id="usr_name_edit">
-          </div>
+    </div>
+  </div>
 
-          <div class="form-group">
-            <label for="group_name_edit" class="col-form-label">Achternaam:</label>
-            <input [(ngModel)]="ausrLastName" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
-              id="usr_lastname_edit">
-          </div>
 
-          <div class="form-group">
-            <label for="group_name_edit" class="col-form-label">Email:</label>
-            <input [(ngModel)]="ausrEmail" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
-              id="usr_name_email">
-          </div>
-          <div class="form-group">
-          
+  <div class="modal fade modal-useredit" tabindex="-1" role="dialog" aria-labelledby="modal-edit" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Bewerk gebruiker</h5>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="group_name_edit" class="col-form-label">Naam:</label>
+              <input [(ngModel)]="ausrName" [ngModelOptions]="{standalone: true}" type="text" class="form-control" id="usr_name_edit">
+            </div>
+
+            <div class="form-group">
+              <label for="group_name_edit" class="col-form-label">Achternaam:</label>
+              <input [(ngModel)]="ausrLastName" [ngModelOptions]="{standalone: true}" type="text" class="form-control" id="usr_lastname_edit">
+            </div>
+
+            <div class="form-group">
+              <label for="group_name_edit" class="col-form-label">Email:</label>
+              <input [(ngModel)]="ausrEmail" [ngModelOptions]="{standalone: true}" type="text" class="form-control" id="usr_name_email">
+            </div>
+            <div class="form-group">
+
               <p>Als onderstaand wachtwoord veld leeg wordt gelaten, verandert het oude wachtwoord niet.</p>
-            <label for="group_name_edit" class="col-form-label">Gewenst wachtwoord:</label>
-            <input [(ngModel)]="ausrWw" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
-              id="usr_ww_edit">
-          </div>
+              <label for="group_name_edit" class="col-form-label">Gewenst wachtwoord:</label>
+              <input [(ngModel)]="ausrWw" [ngModelOptions]="{standalone: true}" type="text" class="form-control" id="usr_ww_edit">
+            </div>
 
-          <div class="form-group">
-            <label for="group_name_edit" class="col-form-label">Type:</label>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="radio" [checked]="ausrType === '1'" class="form-check-input" value="1"
-                  (change)="ausrType = 1" name="typeA">Admin
-              </label>
+            <div class="form-group">
+              <label for="group_name_edit" class="col-form-label">Type:</label>
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input type="radio" [checked]="ausrType === '1'" class="form-check-input" value="1" (change)="ausrType = 1" name="typeA">Beheerder
+                </label>
+              </div>
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input type="radio" (change)="ausrType = 2" [checked]="ausrType === '2'" class="form-check-input" value="2" name="typeA">Admin
+                </label>
+              </div>
             </div>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="radio" (change)="ausrType = 2" [checked]="ausrType === '2'" class="form-check-input"
-                  value="2" name="typeA">Super Admin
-              </label>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
-        <button type="button" (click)="editAusr()" class="btn btn-primary">Wijzigingen opslaan</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
+          <button type="button" (click)="editAusr()" class="btn btn-primary">Wijzigingen opslaan</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 
 
-<!-- user modal -->
+  <!-- user modal -->
 
-<div class="modal fade modaluser-add" id="useraddmodal" tabindex="-1" role="dialog" aria-labelledby="modaluser-add"
-  aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Nieuwe Admin toevoegen</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="group_name_edit" class="col-form-label">Naam:</label>
-            <input [(ngModel)]="ausrName" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
-              id="usr_name_new">
-          </div>
-
-          <div class="form-group">
-            <label for="group_name_edit" class="col-form-label">Achternaam:</label>
-            <input [(ngModel)]="ausrLastName" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
-              id="usr_lastname_new">
-          </div>
-
-          <div class="form-group">
-            <label for="group_name_edit" class="col-form-label">Email:</label>
-            <input [(ngModel)]="ausrEmail" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
-              id="usr_email_new">
-          </div>
-
-          <div class="form-group">
-            <label for="group_name_edit" class="col-form-label">Gewenst wachtwoord:</label>
-            <input [(ngModel)]="ausrWw" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
-              id="usr_ww_new">
-          </div>
-
-
-          <div class="form-group">
-            <label for="group_name_edit" class="col-form-label">Type:</label>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="radio" [checked]="ausrType === '1'" class="form-check-input" value="1"
-                  (change)="ausrType = 1" name="typeA">Admin
-              </label>
+  <div class="modal fade modaluser-add" id="useraddmodal" tabindex="-1" role="dialog" aria-labelledby="modaluser-add" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Nieuwe Admin toevoegen</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="group_name_edit" class="col-form-label">Naam:</label>
+              <input [(ngModel)]="ausrName" [ngModelOptions]="{standalone: true}" type="text" class="form-control" id="usr_name_new">
             </div>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="radio" (change)="ausrType = 2" [checked]="ausrType === '2'" class="form-check-input"
-                  value="2" name="typeA">Super Admin
-              </label>
+
+            <div class="form-group">
+              <label for="group_name_edit" class="col-form-label">Achternaam:</label>
+              <input [(ngModel)]="ausrLastName" [ngModelOptions]="{standalone: true}" type="text" class="form-control" id="usr_lastname_new">
             </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
-        <button type="button" (click)="makeUser()" class="btn btn-primary">Toevoegen</button>
+
+            <div class="form-group">
+              <label for="group_name_edit" class="col-form-label">Email:</label>
+              <input [(ngModel)]="ausrEmail" [ngModelOptions]="{standalone: true}" type="text" class="form-control" id="usr_email_new">
+            </div>
+
+            <div class="form-group">
+              <label for="group_name_edit" class="col-form-label">Gewenst wachtwoord:</label>
+              <input [(ngModel)]="ausrWw" [ngModelOptions]="{standalone: true}" type="text" class="form-control" id="usr_ww_new">
+            </div>
+
+
+            <div class="form-group">
+              <label for="group_name_edit" class="col-form-label">Type:</label>
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input type="radio" [checked]="ausrType === '1'" class="form-check-input" value="1" (change)="ausrType = 1" name="typeA">Beheerder
+                </label>
+              </div>
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input type="radio" (change)="ausrType = 2" [checked]="ausrType === '2'" class="form-check-input" value="2" name="typeA">Admin
+                </label>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
+          <button type="button" (click)="makeUser()" class="btn btn-primary">Toevoegen</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 
-<ng-template #areusure>
-  <div class="modal-body text-center">
-    <p>Je staat op het punt om dit item te verwijderen</p>
-    <p>Weet je het zeker?</p>
-    <button type="button" class="btn btn-default" (click)="sureModal('no')">Nee</button>&nbsp;&nbsp;&nbsp;&nbsp;
-    <button type="button" class="btn btn-primary" (click)="sureModal('yes')">Ja</button>
-  </div>
-</ng-template>
+  <ng-template #areusure>
+    <div class="modal-body text-center">
+      <p>Je staat op het punt om dit item te verwijderen</p>
+      <p>Weet je het zeker?</p>
+      <button type="button" class="btn btn-default" (click)="sureModal('no')">Nee</button>&nbsp;&nbsp;&nbsp;&nbsp;
+      <button type="button" class="btn btn-primary" (click)="sureModal('yes')">Ja</button>
+    </div>
+  </ng-template>
 
 
 
 
-<!-- content -->
+  <!-- content -->
 
-<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
 
-<div *ngIf="adminLogged == true">
-  <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0">Admin</a>
+  <div *ngIf="adminLogged == true">
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0">Beheer</a>
 
-    <ul class="navbar-nav px-3">
-      <li class="nav-item text-nowrap">
-        <a (click)="logOut()" class="nav-link">Log uit</a>
-      </li>
-    </ul>
-  </nav>
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a (click)="logOut()" class="nav-link">Log uit</a>
+        </li>
+      </ul>
+    </nav>
 
-  <div class="container">
+    <div class="container">
 
-    <div class="row">
-      <br><br>
-      <div class="col-sm-12 col-md-6">
-        <ul class="nav flex-column">
-          <div *ngIf="admnType === 2"><h3 style="color: #d53b2f">Superadmin</h3></div>
-          <li class="nav-item">
-            <a class="nav-link active">
-              <img src="assets/logo.png" class="img-fluid" alt="Responsive image">
-            </a>
-          </li>
-        </ul>
-      </div>
+      <div class="row">
+        <br><br>
+        <div class="col-sm-12 col-md-6">
+          <ul class="nav flex-column">
+            <div *ngIf="admnType === 2">
+              <br><br>
+            </div>
+            <li class="nav-item">
+              <a class="nav-link active">
+                <img src="assets/logo.png" class="img-fluid" alt="Responsive image">
+              </a>
+            </li>
+          </ul>
+        </div>
 
-      <!-- <div class="col-sm-12 col-md-6"> <div class="text-center">
+        <!-- <div class="col-sm-12 col-md-6"> <div class="text-center">
         <img src="assets/headban.png" class="img-fluid" alt="Responsive image">
       </div></div> -->
-      <main role="main" class="col-md-12">
-        <br>
-
-        
+        <main role="main" class="col-md-12">
+          <br>
 
 
-        
-       
-        <tabset [justified]="true">
-          <tab heading="Admin" *ngIf="admnType === 2" (selectTab)="onSelect($event, 'admins')"><br><br>
-            <p>Het beheer Admins</p>
 
-            <div
-              class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 
-              <h2 class="h2">Admins</h2><button type="button" (click)="resetUsersVals()"
-                class="btn btn-primary btn-lg float-right" data-toggle="modal" data-target=".modaluser-add">
-                <i class="fa fa-plus"></i>
-              </button>
-            </div>
 
-            <input [(ngModel)]="adminname" [ngModelOptions]="{standalone: true}" type="text" class="form-control" (keyup)="updateFilter('adminname',$event)" placeholder="Zoeken op naam..">&nbsp;&nbsp;<br>
-            <ngx-datatable class="material" [scrollbarH]="true" [rows]="manageRows" [columns]="columns"
-              [columnMode]="'force'" [messages]="tableMessages" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
-              <ngx-datatable-column name="Naam" prop="name" [sortable]="true">
 
-                <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
-                  <span (click)="sort()" style="cursor:pointer">
-                    {{column.name}}
-                  </span>
-                </ng-template>
+          <tabset [justified]="true">
+            <tab heading="Admin" *ngIf="admnType === 2" (selectTab)="onSelect($event, 'admins')"><br><br>
+              <p>Het beheer Admins</p>
 
-                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                  <div [innerHTML]="row['name'] + ' ' + row['lastname']"></div>
-                </ng-template>
-              </ngx-datatable-column>
+              <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 
-              <ngx-datatable-column name="Acties">
-                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                  <div class="btn-group" style="border-radius: 10px; color: white" role="group"
-                    aria-label="Basic example">
-                    
-                    <button (click)="openUserToGroupModal(row.id)" type="button" style="color: white"
-                      class="btn btn-primary" data-toggle="modal" data-target=".modal-usertogroups">
-                      <i class="fa fa-group"></i>
-                    </button>
-                    <button (click)="openEditUserModal(row.id)" type="button" style="color: white" class="btn btn-info"
-                      data-toggle="modal" data-target=".modal-useredit">
-                      <i class="fa fa-edit"></i>
-                    </button><br>
-                    <button (click)="openSureModal(areusure, 'deleteadmin', row['id'])" type="button" style="color: white" class="btn btn-danger">
-                      <i class="fa fa-trash"></i>
-                    </button>
-                  </div>
-                </ng-template>
+                <h2 class="h2">Beheerders / Admins</h2><button type="button" (click)="resetUsersVals()" class="btn btn-primary btn-lg float-right" data-toggle="modal" data-target=".modaluser-add">
+                  <i class="fa fa-plus"></i>
+                </button>
+              </div>
 
-              </ngx-datatable-column>
-              
+              <input [(ngModel)]="adminname" [ngModelOptions]="{standalone: true}" type="text" class="form-control" (keyup)="updateFilter('adminname',$event)" placeholder="Zoeken op naam..">&nbsp;&nbsp;<br>
+              <ngx-datatable class="material" [scrollbarH]="true" [rows]="manageRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
+                <ngx-datatable-column name="Naam" prop="name" [sortable]="true">
 
-              <ngx-datatable-column name="Email" prop="email" [sortable]="true">
-
-                <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
-                  <span style="cursor:pointer">
-                    {{column.name}}
-                  </span>
-                </ng-template>
-
-                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                  <div [innerHTML]="row['email']"></div>
-                </ng-template>
-
-              </ngx-datatable-column>
-
-              <ngx-datatable-column name="type" prop="type" [sortable]="true">
-
-                <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
-                  <span style="cursor:pointer">
-                    {{column.name}}
-                  </span>
-                </ng-template>
-
-                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                  <div *ngIf="row['type'] === '1'">Beheerder</div>
-                  <div *ngIf="row['type'] === '2'">Admin</div>
-                </ng-template>
-
-              </ngx-datatable-column>
-
-              
-            </ngx-datatable>
-          </tab>
-
-          <tab heading="Groepen"  (selectTab)="onSelect($event, 'groups')">
-            <br><br>
-            <p>Het beheer van groepen</p>
-
-            <div
-              class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-
-              <h2 class="h2">Groepen</h2>
-              <button type="button" (click)="resetGroupVals()" class="btn btn-primary btn-lg float-right"
-                data-toggle="modal" data-target=".modal-add">
-                <i class="fa fa-plus"></i>
-              </button>
-            </div>
-            <div *ngIf="!showScore">
-              <br>        <input [(ngModel)]="searchgroupname" [ngModelOptions]="{standalone: true}" type="text" class="form-control" (keyup)="updateFilter('groupname',$event)" placeholder="Zoeken..">&nbsp;&nbsp;<br>
-             
-              <ngx-datatable [scrollbarH]="true" class="material" [rows]="groupRows" [columns]="columns"
-                [columnMode]="'force'" [messages]="tableMessages" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
-                <ngx-datatable-column name="Titel" [sortable]="true">
                   <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
                     <span (click)="sort()" style="cursor:pointer">
                       {{column.name}}
@@ -570,11 +468,30 @@
                   </ng-template>
 
                   <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                    <div [innerHTML]="row['name']"></div>
+                    <div [innerHTML]="row['name'] + ' ' + row['lastname']"></div>
                   </ng-template>
                 </ngx-datatable-column>
-               
-                <ngx-datatable-column name="Actief" [sortable]="true">
+
+                <ngx-datatable-column name="Acties">
+                  <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                    <div class="btn-group" style="border-radius: 10px; color: white" role="group" aria-label="Basic example">
+
+                      <button (click)="openUserToGroupModal(row.id)" type="button" style="color: white" class="btn btn-primary" data-toggle="modal" data-target=".modal-usertogroups">
+                        <i class="fa fa-group"></i>
+                      </button>
+                      <button (click)="openEditUserModal(row.id)" type="button" style="color: white" class="btn btn-info" data-toggle="modal" data-target=".modal-useredit">
+                        <i class="fa fa-edit"></i>
+                      </button><br>
+                      <button (click)="openSureModal(areusure, 'deleteadmin', row['id'])" type="button" style="color: white" class="btn btn-danger">
+                        <i class="fa fa-trash"></i>
+                      </button>
+                    </div>
+                  </ng-template>
+
+                </ngx-datatable-column>
+
+
+                <ngx-datatable-column name="Email" prop="email" [sortable]="true">
 
                   <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
                     <span style="cursor:pointer">
@@ -582,19 +499,78 @@
                     </span>
                   </ng-template>
 
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    <p>{{row.Title}}
-                      <input type="checkbox" id="{{row.Title}}" name="{{row.Title}}" [(ngModel)]="row.status"
-                        (change)="publishToggle(row.id,row.status)" />
-                      <label for="{{row.Title}}"></label>
-                    </p>
+                  <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                    <div [innerHTML]="row['email']"></div>
+                  </ng-template>
+
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="type" prop="type" [sortable]="true">
+
+                  <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+                    <span style="cursor:pointer">
+                      {{column.name}}
+                    </span>
+                  </ng-template>
+
+                  <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                    <div *ngIf="row['type'] === '1'">Beheerder</div>
+                    <div *ngIf="row['type'] === '2'">Admin</div>
                   </ng-template>
 
                 </ngx-datatable-column>
 
 
+              </ngx-datatable>
+            </tab>
 
-              <!--   <ngx-datatable-column name="Aantal Ingevuld">
+            <tab heading="Groepen" (selectTab)="onSelect($event, 'groups')">
+              <br><br>
+              <p>Het beheer van groepen</p>
+
+              <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+
+                <h2 class="h2">Groepen</h2>
+                <button type="button" (click)="resetGroupVals()" class="btn btn-primary btn-lg float-right" data-toggle="modal" data-target=".modal-add">
+                  <i class="fa fa-plus"></i>
+                </button>
+              </div>
+              <div *ngIf="!showScore">
+                <br> <input [(ngModel)]="searchgroupname" [ngModelOptions]="{standalone: true}" type="text" class="form-control" (keyup)="updateFilter('groupname',$event)" placeholder="Zoeken..">&nbsp;&nbsp;<br>
+
+                <ngx-datatable [scrollbarH]="true" class="material" [rows]="groupRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
+                  <ngx-datatable-column name="Titel" [sortable]="true">
+                    <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+                      <span (click)="sort()" style="cursor:pointer">
+                        {{column.name}}
+                      </span>
+                    </ng-template>
+
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                      <div [innerHTML]="row['name']"></div>
+                    </ng-template>
+                  </ngx-datatable-column>
+
+                  <ngx-datatable-column name="Actief" [sortable]="true">
+
+                    <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+                      <span style="cursor:pointer">
+                        {{column.name}}
+                      </span>
+                    </ng-template>
+
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      <p>{{row.Title}}
+                        <input type="checkbox" id="{{row.Title}}" name="{{row.Title}}" [(ngModel)]="row.status" (change)="publishToggle(row.id,row.status)" />
+                        <label for="{{row.Title}}"></label>
+                      </p>
+                    </ng-template>
+
+                  </ngx-datatable-column>
+
+
+
+                  <!--   <ngx-datatable-column name="Aantal Ingevuld">
                   <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
                     <span style="cursor:pointer">
                       {{column.name}}
@@ -608,204 +584,220 @@
                 </ngx-datatable-column> -->
 
 
-                <ngx-datatable-column name="Acties">
-                  <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                    <div class="btn-group" style="border-radius: 10px; color: white" role="group"
-                      aria-label="Basic example">
-                      <button (click)="showGroupList(row.id)" type="button" style="color: white" class="btn btn-primary"
-                        data-toggle="modal" data-target=".modal-grouplist">
-                        <i class="fa fa-list"></i> Groepslijst
-                      </button>
-                      <button (click)="showEdit(row.id)" type="button" style="color: white" class="btn btn-info"
-                        data-toggle="modal" data-target=".modal-edit">
-                        <i class="fa fa-edit"></i> Edit
-                      </button>
-                      
-                    </div>
-                  </ng-template>
+                  <ngx-datatable-column name="Acties">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                      <div class="btn-group" style="border-radius: 10px; color: white" role="group" aria-label="Basic example">
+                        <button (click)="showGroupList(row.id)" type="button" style="color: white" class="btn btn-primary" data-toggle="modal" data-target=".modal-grouplist">
+                          <i class="fa fa-list"></i> Groepslijst
+                        </button>
+                        <button (click)="showEdit(row.id)" type="button" style="color: white" class="btn btn-info" data-toggle="modal" data-target=".modal-edit">
+                          <i class="fa fa-edit"></i> Edit
+                        </button>
 
-                </ngx-datatable-column>
+                      </div>
+                    </ng-template>
+
+                  </ngx-datatable-column>
 
 
-                <ngx-datatable-column name="Landkaart">
-                  <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                    <div class="btn-group" style="border-radius: 10px; color: white" role="group"
-                      aria-label="Basic example">
-                      <button style="color: white;" (click)="showResult(row.id)" type="button" class="btn btn-warning">
-                        <i class="fa fa-eye" ></i> Landkaart
-                      </button>
-                    </div>
-                  </ng-template>
+                  <ngx-datatable-column name="Landkaart">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                      <div class="btn-group" style="border-radius: 10px; color: white" role="group" aria-label="Basic example">
+                        <button style="color: white;" (click)="showResult(row.id)" type="button" class="btn btn-warning">
+                          <i class="fa fa-eye"></i> Landkaart
+                        </button>
+                      </div>
+                    </ng-template>
 
-                </ngx-datatable-column>
+                  </ngx-datatable-column>
 
-                <ngx-datatable-column name="Aangemaakt" [sortable]="true">
+                  <ngx-datatable-column name="Aangemaakt" [sortable]="true">
 
-                  <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
-                    <span style="cursor:pointer">
-                      {{column.name}}
-                    </span>
-                  </ng-template>
+                    <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+                      <span style="cursor:pointer">
+                        {{column.name}}
+                      </span>
+                    </ng-template>
 
-                  <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                    <div [innerHTML]="row['made']"></div>
-                  </ng-template>
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                      <div [innerHTML]="row['made']"></div>
+                    </ng-template>
 
-                </ngx-datatable-column>
+                  </ngx-datatable-column>
 
 
 
 
-              </ngx-datatable>
-            </div>
-
-            <hr>
-            <div *ngIf="showScore">
-              
-              <div class="container" id="pdfcourse" >
-                <button type="button" (click)="showScore = false" class="btn btn-primary" data-toggle="modal" data-html2canvas-ignore="true">
-                  <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;&nbsp;Terug naar Overzicht
-                </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                <button type="button" (click)="printResult()" class="btn btn-primary" data-toggle="modal" data-html2canvas-ignore="true">
-                  <i class="fa fa-print"></i>&nbsp;&nbsp;&nbsp;&nbsp;PDF
-                </button>
-                <button type="button" (click)="printResultPng()" class="btn btn-primary" data-toggle="modal" data-html2canvas-ignore="true">
-                  <i class="fa fa-print"></i>&nbsp;&nbsp;&nbsp;&nbsp;PNG
-                </button>
-                <div >
-                <br>
-                <h2>{{currentGroup}}</h2>    
-                <p>Datum: {{dateToday}}<br>Ingevulde vragenlijsten: <b>{{howManySendQuestions}}</b><br>
-                    Checklist: <b>{{howManySendChecklist}}</b></p>
-                <br>
-                <table style="float: left; height: 1028px; color: white" width="100%" cellpadding="10">
-                  <tbody>
-                    <tr style="height: 23px;">
-                      <td style="height: 23px; width: 15px;" style="color: black;" colspan="3">Mens</td>
-                      <td style="height: 23px; width: 15px;" colspan="4"></td>
-                    </tr>
-                    <tr style="height: 23px;">
-                      <td style="height: 23px; width: 15px;" style="color: black;">&nbsp;<b>IZ</b>&nbsp;&nbsp;&nbsp;&nbsp;<br>Ik zie<br><div [style.background-color] = "iztot == 1 ? 'red' : iztot == 3 ? 'green' : 'orange'" class="square"></div></td>
-                      <td style="height: 23px; width: 10px;" [style.background-color] = "iz1 >= 3.5 ? 'green' : iz1 < 3.5 && iz1 > 2.5 ? 'orange' : 'red'">&nbsp;IZ 1&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{iz1}}</b><br>Aansturen op veilig gedrag / voorbeeld gedrag management<br><br></td>
-                      <td style="height: 23px; width: 15px;" [style.background-color] = "iz2 >= 3.5 ? 'green' : iz2 < 3.5 && iz2 > 2.5 ? 'orange' : 'red'">&nbsp;IZ 2&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{iz2}}</b><br>Toezicht & handhaving</td>
-                      <td style="height: 23px; width: 15px;" [style.background-color] = "iz3 >= 3.5 ? 'green' : iz3 < 3.5 && iz3 > 2.5 ? 'orange' : 'red'">&nbsp;IZ 3&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{iz3}}</b><br>Aanspreekcultuur</td>
-                    </tr>
-                    <tr style="height: 23px;">
-                      <td style="height: 23px; width: 15px;" style="color: black;">&nbsp;<b>IW</b>&nbsp;&nbsp;&nbsp;&nbsp;<br>Ik wil<br><div [style.background-color] = "iwtot == 1 ? 'red' : iwtot == 3 ? 'green' : 'orange'"class="square"></div></td>
-                      <td style="height: 23px; width: 10px;" [style.background-color] = "iw1 >= 3.5 ? 'green' : iw1 < 3.5 && iw1 > 2.5 ? 'orange' : 'red'">&nbsp;IW 1&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{iw1}}</b><br>Positieve houding t.a.v. veiligheid</td>
-                      <td style="height: 23px; width: 15px;" [style.background-color] = "iw2 >= 3.5 ? 'green' : iw2 < 3.5 && iw2 > 2.5 ? 'orange' : 'red'">&nbsp;IW 2&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{iw2}}</b><br>Regels volgen / respecteren</td>
-                      <td style="height: 23px; width: 15px;" [style.background-color] = "iw3 >= 3.5 ? 'green' : iw3 < 3.5 && iw3 > 2.5 ? 'orange' : 'red'">&nbsp;IW 3&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{iw3}}</b><br>Opleidingsbehoefte</td>
-                    </tr>
-                    <tr style="height: 23px;">
-                      <td style="height: 23px; width: 15px;" style="color: black;">&nbsp;<b>IWE</b>&nbsp;&nbsp;&nbsp;&nbsp;<br>Ik weet<br><div [style.background-color] = "iwetot == 1 ? 'red' : iwetot == 3 ? 'green' : 'orange'" class="square"></div></td>
-                      <td style="height: 23px; width: 10px;" [style.background-color] = "iwe1 >= 3.5 ? 'green' : iwe1 < 3.5 && iwe1 > 2.5 ? 'orange' : 'red'">&nbsp;IWE 1&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{iwe1}}</b><br>Vakkennis</td>
-                      <td style="height: 23px; width: 15px;" [style.background-color] = "iwe2 >= 3.5 ? 'green' : iwe2 < 3.5 && iwe2 > 2.5 ? 'orange' : 'red'">&nbsp;IWE 2&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{iwe2}}</b><br>Kennis veiligheid algemen</td>
-                      <td style="height: 23px; width: 15px;" [style.background-color] = "iwe3 >= 3.5 ? 'green' : iwe3 < 3.5 && iwe3 > 2.5 ? 'orange' : 'red'">&nbsp;IWE 3&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{iwe3}}</b><br>Veiligheidsbewustzijn</td>
-                      <td style="height: 23px; width: 15px;" [style.background-color] = "iwe4 >= 3.5 ? 'green' : iwe4 < 3.5 && iwe4 > 2.5 ? 'orange' : 'red'">&nbsp;IWE 4&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{iwe4}}</b><br>Uitwisselen informatie</td>
-                    </tr>
-                    <tr style="height: 23px;">
-                      <td style="height: 23px; width: 15px;" style="color: black;">&nbsp;<b>IK</b>&nbsp;&nbsp;&nbsp;&nbsp;<br>Ik kan<br><div class="square" [style.background-color] = "iktot == 1 ? 'red' : iktot == 3 ? 'green' : 'orange'"></div></td>
-                      <td style="height: 23px; width: 10px;" [style.background-color] = "ik1 >= 3.5 ? 'green' : ik1 < 3.5 && ik1 > 2.5 ? 'orange' : 'red'">&nbsp;IK 1&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{ik1}}</b><br>Vaardigheden</td>
-                      <td style="height: 23px; width: 15px;" [style.background-color] = "ik2 >= 3.5 ? 'green' : ik2 < 3.5 && ik2 > 2.5 ? 'orange' : 'red'">&nbsp;IK 2&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{ik2}}</b><br>Randvoorwaarden veilig werken</td>
-                      <td style="height: 23px; width: 15px;" [style.background-color] = "ik3 >= 3.5 ? 'green' : ik3 < 3.5 && ik3 > 2.5 ? 'orange' : 'red'">&nbsp;IK 3&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{iz3}}</b><br>Overleg veiligheid</td>
-                    </tr>
-                    <tr style="height: 23px;">
-                      <td style="height: 23px; width: 15px;" style="color: black;" colspan="3">Organisatie</td>
-                      <td style="height: 23px; width: 15px;" colspan="4"></td>
-                    </tr>
-                    <tr style="height: 23px;">
-                      <td style="height: 23px; width: 15px;" style="color: black;">&nbsp;<b>CW</b>&nbsp;&nbsp;&nbsp;&nbsp;<br>Compliance, wetgeving &amp; richtlijnen<br><div class="square" [style.background-color] = "cwtot == 1 ? 'red' : cwtot == 3 ? 'green' : 'orange'"></div></td>
-                      <td style="height: 23px; width: 10px;" [style.background-color] = "cw1 >= 3.5 ? 'green' : cw1 < 3.5 && cw1 > 2.5 ? 'orange' : 'red'">&nbsp;CW 1&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{cw1}}</b><br>Arbowet</td>
-                      <td style="height: 23px; width: 15px;" [style.background-color] = "cw2 >= 3.5 ? 'green' : cw2 < 3.5 && cw2 > 2.5 ? 'orange' : 'red'">&nbsp;CW 2&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{cw2}}</b><br>Moederorganisatie</td>
-                      <!-- <td style="height: 23px; width: 15px;">&nbsp;CW 3&nbsp;&nbsp;&nbsp;&nbsp;<b>{{cw3}}</b><br>Andere relevante wetgeving</td> -->
-                    </tr>
-                    <tr style="height: 23px;">
-                      <td style="height: 23px; width: 15px;" style="color: black;">&nbsp;<b>VB</b>&nbsp;&nbsp;&nbsp;&nbsp;<br>Veiligheidsbeleid<br><div class="square" [style.background-color] = "vbtot == 1 ? 'red' : vbtot == 3 ? 'green' : 'orange'"></div></td>
-                      <td style="height: 23px; width: 10px;" [style.background-color] = "vb1 >= 3.5 ? 'green' : vb1 < 3.5 && vb1 > 2.5 ? 'orange' : 'red'">&nbsp;VB 1&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{vb1}}</b><br>Veiligheidsbeleid vastgelegd</td>
-                      <td style="height: 23px; width: 15px;" [style.background-color] = "vb2 >= 3.5 ? 'green' : vb2 < 3.5 && vb2 > 2.5 ? 'orange' : 'red'">&nbsp;VB 2&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{vb2}}</b><br>Veiligheidsbeleid vertaald in functieomschrijving</td>
-                      <td style="height: 23px; width: 15px;" [style.background-color] = "vb3 >= 3.5 ? 'green' : vb3 < 3.5 && vb3 > 2.5 ? 'orange' : 'red'">&nbsp;VB 3&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{vb3}}</b><br>Veiligheidsbeleid bekend &amp; beschikbaar</td>
-                    </tr>
-                    <tr style="height: 23px;">
-                      <td style="height: 23px; width: 15px;" style="color: black;">&nbsp;<b>OPL</b>&nbsp;&nbsp;&nbsp;&nbsp;<br>Opleiding<br><div class="square" [style.background-color] = "opltot == 1 ? 'red' : opltot == 3 ? 'green' : 'orange'"></div></td>
-                      <td style="height: 23px; width: 10px;" [style.background-color] = "opl1 >= 3.5 ? 'green' : opl1 < 3.5 && opl1 > 2.5 ? 'orange' : 'red'">&nbsp;OPL 1&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{opl1}}</b><br>Eisen vastgelegd</td>
-                      <td style="height: 23px; width: 15px;" [style.background-color] = "opl2 >= 3.5 ? 'green' : opl2 < 3.5 && opl2 > 2.5 ? 'orange' : 'red'">&nbsp;OPL 2&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{opl2}}</b><br>Opleidingsplan</td>
-                      <td style="height: 23px; width: 15px;" [style.background-color] = "opl3 >= 3.5 ? 'green' : opl3 < 3.5 && opl3 > 2.5 ? 'orange' : 'red'">&nbsp;OPL 3&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{opl3}}</b><br>Registratie</td>
-                    </tr>
-                    <tr style="height: 23px;">
-                      <td style="height: 23px; width: 101px;" style="color: black;">&nbsp;<b>PRO</b>&nbsp;&nbsp;&nbsp;&nbsp;<br>Procedures, Beheersing werkzaamheden, beheer &amp; onderhoud<br><div class="square" [style.background-color] = "protot == 1 ? 'red' : protot == 3 ? 'green' : 'orange'"></div></td>
-                      <td style="height: 23px; width: 10px;" [style.background-color] = "pro1 >= 3.5 ? 'green' : pro1 < 3.5 && pro1 > 2.5 ? 'orange' : 'red'">&nbsp;PRO 1&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{pro1}}</b><br>Procedures uitvoeren gevaarlijke werkzaamheden</td>
-                      <td style="height: 23px; width: 15px;" [style.background-color] = "pro2 >= 3.5 ? 'green' : pro2 < 3.5 && pro2 > 2.5 ? 'orange' : 'red'">&nbsp;PRO 2&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{pro2}}</b><br>Procedures omgaan met gevaarlijke materialen</td>
-                      <td style="height: 23px; width: 15px;" [style.background-color] = "pro3 >= 3.5 ? 'green' : pro3 < 3.5 && pro3 > 2.5 ? 'orange' : 'red'">&nbsp;PRO 3&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{pro3}}</b><br>Procedures onderhoud van installaties &amp; uitrusting t.v.b. de veiligheid</td>
-                    </tr>
-                    <tr style="height: 23px;">
-                      <td style="height: 23px; width: 101px;" style="color: black;">&nbsp;<b>Communicatie</b>&nbsp;&nbsp;&nbsp;&nbsp;<br>Communicatiestructuren<br><div class="square" [style.background-color] = "comtot == 1 ? 'red' : comtot == 3 ? 'green' : 'orange'"></div></td>
-                      <td style="height: 23px; width: 10px;" [style.background-color] = "com1 >= 3.5 ? 'green' : com1 < 3.5 && com1 > 2.5 ? 'orange' : 'red'">&nbsp;COM 1&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{com1}}</b><br>Formeel overleg management/werkvloer</td>
-                      <td style="height: 23px; width: 15px;" [style.background-color] = "com2 >= 3.5 ? 'green' : com2 < 3.5 && com2 > 2.5 ? 'orange' : 'red'">&nbsp;COM 2&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{com2}}</b><br>Werknemers betrokken bij risicobeoordeling &amp;onderzoek incidenten</td>
-                      <td style="height: 23px; width: 15px;" [style.background-color] = "com3 >= 3.5 ? 'green' : com3 < 3.5 && com3 > 2.5 ? 'orange' : 'red'">&nbsp;COM 3&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{com3}}</b><br>Communicatie veiligheidsprestaties</td>
-                    </tr>
-                    <tr style="height: 23px;">
-                      <td style="height: 23px; width: 101px;" style="color: black;">&nbsp;<b>Borging</b>&nbsp;&nbsp;&nbsp;&nbsp;<br>Meter, monitoren, bijstellen &amp; borgen<br><div class="square" [style.background-color] = "bortot == 1 ? 'red' : bortot == 3 ? 'green' : 'orange'"></div></td>
-                      <td style="height: 23px; width: 10px;" [style.background-color] = "bor1 >= 3.5 ? 'green' : bor1 < 3.5 && bor1 > 2.5 ? 'orange' : 'red'">&nbsp;BOR 1&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{bor1}}</b><br>Procedure beheer van documenten, inclusief Verant. &amp; Bevoegdh.</td>
-                      <td style="height: 23px; width: 15px;" [style.background-color] = "bor2 >= 3.5 ? 'green' : bor2 < 3.5 && bor2 > 2.5 ? 'orange' : 'red'">&nbsp;BOR 2&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{bor2}}</b><br>Evaluatie procedures</td>
-                      <td style="height: 23px; width: 15px;" [style.background-color] = "bor3 >= 3.5 ? 'green' : bor3 < 3.5 && bor3 > 2.5 ? 'orange' : 'red'">&nbsp;BOR 3&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{bor3}}</b><br>Lijsten met 'kritieke apparatuur'</td>
-                      <td style="height: 23px; width: 15px;" [style.background-color] = "bor4 >= 3.5 ? 'green' : bor4 < 3.5 && bor4 > 2.5 ? 'orange' : 'red'">&nbsp;BOR 4&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{bor4}}</b><br>Een auditplan/<br>programma</td>
-                      <td style="height: 23px; width: 15px;" [style.background-color] = "bor5 >= 3.5 ? 'green' : bor5 < 3.5 && bor5 > 2.5 ? 'orange' : 'red'">&nbsp;BOR 5&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{bor5}}</b><br>Afgetekende, afgehandelde rapporten over afwijkingen</td>
-                    </tr>
-                    <tr style="height: 23px;">
-                      <td style="height: 23px; width: 15px;" style="color: black;" colspan="3">Smoezen</td>
-                      <td style="height: 23px; width: 15px;" colspan="4"></td>
-                    </tr>
-                    <tr style="height: 23px;">
-                      <td style="height: 23px; width: 101px;">&nbsp;</td>
-                      <td style="height: 23px; width: 15px;" [style.background-color] = "smoe1 >= 3.5 ? 'green' : smoe1 < 3.5 && smoe1 > 2.5 ? 'orange' : 'red'">&nbsp;SMOE1&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe1}}</b></td>
-                      <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">In ons bedrijf hebben we geen tijd voor veiligheid&nbsp;</td>
-                    </tr>
-                    <tr style="height: 23px;">
-                      <td style="height: 23px; width: 101px;">&nbsp;</td>
-                      <td style="height: 23px; width: 15px;" [style.background-color] = "smoe2 >= 3.5 ? 'green' : smoe2 < 3.5 && smoe2 > 2.5 ? 'orange' : 'red'">&nbsp;SMOE2&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe2}}</b></td>
-                      <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">Ik ga er van uit dat mij niets overkomt op mijn werk&nbsp;</td>
-                    </tr>
-                    <tr style="height: 23px;">
-                      <td style="height: 23px; width: 101px;">&nbsp;</td>
-                      <td style="height: 23px; width: 15px;" [style.background-color] = "smoe3 >= 3.5 ? 'green' : smoe3 < 3.5 && smoe3 > 2.5 ? 'orange' : 'red'">&nbsp;SMOE3&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe3}}</b></td>
-                      <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">Voor mij is productie belangrijker dan veiligheid&nbsp;</td>
-                    </tr>
-                    <tr style="height: 23px;">
-                      <td style="height: 23px; width: 101px;">&nbsp;</td>
-                      <td style="height: 23px; width: 15px;" [style.background-color] = "smoe4 >= 3.5 ? 'green' : smoe4 < 3.5 && smoe4 > 2.5 ? 'orange' : 'red'">&nbsp;SMOE4&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe4}}</b></td>
-                      <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">Niemand werkt echt veilig bij ons&nbsp;</td>
-                    </tr>
-                    <tr style="height: 23px;">
-                      <td style="height: 23px; width: 101px;">&nbsp;</td>
-                      <td style="height: 23px; width: 15px;" [style.background-color] = "smoe5 >= 3.5 ? 'green' : smoe5 < 3.5 && smoe5 > 2.5 ? 'orange' : 'red'">&nbsp;SMOE5&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe5}}</b></td>
-                      <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">Ik weet wat van mij verwacht wordt rondom veilig werken&nbsp;</td>
-                    </tr>
-                    <tr style="height: 23px;">
-                      <td style="height: 23px; width: 101px;">&nbsp;</td>
-                      <td style="height: 23px; width: 15px;" [style.background-color] = "iz1 >= 3.5 ? 'green' : iz1 < 3.5 && iz1 > 2.5 ? 'orange' : 'red'">&nbsp;SMOE6&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe6}}</b></td>
-                      <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">Als ik niet veilig kan werken, werk ik niet&nbsp;</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <br><br><b>Open vragen antwoorden:</b><br><br>
+                </ngx-datatable>
               </div>
-              <div >
-              <ul>
-                <li *ngFor="let item of feedbackArray; let i = index">
-                {{item}}
-                </li>
-              </ul>
-              <br><br><br><br><br><br><br>
-            </div>
+
+              <hr>
+              <div *ngIf="showScore">
+
+                <div class="container" id="pdfcourse">
+                  <button type="button" (click)="showScore = false" class="btn btn-primary" data-toggle="modal" data-html2canvas-ignore="true">
+                    <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;&nbsp;Terug naar Overzicht
+                  </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <button type="button" (click)="printResult()" class="btn btn-primary" data-toggle="modal" data-html2canvas-ignore="true">
+                    <i class="fa fa-print"></i>&nbsp;&nbsp;&nbsp;&nbsp;PDF
+                  </button>
+                  <button type="button" (click)="printResultPng()" class="btn btn-primary" data-toggle="modal" data-html2canvas-ignore="true">
+                    <i class="fa fa-print"></i>&nbsp;&nbsp;&nbsp;&nbsp;PNG
+                  </button>
+                  <div>
+                    <br>
+                    <h2>{{currentGroup}}</h2>
+                    <p>Datum: {{dateToday}}<br>Ingevulde vragenlijsten: <b>{{howManySendQuestions}}</b><br>
+                      Checklist: <b>{{howManySendChecklist}}</b></p>
+                    <br>
+                    <table style="float: left; height: 1028px; color: white" width="100%" cellpadding="10">
+                      <tbody>
+                        <tr style="height: 23px;">
+                          <td style="height: 23px; width: 15px;" style="color: black;" colspan="3">Mens</td>
+                          <td style="height: 23px; width: 15px;" colspan="4"></td>
+                        </tr>
+                        <tr style="height: 23px;">
+                          <td style="height: 23px; width: 15px;" style="color: black;">&nbsp;<b>IZ</b>&nbsp;&nbsp;&nbsp;&nbsp;<br>Ik zie<br>
+                            <div [style.background-color]="iztot == 1 ? 'red' : iztot == 3 ? 'green' : 'orange'" class="square"></div>
+                          </td>
+                          <td style="height: 23px; width: 10px;" [style.background-color]="iz1 >= 3.5 ? 'green' : iz1 < 3.5 && iz1 > 2.5 ? 'orange' : 'red'">&nbsp;IZ 1&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{iz1}}</b><br>Aansturen op veilig gedrag / voorbeeld gedrag management<br><br></td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="iz2 >= 3.5 ? 'green' : iz2 < 3.5 && iz2 > 2.5 ? 'orange' : 'red'">&nbsp;IZ 2&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{iz2}}</b><br>Toezicht & handhaving</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="iz3 >= 3.5 ? 'green' : iz3 < 3.5 && iz3 > 2.5 ? 'orange' : 'red'">&nbsp;IZ 3&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{iz3}}</b><br>Aanspreekcultuur</td>
+                        </tr>
+                        <tr style="height: 23px;">
+                          <td style="height: 23px; width: 15px;" style="color: black;">&nbsp;<b>IW</b>&nbsp;&nbsp;&nbsp;&nbsp;<br>Ik wil<br>
+                            <div [style.background-color]="iwtot == 1 ? 'red' : iwtot == 3 ? 'green' : 'orange'" class="square"></div>
+                          </td>
+                          <td style="height: 23px; width: 10px;" [style.background-color]="iw1 >= 3.5 ? 'green' : iw1 < 3.5 && iw1 > 2.5 ? 'orange' : 'red'">&nbsp;IW 1&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{iw1}}</b><br>Positieve houding t.a.v. veiligheid</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="iw2 >= 3.5 ? 'green' : iw2 < 3.5 && iw2 > 2.5 ? 'orange' : 'red'">&nbsp;IW 2&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{iw2}}</b><br>Regels volgen / respecteren</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="iw3 >= 3.5 ? 'green' : iw3 < 3.5 && iw3 > 2.5 ? 'orange' : 'red'">&nbsp;IW 3&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{iw3}}</b><br>Opleidingsbehoefte</td>
+                        </tr>
+                        <tr style="height: 23px;">
+                          <td style="height: 23px; width: 15px;" style="color: black;">&nbsp;<b>IWE</b>&nbsp;&nbsp;&nbsp;&nbsp;<br>Ik weet<br>
+                            <div [style.background-color]="iwetot == 1 ? 'red' : iwetot == 3 ? 'green' : 'orange'" class="square"></div>
+                          </td>
+                          <td style="height: 23px; width: 10px;" [style.background-color]="iwe1 >= 3.5 ? 'green' : iwe1 < 3.5 && iwe1 > 2.5 ? 'orange' : 'red'">&nbsp;IWE 1&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{iwe1}}</b><br>Vakkennis</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="iwe2 >= 3.5 ? 'green' : iwe2 < 3.5 && iwe2 > 2.5 ? 'orange' : 'red'">&nbsp;IWE 2&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{iwe2}}</b><br>Kennis veiligheid algemen</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="iwe3 >= 3.5 ? 'green' : iwe3 < 3.5 && iwe3 > 2.5 ? 'orange' : 'red'">&nbsp;IWE 3&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{iwe3}}</b><br>Veiligheidsbewustzijn</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="iwe4 >= 3.5 ? 'green' : iwe4 < 3.5 && iwe4 > 2.5 ? 'orange' : 'red'">&nbsp;IWE 4&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{iwe4}}</b><br>Uitwisselen informatie</td>
+                        </tr>
+                        <tr style="height: 23px;">
+                          <td style="height: 23px; width: 15px;" style="color: black;">&nbsp;<b>IK</b>&nbsp;&nbsp;&nbsp;&nbsp;<br>Ik kan<br>
+                            <div class="square" [style.background-color]="iktot == 1 ? 'red' : iktot == 3 ? 'green' : 'orange'"></div>
+                          </td>
+                          <td style="height: 23px; width: 10px;" [style.background-color]="ik1 >= 3.5 ? 'green' : ik1 < 3.5 && ik1 > 2.5 ? 'orange' : 'red'">&nbsp;IK 1&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{ik1}}</b><br>Vaardigheden</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="ik2 >= 3.5 ? 'green' : ik2 < 3.5 && ik2 > 2.5 ? 'orange' : 'red'">&nbsp;IK 2&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{ik2}}</b><br>Randvoorwaarden veilig werken</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="ik3 >= 3.5 ? 'green' : ik3 < 3.5 && ik3 > 2.5 ? 'orange' : 'red'">&nbsp;IK 3&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{iz3}}</b><br>Overleg veiligheid</td>
+                        </tr>
+                        <tr style="height: 23px;">
+                          <td style="height: 23px; width: 15px;" style="color: black;" colspan="3">Organisatie</td>
+                          <td style="height: 23px; width: 15px;" colspan="4"></td>
+                        </tr>
+                        <tr style="height: 23px;">
+                          <td style="height: 23px; width: 15px;" style="color: black;">&nbsp;<b>CW</b>&nbsp;&nbsp;&nbsp;&nbsp;<br>Compliance, wetgeving &amp; richtlijnen<br>
+                            <div class="square" [style.background-color]="cwtot == 1 ? 'red' : cwtot == 3 ? 'green' : 'orange'"></div>
+                          </td>
+                          <td style="height: 23px; width: 10px;" [style.background-color]="cw1 >= 3.5 ? 'green' : cw1 < 3.5 && cw1 > 2.5 ? 'orange' : 'red'">&nbsp;CW 1&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{cw1}}</b><br>Arbowet</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="cw2 >= 3.5 ? 'green' : cw2 < 3.5 && cw2 > 2.5 ? 'orange' : 'red'">&nbsp;CW 2&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{cw2}}</b><br>Moederorganisatie</td>
+                          <!-- <td style="height: 23px; width: 15px;">&nbsp;CW 3&nbsp;&nbsp;&nbsp;&nbsp;<b>{{cw3}}</b><br>Andere relevante wetgeving</td> -->
+                        </tr>
+                        <tr style="height: 23px;">
+                          <td style="height: 23px; width: 15px;" style="color: black;">&nbsp;<b>VB</b>&nbsp;&nbsp;&nbsp;&nbsp;<br>Veiligheidsbeleid<br>
+                            <div class="square" [style.background-color]="vbtot == 1 ? 'red' : vbtot == 3 ? 'green' : 'orange'"></div>
+                          </td>
+                          <td style="height: 23px; width: 10px;" [style.background-color]="vb1 >= 3.5 ? 'green' : vb1 < 3.5 && vb1 > 2.5 ? 'orange' : 'red'">&nbsp;VB 1&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{vb1}}</b><br>Veiligheidsbeleid vastgelegd</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="vb2 >= 3.5 ? 'green' : vb2 < 3.5 && vb2 > 2.5 ? 'orange' : 'red'">&nbsp;VB 2&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{vb2}}</b><br>Veiligheidsbeleid vertaald in functieomschrijving</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="vb3 >= 3.5 ? 'green' : vb3 < 3.5 && vb3 > 2.5 ? 'orange' : 'red'">&nbsp;VB 3&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{vb3}}</b><br>Veiligheidsbeleid bekend &amp; beschikbaar</td>
+                        </tr>
+                        <tr style="height: 23px;">
+                          <td style="height: 23px; width: 15px;" style="color: black;">&nbsp;<b>OPL</b>&nbsp;&nbsp;&nbsp;&nbsp;<br>Opleiding<br>
+                            <div class="square" [style.background-color]="opltot == 1 ? 'red' : opltot == 3 ? 'green' : 'orange'"></div>
+                          </td>
+                          <td style="height: 23px; width: 10px;" [style.background-color]="opl1 >= 3.5 ? 'green' : opl1 < 3.5 && opl1 > 2.5 ? 'orange' : 'red'">&nbsp;OPL 1&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{opl1}}</b><br>Eisen vastgelegd</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="opl2 >= 3.5 ? 'green' : opl2 < 3.5 && opl2 > 2.5 ? 'orange' : 'red'">&nbsp;OPL 2&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{opl2}}</b><br>Opleidingsplan</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="opl3 >= 3.5 ? 'green' : opl3 < 3.5 && opl3 > 2.5 ? 'orange' : 'red'">&nbsp;OPL 3&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{opl3}}</b><br>Registratie</td>
+                        </tr>
+                        <tr style="height: 23px;">
+                          <td style="height: 23px; width: 101px;" style="color: black;">&nbsp;<b>PRO</b>&nbsp;&nbsp;&nbsp;&nbsp;<br>Procedures, Beheersing werkzaamheden, beheer &amp; onderhoud<br>
+                            <div class="square" [style.background-color]="protot == 1 ? 'red' : protot == 3 ? 'green' : 'orange'"></div>
+                          </td>
+                          <td style="height: 23px; width: 10px;" [style.background-color]="pro1 >= 3.5 ? 'green' : pro1 < 3.5 && pro1 > 2.5 ? 'orange' : 'red'">&nbsp;PRO 1&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{pro1}}</b><br>Procedures uitvoeren gevaarlijke werkzaamheden</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="pro2 >= 3.5 ? 'green' : pro2 < 3.5 && pro2 > 2.5 ? 'orange' : 'red'">&nbsp;PRO 2&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{pro2}}</b><br>Procedures omgaan met gevaarlijke materialen</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="pro3 >= 3.5 ? 'green' : pro3 < 3.5 && pro3 > 2.5 ? 'orange' : 'red'">&nbsp;PRO 3&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{pro3}}</b><br>Procedures onderhoud van installaties &amp; uitrusting t.v.b. de veiligheid</td>
+                        </tr>
+                        <tr style="height: 23px;">
+                          <td style="height: 23px; width: 101px;" style="color: black;">&nbsp;<b>Communicatie</b>&nbsp;&nbsp;&nbsp;&nbsp;<br>Communicatiestructuren<br>
+                            <div class="square" [style.background-color]="comtot == 1 ? 'red' : comtot == 3 ? 'green' : 'orange'"></div>
+                          </td>
+                          <td style="height: 23px; width: 10px;" [style.background-color]="com1 >= 3.5 ? 'green' : com1 < 3.5 && com1 > 2.5 ? 'orange' : 'red'">&nbsp;COM 1&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{com1}}</b><br>Formeel overleg management/werkvloer</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="com2 >= 3.5 ? 'green' : com2 < 3.5 && com2 > 2.5 ? 'orange' : 'red'">&nbsp;COM 2&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{com2}}</b><br>Werknemers betrokken bij risicobeoordeling &amp;onderzoek incidenten</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="com3 >= 3.5 ? 'green' : com3 < 3.5 && com3 > 2.5 ? 'orange' : 'red'">&nbsp;COM 3&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{com3}}</b><br>Communicatie veiligheidsprestaties</td>
+                        </tr>
+                        <tr style="height: 23px;">
+                          <td style="height: 23px; width: 101px;" style="color: black;">&nbsp;<b>Borging</b>&nbsp;&nbsp;&nbsp;&nbsp;<br>Meter, monitoren, bijstellen &amp; borgen<br>
+                            <div class="square" [style.background-color]="bortot == 1 ? 'red' : bortot == 3 ? 'green' : 'orange'"></div>
+                          </td>
+                          <td style="height: 23px; width: 10px;" [style.background-color]="bor1 >= 3.5 ? 'green' : bor1 < 3.5 && bor1 > 2.5 ? 'orange' : 'red'">&nbsp;BOR 1&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{bor1}}</b><br>Procedure beheer van documenten, inclusief Verant. &amp; Bevoegdh.</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="bor2 >= 3.5 ? 'green' : bor2 < 3.5 && bor2 > 2.5 ? 'orange' : 'red'">&nbsp;BOR 2&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{bor2}}</b><br>Evaluatie procedures</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="bor3 >= 3.5 ? 'green' : bor3 < 3.5 && bor3 > 2.5 ? 'orange' : 'red'">&nbsp;BOR 3&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{bor3}}</b><br>Lijsten met 'kritieke apparatuur'</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="bor4 >= 3.5 ? 'green' : bor4 < 3.5 && bor4 > 2.5 ? 'orange' : 'red'">&nbsp;BOR 4&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{bor4}}</b><br>Een auditplan/<br>programma</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="bor5 >= 3.5 ? 'green' : bor5 < 3.5 && bor5 > 2.5 ? 'orange' : 'red'">&nbsp;BOR 5&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{bor5}}</b><br>Afgetekende, afgehandelde rapporten over afwijkingen</td>
+                        </tr>
+                        <tr style="height: 23px;">
+                          <td style="height: 23px; width: 15px;" style="color: black;" colspan="3">Smoezen</td>
+                          <td style="height: 23px; width: 15px;" colspan="4"></td>
+                        </tr>
+                        <tr style="height: 23px;">
+                          <td style="height: 23px; width: 101px;">&nbsp;</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="smoe1 >= 3.5 ? 'green' : smoe1 < 3.5 && smoe1 > 2.5 ? 'orange' : 'red'">&nbsp;SMOE1&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe1}}</b></td>
+                          <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">In ons bedrijf hebben we geen tijd voor veiligheid&nbsp;</td>
+                        </tr>
+                        <tr style="height: 23px;">
+                          <td style="height: 23px; width: 101px;">&nbsp;</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="smoe2 >= 3.5 ? 'green' : smoe2 < 3.5 && smoe2 > 2.5 ? 'orange' : 'red'">&nbsp;SMOE2&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe2}}</b></td>
+                          <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">Ik ga er van uit dat mij niets overkomt op mijn werk&nbsp;</td>
+                        </tr>
+                        <tr style="height: 23px;">
+                          <td style="height: 23px; width: 101px;">&nbsp;</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="smoe3 >= 3.5 ? 'green' : smoe3 < 3.5 && smoe3 > 2.5 ? 'orange' : 'red'">&nbsp;SMOE3&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe3}}</b></td>
+                          <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">Voor mij is productie belangrijker dan veiligheid&nbsp;</td>
+                        </tr>
+                        <tr style="height: 23px;">
+                          <td style="height: 23px; width: 101px;">&nbsp;</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="smoe4 >= 3.5 ? 'green' : smoe4 < 3.5 && smoe4 > 2.5 ? 'orange' : 'red'">&nbsp;SMOE4&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe4}}</b></td>
+                          <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">Niemand werkt echt veilig bij ons&nbsp;</td>
+                        </tr>
+                        <tr style="height: 23px;">
+                          <td style="height: 23px; width: 101px;">&nbsp;</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="smoe5 >= 3.5 ? 'green' : smoe5 < 3.5 && smoe5 > 2.5 ? 'orange' : 'red'">&nbsp;SMOE5&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe5}}</b></td>
+                          <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">Ik weet wat van mij verwacht wordt rondom veilig werken&nbsp;</td>
+                        </tr>
+                        <tr style="height: 23px;">
+                          <td style="height: 23px; width: 101px;">&nbsp;</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="iz1 >= 3.5 ? 'green' : iz1 < 3.5 && iz1 > 2.5 ? 'orange' : 'red'">&nbsp;SMOE6&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe6}}</b></td>
+                          <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">Als ik niet veilig kan werken, werk ik niet&nbsp;</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <br><br><b>Open vragen antwoorden:</b><br><br>
+                  </div>
+                  <div>
+                    <ul>
+                      <li *ngFor="let item of feedbackArray; let i = index">
+                        {{item}}
+                      </li>
+                    </ul>
+                    <br><br><br><br><br><br><br>
+                  </div>
+                  <!-- DivTable.com -->
+                </div>
                 <!-- DivTable.com -->
               </div>
-              <!-- DivTable.com -->
-            </div>
-          </tab>
-        </tabset>
-      </main>
+            </tab>
+          </tabset>
+        </main>
 
+      </div>
     </div>
   </div>
-</div>
 </div>
