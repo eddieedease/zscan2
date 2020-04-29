@@ -1,6 +1,8 @@
 <?php
 use \Psr\Http\Message\ResponseInterface as Response;
 use \Psr\Http\Message\ServerRequestInterface as Request;
+
+use \Psr\Http\Message\UploadedFileInterface as UploadedFile;
 // API
 // API CALL: Make an groupkey
 // TODO: Make DOC
@@ -236,3 +238,176 @@ $app->get('/ausertofromgroup/{case}/{groupid}/{userid}', function (Request $requ
     return $response;
 }
 );
+
+
+// uploading a logo of a organisation
+$app->post('/uploadorglogo/{id}', function (Request $request, Response $response) {
+    // below variables are for making thumbs and such
+    // TODO: aren't used yet
+    $groupid = $request->getAttribute('id');
+    $directory = $this->get('upload_directory');
+    $uploadedFiles = $request->getUploadedFiles();
+    // // handle single input with single file upload
+    $uploadedFile = $uploadedFiles[file];
+    $nameofuploaded = $uploadedFile->getClientFilename();
+
+    $file = $_FILES[file][tmp_name];
+
+    list($width, $height) = getimagesize($_FILES[file][tmp_name]);
+
+    $ext = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
+    $basename = bin2hex(random_bytes(8)); // see http://php.net/manual/en/function.random-bytes.php
+    $filename = sprintf('%s.%0.8s', $basename, $ext);
+    $filename = time() . $filename;
+    // check if the lessonsdirectory upload folder is there, otherwise make it
+    // NOTE: CONFIRM WORKS!!!
+    if (!file_exists($directory . DIRECTORY_SEPARATOR . 'orglogo' . DIRECTORY_SEPARATOR . $groupid)) {
+        mkdir($directory . DIRECTORY_SEPARATOR . 'orglogo' . DIRECTORY_SEPARATOR . $groupid, 0777, true);
+    }
+
+    switch ($ext) {
+        case "png":
+            $uploadedFile->moveTo($directory . DIRECTORY_SEPARATOR . 'orglogo' . DIRECTORY_SEPARATOR . $groupid . DIRECTORY_SEPARATOR . $filename);
+            break;
+        case "PNG":
+            $uploadedFile->moveTo($directory . DIRECTORY_SEPARATOR . 'orglogo' . DIRECTORY_SEPARATOR . $groupid . DIRECTORY_SEPARATOR . $filename);
+            break;
+        case "gif":
+            $imageResourceId = imagecreatefromgif($file);
+            $targetLayer = resize_image_max($imageResourceId, 900, 900);
+            imagegif($targetLayer, $directory . DIRECTORY_SEPARATOR . 'orglogo' . DIRECTORY_SEPARATOR . $groupid . DIRECTORY_SEPARATOR . $filename);
+            break;
+        case "GIF":
+            $imageResourceId = imagecreatefromgif($file);
+            $targetLayer = resize_image_max($imageResourceId, 900, 900);
+            imagegif($targetLayer, $directory . DIRECTORY_SEPARATOR . 'orglogo' . DIRECTORY_SEPARATOR . $groupid . DIRECTORY_SEPARATOR . $filename);
+            break;
+        case "jpg":
+        $file = correctImageOrientation($file);
+        list($width, $height) = getimagesize($file);
+        $imageResourceId = imagecreatefromjpeg($file);
+            $targetLayer = resize_image_max($imageResourceId, 900, 900);
+            imagejpeg($targetLayer, $directory . DIRECTORY_SEPARATOR . 'orglogo' . DIRECTORY_SEPARATOR . $groupid . DIRECTORY_SEPARATOR . $filename);
+            break;
+        case "JPG":
+        $file = correctImageOrientation($file);
+        list($width, $height) = getimagesize($file);
+        $imageResourceId = imagecreatefromjpeg($file);
+            $targetLayer = resize_image_max($imageResourceId, 900, 900);
+            imagejpeg($targetLayer, $directory . DIRECTORY_SEPARATOR . 'orglogo' . DIRECTORY_SEPARATOR . $groupid . DIRECTORY_SEPARATOR . $filename);
+            break;
+        case "jpeg":
+        $file = correctImageOrientation($file);
+        list($width, $height) = getimagesize($file);
+        $imageResourceId = imagecreatefromjpeg($file);
+            $targetLayer = resize_image_max($imageResourceId, 900, 900);
+            imagejpeg($targetLayer, $directory . DIRECTORY_SEPARATOR . 'orglogo' . DIRECTORY_SEPARATOR . $groupid . DIRECTORY_SEPARATOR . $filename);
+            break;
+        case "JPEG":
+        $file = correctImageOrientation($file);
+        list($width, $height) = getimagesize($file);
+        $imageResourceId = imagecreatefromjpeg($file);
+            $targetLayer = resize_image_max($imageResourceId, 900, 900);
+            imagejpeg($targetLayer, $directory . DIRECTORY_SEPARATOR . 'orglogo' . DIRECTORY_SEPARATOR . $groupid . DIRECTORY_SEPARATOR . $filename);
+            break;
+        default:
+            echo "Invalid Image type.";
+            exit;
+            break;
+    }
+
+    //if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
+    //     $filename = moveUploadedFile($directory, $uploadedFile);
+    // $response->write('uploaded ' . $filename . '<br/>');
+    // }
+
+    // update in the database
+    include 'db.php';
+    // Insert the link into our DATABASE
+    $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
+    $sqladdfile = "UPDATE groups SET logo = '$filename' WHERE id = '$groupid'";
+    $stmtaddfile = $dbh->prepare($sqladdfile);
+    $stmtaddfile->execute();
+    $resultaddfile = $stmtaddfile->fetchAll(PDO::FETCH_ASSOC);
+    // return some thangz
+    $cb = array(
+        'thumbfileupload' => 'success',
+        'sql' => $sqladdfile,
+        'tolesson' => $groupid,
+        'debug' => $file,
+        'oriwidth' => $width,
+    );
+    /*  $debuggerrighthere = array('somethangsz' => 'asda');
+    $response = json_encode($debuggerrighthere); */
+    $response = json_encode($cb);
+    return $response;
+});
+
+
+
+
+/**
+ * Resizes file
+ *
+ * @param UploadedFile $uploaded file uploaded file to move
+ */
+function resize_image_max($image, $max_width, $max_height)
+{
+    $w = imagesx($image); //current width
+    $h = imagesy($image); //current height
+    if ((!$w) || (!$h)) {$GLOBALS['errors'][] = 'Image couldn\'t be resized because it wasn\'t a valid image.';return false;}
+    if (($w <= $max_width) && ($h <= $max_height)) {return $image;} //no resizing needed
+
+    //try max width first...
+    $ratio = $max_width / $w;
+    $new_w = $max_width;
+    $new_h = $h * $ratio;
+
+    //if that didn't work
+    if ($new_h > $max_height) {
+        $ratio = $max_height / $h;
+        $new_h = $max_height;
+        $new_w = $w * $ratio;
+    }
+
+    $new_image = imagecreatetruecolor($new_w, $new_h);
+    imagecopyresampled($new_image, $image, 0, 0, 0, 0, $new_w, $new_h, $w, $h);
+    return $new_image;
+};
+
+function correctImageOrientation($filename)
+{
+    if (function_exists('exif_read_data')) {
+        $exif = exif_read_data($filename);
+        if ($exif && isset($exif['Orientation'])) {
+            $orientation = $exif['Orientation'];
+            if ($orientation != 1) {
+                $img = imagecreatefromjpeg($filename);
+                $deg = 0;
+                switch ($orientation) {
+                    case 3:
+                        $deg = 180;
+                        break;
+                    case 6:
+                        $deg = 270;
+                        break;
+                    case 8:
+                        $deg = 90;
+                        break;
+                }
+                if ($deg) {
+                    $img = imagerotate($img, $deg, 0);
+                }
+                // then rewrite the rotated image back to the disk as $filename
+                imagejpeg($img, $filename, 95);
+            } // if there is some rotation necessary
+        } // if have the exif orientation info
+    } // if function exists
+    return $filename;
+};
+
+
+
+
+
+?>

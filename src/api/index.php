@@ -25,8 +25,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     }
 
 }
+
+$configuration = [
+    'settings' => [
+        'displayErrorDetails' => true,
+    ],
+];
+$c = new \Slim\Container($configuration);
+
+
 // Start SLim API
-$app = new \Slim\App;
+$app = new \Slim\App($c);
 
 // neededForFileupload
 $container = $app->getContainer();

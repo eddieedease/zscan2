@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6deb5
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 19, 2020 at 12:43 PM
--- Server version: 5.7.29-0ubuntu0.18.04.1
--- PHP Version: 7.2.24-0ubuntu0.18.04.4
+-- Generation Time: Apr 29, 2020 at 01:13 PM
+-- Server version: 5.7.24
+-- PHP Version: 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -86,7 +88,8 @@ CREATE TABLE `checkresults` (
   `BOR1` decimal(4,2) DEFAULT NULL,
   `BOR2` decimal(4,2) DEFAULT NULL,
   `BOR3` decimal(4,2) DEFAULT NULL,
-  `BOR4` decimal(4,2) DEFAULT NULL
+  `BOR4` decimal(4,2) DEFAULT NULL,
+  `BOR5` decimal(4,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -100,7 +103,9 @@ CREATE TABLE `groups` (
   `name` varchar(100) NOT NULL DEFAULT '',
   `status` int(11) NOT NULL,
   `made` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `numberfilled` int(11) NOT NULL DEFAULT '0'
+  `numberfilled` int(11) NOT NULL DEFAULT '0',
+  `logo` text,
+  `validto` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -132,7 +137,8 @@ CREATE TABLE `results` (
   `SMOE4` decimal(4,2) DEFAULT NULL,
   `SMOE5` decimal(4,2) DEFAULT NULL,
   `SMOE6` decimal(4,2) DEFAULT NULL,
-  `openq` text
+  `SMOE7` decimal(4,2) DEFAULT NULL,
+  `openq` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -150,15 +156,6 @@ CREATE TABLE `users` (
   `mailsend` int(11) NOT NULL DEFAULT '0',
   `filled` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `grouplink`, `email`, `unlockkey`, `type`, `mailsend`, `filled`) VALUES
-(1, 1, 'adres@adres.nl', 'wdmlij', 1, 0, 0),
-(2, 3, 'eddie@edease.nl', 'uprood', 1, 0, 0),
-(3, 3, 'nog1@asda.nl', 'fvpxku', 1, 0, 0);
 
 --
 -- Indexes for dumped tables
@@ -215,36 +212,44 @@ ALTER TABLE `users`
 --
 ALTER TABLE `admin_to_groups`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `ausers`
 --
 ALTER TABLE `ausers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `cfg`
 --
 ALTER TABLE `cfg`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `checkresults`
 --
 ALTER TABLE `checkresults`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `results`
 --
 ALTER TABLE `results`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

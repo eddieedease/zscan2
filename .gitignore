@@ -8,6 +8,12 @@
 # dependencies
 /node_modules
 
+# exclude everything
+src/uploads/*
+
+# exception to the rule
+!src/uploads/.gitignore
+
 # IDEs and editors
 /.idea
 .project

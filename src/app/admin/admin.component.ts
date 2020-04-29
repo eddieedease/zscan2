@@ -253,7 +253,8 @@ export class AdminComponent implements OnInit {
   };
 
 
-  // search vars
+  logourl = '';
+    // search vars
   searchgroupname = '';
   searchusersemail = '';
   searchadminname = '';
@@ -864,6 +865,8 @@ export class AdminComponent implements OnInit {
       if (_id === element.id) {
         this.groupName = element.name;
         this.pasKey = element.paskey;
+        this.logourl = element.logo;
+        this.logourl = 'uploads/orglogo/' + this.currentGroupID + '/' + this.logourl;
       }
     });
   }
@@ -952,6 +955,15 @@ export class AdminComponent implements OnInit {
     this.tempgroupRows = [..._val];
     this.groupRows.reverse();
     this.loading = false;
+
+    this.groupRows.forEach(element => {
+      if (this.currentGroupID === element.id) {
+        this.groupName = element.name;
+        this.pasKey = element.paskey;
+        this.logourl = element.logo;
+        this.logourl = 'uploads/orglogo/' + this.currentGroupID + '/' + this.logourl;
+      }
+    });
   }
 
   resetGroupVals() {
@@ -1374,6 +1386,37 @@ export class AdminComponent implements OnInit {
     this.loading = true;
     this.date1 = this.transformDate(this.bsValue);
     // Alright send it to API
+  }
+
+
+
+  // uploading
+  // section for course logo image uploading
+  onLogoChange(_event) {
+    const files = _event.target.files || _event.srcElement.files;
+    const file = files[0];
+
+
+    if (file.size >= 2000000) {
+      // this.serCred.debugLog('TO BIG OF A FILE, note user?');
+    }
+    this.startProfileUpload(_event);
+  }
+
+  // section for course thumb image uploading
+  startProfileUpload(_event): void {
+    this.loading = true;
+    this.serCred.API_uploadorglogo(_event, this.currentGroupID).subscribe(value => this.profileFileIsUploaded(value));
+    // TODO: make ProfileFileCall
+    // this.serCred.API_uploadToFileStorage(_event).subscribe(value => this.profileFileIsUploaded(value));
+  }
+
+  // Server response on course img upload
+  profileFileIsUploaded(_val) {
+    this.loading = false;
+    this.serCred.debugLog(_val);
+    // this.logourl = 'uploads/orglogo/' + this.currentGroupID + '/' + this.logourl;
+    this.serCred.API_getgroups(this.admnId).subscribe(value => this.gotGroups(value));
   }
 
 

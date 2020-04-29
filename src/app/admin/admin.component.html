@@ -262,6 +262,10 @@
                 <br><br>
               </div>
             </div>
+            <h4>Logo</h4>
+            <img [src]="logourl" *ngIf="logourl != '' || logourl == NULL" style="display: block; width: 100%; max-width: 210px">
+                    <input type="file" (change)="onLogoChange($event)"> <br>
+                    <br><br>
           </form>
 
 

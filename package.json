@@ -9,7 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build.prod": "ng build --prod --build-optimizer --aot --no-sourcemaps --output-path dist"
+    "build.prod": "ng build --prod --build-optimizer --aot --no-sourcemaps --output-path dist",
+    "noreload": "ng serve --live-reload false"
   },
   "private": true,
   "dependencies": {

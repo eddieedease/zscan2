@@ -585,4 +585,29 @@ export class EdserService {
 
 
 
+   // The thumbupload will take an fileevent, case (course, lesson, user), and assigned id
+   API_uploadorglogo($event, _groupid): Observable < any > {
+
+
+    const files = $event.target.files || $event.srcElement.files;
+    const file = files[0];
+    const url = environment.apilink + 'uploadorglogo/' + _groupid + '?rnd=' + new Date().getTime();
+
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const headers = new Headers({
+      // 'Authorization': 'bearer ' + this.curTOKEN
+    });
+    const options = new RequestOptions({
+      headers
+    });
+
+
+    return this.http_.post(url, formData, options)
+      .throttleTime(5000)
+      .map(res => res.json());
+  }
+
 }
