@@ -595,7 +595,7 @@
                           <i class="fa fa-list"></i> Groepslijst
                         </button>
                         <button (click)="showEdit(row.id)" type="button" style="color: white" class="btn btn-info" data-toggle="modal" data-target=".modal-edit">
-                          <i class="fa fa-edit"></i> Edit
+                          <i class="fa fa-edit"></i> &nbsp;&nbsp;Edit&nbsp;&nbsp;
                         </button>
 
                       </div>
@@ -611,6 +611,20 @@
                           <i class="fa fa-eye"></i> Landkaart
                         </button>
                       </div>
+                    </ng-template>
+
+                  </ngx-datatable-column>
+
+                  <ngx-datatable-column name="Geldig tot" [sortable]="true">
+
+                    <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+                      <span style="cursor:pointer">
+                        {{column.name}}
+                      </span>
+                    </ng-template>
+
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                      <div [innerHTML]="row['validto']"></div>
                     </ng-template>
 
                   </ngx-datatable-column>
@@ -641,11 +655,11 @@
                 <div class="container" id="pdfcourse">
                   <button type="button" (click)="showScore = false" class="btn btn-primary" data-toggle="modal" data-html2canvas-ignore="true">
                     <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;&nbsp;Terug naar Overzicht
-                  </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                  <button type="button" (click)="printResult()" class="btn btn-primary" data-toggle="modal" data-html2canvas-ignore="true">
+                  </button>&nbsp;&nbsp;&nbsp;&nbsp;Exporteren: 
+                  <button type="button" (click)="printResult()" class="btn btn-info" data-toggle="modal" data-html2canvas-ignore="true">
                     <i class="fa fa-print"></i>&nbsp;&nbsp;&nbsp;&nbsp;PDF
-                  </button>
-                  <button type="button" (click)="printResultPng()" class="btn btn-primary" data-toggle="modal" data-html2canvas-ignore="true">
+                  </button>&nbsp;&nbsp;
+                  <button type="button" (click)="printResultPng()" class="btn btn-info" data-toggle="modal" data-html2canvas-ignore="true">
                     <i class="fa fa-print"></i>&nbsp;&nbsp;&nbsp;&nbsp;PNG
                   </button>
                   <div>

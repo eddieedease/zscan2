@@ -28,7 +28,7 @@ declare var $: any;
 export class TestComponent implements OnInit {
 
 
-
+  introShow = true;
 
   currentUserId;
   currentGroupId;
@@ -189,6 +189,10 @@ export class TestComponent implements OnInit {
     if (this.edSer.__loggedIn === false) {
       this.thisrouter.navigate(['/', 'login']);
     }
+  }
+
+  beginNow(){
+    this.introShow = false;
   }
 
 

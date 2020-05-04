@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 29, 2020 at 01:13 PM
+-- Generation Time: May 04, 2020 at 12:01 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.1
 
@@ -105,6 +105,7 @@ CREATE TABLE `groups` (
   `made` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `numberfilled` int(11) NOT NULL DEFAULT '0',
   `logo` text,
+  `orgcolor` text NOT NULL,
   `validto` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

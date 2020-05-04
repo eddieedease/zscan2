@@ -37,7 +37,7 @@ $app->get('/makegroup/{groupname}/{aid}', function (Request $request, Response $
     } else {
         //     NOTE 5 pieces --> [0] actions [1] arcades [2] archive [3] highscores [4] teams
         //     a query get all the correct records from the gemeenten table
-        $sqlinsertgroup = "INSERT INTO groups (name, status) VALUES ('$groupname', 1)";
+        $sqlinsertgroup = "INSERT INTO groups (name, status, orgcolor) VALUES ('$groupname', 1, '0000FF')";
         $stmtinsertgroup = $dbh->prepare($sqlinsertgroup);
         $stmtinsertgroup->execute();
         $resultinsertgroup = $stmtinsertgroup->fetchAll(PDO::FETCH_ASSOC);
@@ -63,13 +63,15 @@ $app->get('/makegroup/{groupname}/{aid}', function (Request $request, Response $
 );
 
 // API: Edit Group
-$app->get('/editgroup/{groupid}/{groupname}', function (Request $request, Response $response) {
+$app->get('/editgroup/{groupid}/{groupname}/{orgcolor}/{orgdate}', function (Request $request, Response $response) {
     $groupid = $request->getAttribute('groupid');
     $groupname = $request->getAttribute('groupname');
+    $orgcolor = $request->getAttribute('orgcolor');
+    $orgdate = $request->getAttribute('orgdate');
     include 'db.php';
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
 
-    $sqleditgroup = "UPDATE groups SET name = '$groupname' WHERE id = '$groupid'";
+    $sqleditgroup = "UPDATE groups SET name = '$groupname', orgcolor = '$orgcolor', validto = '$orgdate'  WHERE id = '$groupid'";
     $stmteditgroup = $dbh->prepare($sqleditgroup);
     $stmteditgroup->execute();
     $resulteditgroup = $stmteditgroup->fetchAll(PDO::FETCH_ASSOC);

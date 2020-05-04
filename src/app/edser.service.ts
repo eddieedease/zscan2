@@ -110,8 +110,10 @@ export class EdserService {
   }
 
 
-  API_editgroup(_groupid, _groupname): Observable < any > {
-    const url = environment.apilink + 'editgroup/' + _groupid + '/' + _groupname + '?rnd=' + new Date().getTime();
+  API_editgroup(_groupid, _groupname, _orgcolor, _date): Observable < any > {
+
+    _orgcolor = _orgcolor.replace('#', '');
+    const url = environment.apilink + 'editgroup/' + _groupid + '/' + _groupname + '/' +  _orgcolor + '/' + _date  + '?rnd=' + new Date().getTime();
     // tslint:disable-next-line:prefer-const
     const headers = new Headers({
       'Content-Type': 'application/json'

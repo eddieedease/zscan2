@@ -866,6 +866,11 @@ export class AdminComponent implements OnInit {
         this.groupName = element.name;
         this.pasKey = element.paskey;
         this.logourl = element.logo;
+        this.styleColor = "#" + element.orgcolor;
+        let ts = new Date(element.validto);
+        //this.bsValue = element.validto;
+        this.bsValue = ts;
+        console.log(typeof(this.bsValue));
         this.logourl = 'uploads/orglogo/' + this.currentGroupID + '/' + this.logourl;
       }
     });
@@ -895,9 +900,9 @@ export class AdminComponent implements OnInit {
     html2canvas(document.getElementById('pdfcourse'), {
       scale: 0.6
     }).then(function (canvas) {
-      const img = canvas.toDataURL('image/png', 1);
+      const img = canvas.toDataURL('image/png', 1.2);
       const doc = new jsPDF();
-      doc.addImage(img, 'JPEG', 0, 0);
+      doc.addImage(img, 'PNG', 0, 0);
       const stringg = 'Rapport_.pdf';
       doc.save(stringg);
     });
@@ -1186,10 +1191,13 @@ export class AdminComponent implements OnInit {
   }
 
   editGroup() {
+
+    
     this.serCred.debugLog(this.pasKey);
     if (this.groupName !== '') {
       ///////////////////////
-      this.serCred.API_editgroup(this.currentGroupID, this.groupName).subscribe(value => this.groupEditted(value));
+      this.date1 = this.transformDate(this.bsValue);
+      this.serCred.API_editgroup(this.currentGroupID, this.groupName, this.styleColor, this.date1 ).subscribe(value => this.groupEditted(value));
     } else {
       this.toastr.warning('Veld mag niet leeg zijn', 'Group niet bewerkt');
     }

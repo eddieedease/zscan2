@@ -29,6 +29,9 @@
 
           </div> -->
           <br><br>
+          <div class="row" style="background-color:black">
+            <div class="col-12"  style="height:30px"></div>
+          </div>
           <div class="mb-2">
             <progressbar [max]="questionArray.length" [value]="numberFilled">
               <span class="text-nowrap"></span>
@@ -36,50 +39,40 @@
             <small><br><em>Vraag {{p}} / {{questionArray.length}}</em></small>
           </div>
 
-          <div *ngIf="!testFinished">
+
+          <div *ngIf="introShow" class="text-center py-5" style="padding:70px;text-align: left !important">
+            <br><br>
+
+            Beste medewerker,<br>
+            <br>
+            Graag wil de directie samen met jullie werken aan veiligheid. Daarom vraagt de directie middels deze vragenlijst jullie mening.
+            Samen met een extern bureau zijn 45 vragen opgesteld. Het invullen kost ongeveer 10 minuten.
+            <br><br>
+            Aan het einde van de lijst is nog één aanvullende vraag toegevoegd, waarop we jullie antwoord nodig hebben.<br><br>
+
+            Het invullen van de vragenlijst is anoniem.<br><br>
+
+            Jullie antwoorden vormen de basis voor het opstellen van verbeterplannen in het komende jaar.
+            Ook hierbij zullen jullie betrokken worden.<br><br>
+
+            Invulinstructie:<br>
+            <ul>
+              <li>Je kunt telkens kiezen uit vijf mogelijke antwoorden.</li>
+              <li>Kies het antwoord dat volgens jou het meest van toepassing is, ook als je het niet precies weet.
+              </li>
+              <li>Vul de vragenlijst zelf in. Het gaat om jouw mening en ervaring.</li>
+              <li>Kies altijd maar één antwoord.</li>
+            </ul>
+            <br>
+            Succes!
+            <br><br>
+            <button  type="button" (click)="beginNow()" class="btn btn-primary"
+            data-dismiss="modal">Begin</button>
+
+          </div>
 
 
-              <!-- <div class="text-center py-5" style="padding:70px;text-align: left !important">
-                  <br><br>
-  
-                  Beste medewerker,<br>
-                  <br>
-                  Graag willen we samen met jullie werken aan veiligheid. Daarom vragen we middels deze vragenlijst jullie
-                  mening.
-                  <br><br>
-                  Samen met TNO zijn 45 vragen opgesteld. Het invullen kost ongeveer 15 minuten. Aan het einde van de
-                  lijst is
-                  nog één aanvullende vraag toegevoegd, waarop we jullie antwoord nodig hebben.
-                  Het invullen van de vragenlijst is anoniem.<br><br>
-  
-                  Jullie antwoorden vormen de basis voor het opstellen van verbeterplannen in het komende jaar.
-                  <br>Ook hierbij zullen jullie betrokken worden.<br><br>
-  
-                  Invulinstructie:<br>
-                  <ul>
-                    <li>Je kunt telkens kiezen uit vijf mogelijke antwoorden.</li>
-                    <li>Kies het antwoord dat volgens jou het meest van toepassing is, ook als je het niet precies weet.
-                    </li>
-                    <li>Vul de vragenlijst zelf in. Het gaat om jouw mening en ervaring.</li>
-                    <li>Kies altijd maar één antwoord.</li>
-                    <li>Als je klaar bent, lever de vragenlijst dan in op jouw eigen afdeling. </li>
-                  </ul>
-                  <br>
-                  Succes!
-                  <br><br>
-                  <button  type="button" (click)="nextQuestionPre()" class="btn btn-primary"
-                  data-dismiss="modal">Begin</button>
-  
-                </div> -->
-
-
-
-
-
-
-
-
-
+          <div *ngIf="!testFinished && !introShow">
             <div *ngFor="let question of questionArray | paginate: { itemsPerPage: 1, currentPage: p } ; let i = index"> 
               <div class="text-center py-5">
                 <p>
@@ -90,20 +83,20 @@
                 <div class="container" *ngIf="questionloadBuffer" style="max-width:500px">
                   <div *ngIf="question.type != 'OPEN'"><p  style="float:left!important">Oneens</p><p style="float:right!important">Eens</p></div><br><br></div>
                 <div *ngIf="questionloadBuffer && question.type != 'OPEN'">
-                  <label class="btn btn-danger">&nbsp;1&nbsp;
+                  <label class="btn btn-primary">&nbsp;&nbsp;1&nbsp;&nbsp;
                     <br>
                     <input type="radio" (click)="nextQuestionPre(1 * (p - 1) + i, 1)" name="{{'group' + (p+1) }}" [value]=1 [(ngModel)]="question.answer"
                       autocomplete="off">
                   </label>&nbsp;&nbsp;
-                  <label class="btn btn-warning" style="color:white">
-                    &nbsp;2&nbsp;
+                  <label class="btn btn-primary" style="color:white">
+                    &nbsp; &nbsp;2&nbsp;&nbsp;
                     <br>
                     <input type="radio" (click)="nextQuestionPre(1 * (p - 1) + i,  2)" name="{{'group' + (p+1) }}"  [value]=2 [(ngModel)]="question.answer"
                       autocomplete="off">
 
                   </label>&nbsp;&nbsp;
-                  <label class="btn btn-info">
-                    &nbsp;3&nbsp;
+                  <label class="btn btn-primary">
+                    &nbsp; &nbsp;3&nbsp;&nbsp;
                     <br>
                     <input type="radio" (click)="nextQuestionPre(1 * (p - 1) + i,  3)" name="{{'group' + (p+1) }}"  [value]=3 [(ngModel)]="question.answer"
                       autocomplete="off">
@@ -111,15 +104,15 @@
                   </label>&nbsp;&nbsp;
 
                   <label class="btn btn-primary">
-                    &nbsp;4&nbsp;
+                    &nbsp;&nbsp;4&nbsp;&nbsp;
                     <br>
                     <input type="radio" (click)="nextQuestionPre(1 * (p - 1) + i,  4)" name="{{'group' + (p+1) }}"  [value]=4 [(ngModel)]="question.answer"
                       autocomplete="off">
 
                   </label>&nbsp;&nbsp;
 
-                  <label class="btn btn-success">
-                    &nbsp;5&nbsp;
+                  <label class="btn btn-primary">
+                    &nbsp;&nbsp;5&nbsp;&nbsp;
                     <br>
                     <input type="radio" (click)="nextQuestionPre(1 * (p - 1) + i,  5)" name="{{'group' + (p+1) }}"  [value]=5 [(ngModel)]="question.answer"
                       autocomplete="off">
