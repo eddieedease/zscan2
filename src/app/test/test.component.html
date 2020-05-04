@@ -36,7 +36,7 @@
             <small><br><em>Vraag {{p}} / {{questionArray.length}}</em></small>
           </div>
 
-          <div>
+          <div *ngIf="!testFinished">
 
 
               <!-- <div class="text-center py-5" style="padding:70px;text-align: left !important">
@@ -85,9 +85,10 @@
                 <p>
                   <b>Vraag {{p}}</b>
                 </p>
-                <p class="animm" *ngIf="questionloadBuffer">{{question.vraag}}</p><br><br>
+                <p class="animm" *ngIf="questionloadBuffer">{{question.vraag}}</p><br>
                 <br>
-                <div class="container" *ngIf="questionloadBuffer" style="max-width:500px"><p style="float:left!important">Oneens</p><p style="float:right!important">Eens</p></div><br><br>
+                <div class="container" *ngIf="questionloadBuffer" style="max-width:500px">
+                  <div *ngIf="question.type != 'OPEN'"><p  style="float:left!important">Oneens</p><p style="float:right!important">Eens</p></div><br><br></div>
                 <div *ngIf="questionloadBuffer && question.type != 'OPEN'">
                   <label class="btn btn-danger">&nbsp;1&nbsp;
                     <br>
@@ -129,8 +130,7 @@
 
                 </div>
                 <div *ngIf="questionloadBuffer && question.type == 'OPEN'">
-                  <br>
-                  <input type="text" [(ngModel)]="openQ" [ngModelOptions]="{standalone: true}" />
+                  <textarea id="w3mission"  [(ngModel)]="openQ" [ngModelOptions]="{standalone: true}"rows="4" cols="50"></textarea>
                 </div>
                 <br>
                 <!-- {{question.answer}} -->

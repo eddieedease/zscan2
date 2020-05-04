@@ -16,7 +16,9 @@ $app->post('/formsubmit/{groupid}/{userid}/{IZ1}/{IZ2}/{IZ3}/{IW1}/{IW2}/{IW3}/{
     // get post vars
     $parsedBody = $request->getParsedBody();
     $openq = $parsedBody[openq];
-
+    $openq = str_replace("'","\'",$openq);
+    
+    
     //  IZ1, IZ2, IZ3, IW1, IW2, IW3, IWE1, IWE2, IWE3, IWE4, IK1, IK2, IK3, SMOE1, SMOE2, SMOE3, SMOE4, SMOE5, SMOE6, SMOE7
     $IZ1 = $request->getAttribute('IZ1');
     $IZ2 = $request->getAttribute('IZ2');

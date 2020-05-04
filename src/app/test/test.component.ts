@@ -330,7 +330,6 @@ export class TestComponent implements OnInit {
       for (let index = 0; index < this.questionArray.length; index++) {
         // tslint:disable-next-line:max-line-length
         if (this.questionArray[index].answer !== null && this.questionArray[index].answer !== undefined && this.questionArray[index].answer !== '') {
-          console.log(this.questionArray[index].answer);
           switch (this.questionArray[index].type) {
             case 'IZ1':
               this.IZ1 = this.IZ1 + this.questionArray[index].answer;
@@ -389,12 +388,19 @@ export class TestComponent implements OnInit {
             case 'SMOE6':
               this.SMOE6 = this.SMOE6 + this.questionArray[index].answer;
               break;
-
           }
         } else {
           // Something is not filled in correctly
-          somethingempty = true;
-          whichemptyArray.push(index + 1);
+
+          // exclude the open question
+          if (this.questionArray[index].type === 'OPEN'){
+
+          } else {
+            somethingempty = true;
+            whichemptyArray.push(index + 1);
+          }
+
+          
         }
       }
     } else if (this.typeTest === '2') {
