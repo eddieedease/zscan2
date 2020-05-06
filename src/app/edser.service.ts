@@ -127,6 +127,22 @@ export class EdserService {
       .map(res => res.json());
   }
 
+  // API GROUPS
+  API_copygroup(_groupid, _auserid): Observable < any > {
+    const url = environment.apilink + 'copygroup/' + _groupid + '/' + _auserid + '?rnd=' + new Date().getTime();
+    // tslint:disable-next-line:prefer-const
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    const options = new RequestOptions({
+      headers: headers
+    });
+    // tslint:disable-next-line:max-line-length
+    return this.http_.get(url, options)
+      .throttleTime(5000)
+      .map(res => res.json());
+  }
+
   // TOGGLING CHECKBOX OF ACTIVE
   API_statusChange(_groupid, _statusChange): Observable < any > {
     const url = environment.apilink + '/changestatus/' + _groupid + '/' + _statusChange + '?rnd=' + new Date().getTime();

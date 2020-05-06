@@ -241,6 +241,112 @@ $app->get('/ausertofromgroup/{case}/{groupid}/{userid}', function (Request $requ
 }
 );
 
+// TODO: Ausers from and to group
+$app->get('/copygroup/{groupid}/{auserid}', function (Request $request, Response $response) {
+    $groupid = $request->getAttribute('groupid');
+    $groupid = (int) $groupid;
+    // we must also get the auserid, because if it is reseller, it needs to be attaced to group
+    $auserid = $request->getAttribute('auserid');
+    $auserid = (int) $auserid;
+    
+
+
+
+    include 'db.php';
+    $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
+
+    $sql_g = "SELECT * FROM users WHERE grouplink = '$groupid'";
+    $stmt_g = $dbh->prepare($sql_g);
+    $stmt_g->execute();
+    $result_g = $stmt_g->fetchAll(PDO::FETCH_ASSOC);
+
+    // 1) Get all users attached to this group
+    // Make Array of emailadresses
+    $emailArray = [];
+
+   
+      
+      for ($x = 0; $x < count($result_g); $x++) {
+        $emailArray.push($result_g[0]['email']);
+    }
+
+
+    // 2) Get Group info
+    // Check if the groupname is already taken
+    $sql_u = "SELECT * FROM groups WHERE id = '$groupid'";
+    $stmt_u = $dbh->prepare($sql_u);
+    $stmt_u->execute();
+    $result_u = $stmt_u->fetchAll(PDO::FETCH_ASSOC);
+    // get names
+    $groupname = $result_u[0]['name'];
+    $groupcolor = $result_u[0]['orgcolor'];
+    $grouplogo = $result_u[0]['logo'];
+
+
+    // 3 Create New Group with same name
+    $sqlinsertgroup = "INSERT INTO groups (name, status, logo, orgcolor) VALUES ('$groupname', 1, '$grouplogo', '$groupcolor')";
+    $stmtinsertgroup = $dbh->prepare($sqlinsertgroup);
+    $stmtinsertgroup->execute();
+    $resultinsertgroup = $stmtinsertgroup->fetchAll(PDO::FETCH_ASSOC);
+    // get the last group id ID
+    $lastIdInsert = $dbh->lastInsertId();
+
+
+    // 4 Loop through the emailarray and assign them to the group. We are doing this by calling our own API (creatuser)
+
+    for ($z = 0; $z < count($emailArray); $z++) {
+        
+        $curlie = curl_init();
+        curl_setopt($curlie, CURLOPT_URL, $ownurl . "/createuseringroup" . "/" . $lastIdInsert );
+        curl_setopt($curlie, CURLOPT_HTTPHEADER, array(
+            'content-type: application/json'
+        ));
+        curl_setopt($curlie, CURLOPT_POST, 1);
+        $datass = array("email" => $emailArray[$z]);
+        $data_string = json_encode($datass);
+        curl_setopt($curlie, CURLOPT_POSTFIELDS, $data_string);
+        curl_setopt($curlie, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curlie, CURLOPT_RETURNTRANSFER, true);
+
+        curl_setopt($curlie, CURLOPT_RETURNTRANSFER, 1);
+
+        $curlieresponse = curl_exec($curlie);
+        $curlieinfo = curl_errno($curlie) > 0 ? array("curl_error_" . curl_errno($curlie) => curl_error($curlie)) : curl_getinfo($curlie);
+
+        curl_close($curlie);
+
+      });
+
+      // Now also give a call and link the calling user to this group
+      $curl2 = curl_init();
+      curl_setopt($curl2, CURLOPT_URL, $ownurl . "/ausertofromgroup" . "/"  . "add" . "/" . $lastIdInsert . "/" . $auserid );
+      curl_setopt($curl2, CURLOPT_HTTPHEADER, array(
+          'content-type: application/json'
+      ));
+      curl_setopt($curliemail, CURLOPT_CUSTOMREQUEST, 'GET');
+      curl_setopt($curl2, CURLOPT_SSL_VERIFYPEER, false);
+      curl_setopt($curl2, CURLOPT_RETURNTRANSFER, true);
+
+      curl_setopt($curl2, CURLOPT_RETURNTRANSFER, 1);
+
+      $curl2response = curl_exec($curl2);
+      $curl2info = curl_errno($curl2) > 0 ? array("curl_error_" . curl_errno($curl2) => curl_error($curl2)) : curl_getinfo($curl2);
+
+      curl_close($curl2);
+
+
+
+    
+
+
+
+
+    $debug = array('status' => 'success', 'action' => 'groupcopied',  'debug' => $result_g);
+    $response = json_encode($debug);
+    return $response;
+}
+);
+
 
 // uploading a logo of a organisation
 $app->post('/uploadorglogo/{id}', function (Request $request, Response $response) {
