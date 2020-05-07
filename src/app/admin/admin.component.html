@@ -270,10 +270,12 @@
 
 
           <br><br>
+          <button (click)="openSureModal(areusure, 'deletegroup', currentGroupID)" style="float:left" type="button" class="btn btn-danger" data-dismiss="modal">Verwijder</button>
+          <button (click)="openSureModal(areusure, 'copygroup', currentGroupID)" style="float:left" type="button" class="btn btn-warning" data-dismiss="modal">Kopieer</button>
+
         </div>
         <div class="modal-footer">
-          <button (click)="openSureModal(areusure, 'deletegroup', currentGroupID)" style="float:left" type="button" class="btn btn-danger" data-dismiss="modal">Verwijder</button>
-
+          
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
           <button type="button" (click)="editGroup()" class="btn btn-primary" data-dismiss="modal">Wijzigingen
             opslaan</button>

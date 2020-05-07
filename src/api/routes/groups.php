@@ -267,7 +267,8 @@ $app->get('/copygroup/{groupid}/{auserid}', function (Request $request, Response
    
       
       for ($x = 0; $x < count($result_g); $x++) {
-        $emailArray.push($result_g[0]['email']);
+        // $emailArray.push($result_g[$x]['email']);
+        array_push($emailArray, $result_g[$x]['email']);
     }
 
 
@@ -278,7 +279,7 @@ $app->get('/copygroup/{groupid}/{auserid}', function (Request $request, Response
     $stmt_u->execute();
     $result_u = $stmt_u->fetchAll(PDO::FETCH_ASSOC);
     // get names
-    $groupname = $result_u[0]['name'];
+    $groupname = $result_u[0]['name'] . " (Copy)";
     $groupcolor = $result_u[0]['orgcolor'];
     $grouplogo = $result_u[0]['logo'];
 
@@ -297,7 +298,7 @@ $app->get('/copygroup/{groupid}/{auserid}', function (Request $request, Response
     for ($z = 0; $z < count($emailArray); $z++) {
         
         $curlie = curl_init();
-        curl_setopt($curlie, CURLOPT_URL, $ownurl . "/createuseringroup" . "/" . $lastIdInsert );
+        curl_setopt($curlie, CURLOPT_URL, $ownurl . "/createuseringroup" . "/" . $lastIdInsert);
         curl_setopt($curlie, CURLOPT_HTTPHEADER, array(
             'content-type: application/json'
         ));
@@ -306,7 +307,7 @@ $app->get('/copygroup/{groupid}/{auserid}', function (Request $request, Response
         $data_string = json_encode($datass);
         curl_setopt($curlie, CURLOPT_POSTFIELDS, $data_string);
         curl_setopt($curlie, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($curlie, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curlie, CURLOPT_RETURNTRANSFER, false);
 
         curl_setopt($curlie, CURLOPT_RETURNTRANSFER, 1);
 
@@ -315,7 +316,7 @@ $app->get('/copygroup/{groupid}/{auserid}', function (Request $request, Response
 
         curl_close($curlie);
 
-      });
+      };
 
       // Now also give a call and link the calling user to this group
       $curl2 = curl_init();
@@ -341,7 +342,7 @@ $app->get('/copygroup/{groupid}/{auserid}', function (Request $request, Response
 
 
 
-    $debug = array('status' => 'success', 'action' => 'groupcopied',  'debug' => $result_g);
+    $debug = array('status' => 'success', 'action' => 'groupcopied', 'debug' => $emailArray);
     $response = json_encode($debug);
     return $response;
 }

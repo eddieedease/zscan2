@@ -1329,13 +1329,29 @@ export class AdminComponent implements OnInit {
     switch (_yesno) {
       case 'yes':
         this.loading = true;
-        this.serCred.API_deleteItem(this.currentCase, this.currentId).subscribe(value => this.itemDeleted(value, this.currentCase));
+
+        if (this.currentCase === 'copygroup'){
+          // admnId
+          this.serCred.API_copygroup(this.currentId, this.admnId).subscribe(value => this.groupCopied(value));
+
+        } else {
+          // normal deleting
+          this.serCred.API_deleteItem(this.currentCase, this.currentId).subscribe(value => this.itemDeleted(value, this.currentCase));
+        }
         break;
       case 'no':
         this.modalRef.hide();
         break;
     };
   };
+
+
+  groupCopied(_resp){
+    this.modalRef.hide();
+    this.serCred.debugLog(_resp);
+    this.toastr.success('Kopie van groep gemaakt', '');
+    this.serCred.API_getgroups(this.admnId).subscribe(value => this.gotGroups(value));
+  }
 
   // TODO: handle deleting
   itemDeleted(_resp, _case) {
