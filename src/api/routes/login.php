@@ -40,20 +40,26 @@ $app->get('/login/{userid}/{keyy}', function (Request $request, Response $respon
         $isActive = $resultgetactive[0][status];
         $validTo = $resultgetactive[0][validto];
 
-        if ($validTo !== null) {
+        $timevalid = 1;
+        if ($validTo != NULL) {
             // TODO: First we must check if the object is still open
-            $endDate = date("d/m/Y", strtotime($validTo));
-            $timeAsOfEnd = strtotime($endDate);
+            // $endDatepure = date_create($validTo);
+            // $endDate = date_format($endDatepure, "Ymd");
+
+            $endDate = strtotime($validTo);
+            
+            
 
             // date now
-            $dateNow = date('d/m/Y');
-            $nowDate = date_format($date, 'd-m-Y');
-            $timeAsOfNow = strtotime($nowDate);
+            $dateNow = date('Ymd');
+            $dateNow = strtotime($dateNow);
+            
+            
 
             // compare the dates
-            if ($timeAsOfEnd > $timeAsOfNow) {
+            if ($dateNow > $endDate) {
                 $timevalid = 0;
-                $data = array('status' => 'formclosed');
+                $data = array('status' => 'formclosed',  'debugDATENOW' => $dateNow ,'debugDATEEND' => $endDate, 'timevalid' => $timevalid);
             } else {
                 $timevalid = 1;
             }
@@ -61,16 +67,16 @@ $app->get('/login/{userid}/{keyy}', function (Request $request, Response $respon
 
 
 
-        if ($resultgetuser[0][filled] == 1 && $timevalid = 1) {
+        if ($resultgetuser[0][filled] == 1 && $timevalid == 1) {
             $data = array('status' => 'alreadyfilled');
-        } elseif ($isActive == 0) {
-            $data = array('status' => 'formclosed');
+        } elseif ($isActive == 0 || $timevalid == 0) {
+            $data = array('status' => 'formclosed',  'debugDATENOW' => $dateNow ,'debugDATEEND' => $endDate, 'timevalid' => $timevalid);
         } else {
-            $data = array('status' => 'success', 'user' => $resultgetuser);
+            $data = array('status' => 'success', 'user' => $resultgetuser, 'debugDATENOW' => $dateNow ,'debugDATEEND' => $endDate, 'timevalid' => $timevalid);
         }
 
     } else {
-        $data = array('status' => 'failed');
+        $data = array('status' => 'failed', 'debugDATENOW' => $timeAsOfNow ,'debugDATEEND' => $timeAsOfEnd);
     }
 
     $response = json_encode($data);

@@ -62,7 +62,7 @@ export class AdminComponent implements OnInit {
   thisRef;
 
 
-
+  maxDate = new Date(2037,12,1);
 
   // modalRef
   modalRef: BsModalRef;
@@ -278,7 +278,6 @@ export class AdminComponent implements OnInit {
   date1;
    bsValue = new Date();
    bsRangeValue: Date[];
-   maxDate = new Date();
 
    // colorpicker
    styleColor = '#fff ';
@@ -1002,6 +1001,7 @@ export class AdminComponent implements OnInit {
         this.userAddBulk = !this.userAddBulk;
         break;
       case 'sendmails':
+        this.userAddBulk = false;
         this.userAddUser = false;
         this.userSendMails = !this.userSendMails;
         break;

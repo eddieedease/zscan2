@@ -62,6 +62,7 @@ export class LoginComponent implements OnInit {
   }
 
   gotLogin(_val) {
+    this.serCred.debugLog('BELOWWWW');
     this.serCred.debugLog(_val);
     this.loading = false;
 

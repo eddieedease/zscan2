@@ -253,7 +253,7 @@
             <br>
             <div class="row">
               <div class="col-6">
-                <h6>Einddatum kiezen</h6><input type="text" class="form-control" #dp="bsDatepicker" [bsConfig]="{ dateInputFormat: 'YYYY-DD-MM' }" bsDatepicker [bsValue]="bsValue" [(ngModel)]="bsValue" [ngModelOptions]="{standalone: true}">
+                <h6>Einddatum kiezen</h6><input type="text" class="form-control" #dp="bsDatepicker" [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" bsDatepicker [bsValue]="bsValue" [(ngModel)]="bsValue" [ngModelOptions]="{standalone: true}">
                 <br>
               </div>
               <div class="col-6">
