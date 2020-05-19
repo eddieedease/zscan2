@@ -56,6 +56,8 @@ export class TestComponent implements OnInit {
   result4 = 0;
   result5 = 0;
 
+  thisColor;
+  thisLogo;
 
 
 
@@ -188,7 +190,35 @@ export class TestComponent implements OnInit {
     // if not, reroute to logging page
     if (this.edSer.__loggedIn === false) {
       this.thisrouter.navigate(['/', 'login']);
+    } else {
+      // we must get the group logo and color if there are any
+      this.edSer.API_getorginfo(this.currentGroupId).subscribe(value => this.gotGroupInfo(value));
+      
     }
+  }
+
+
+  gotGroupInfo(_resp){
+    this.edSer.debugLog(_resp);
+
+    if (_resp[0].logo == null){
+      // set default logo
+      this.thisLogo = 'assets/logo.png';
+    } else {
+      // set db value
+      this.thisLogo = 'uploads/orglogo/' + this.currentGroupId  + '/' + _resp[0].logo;
+    }
+
+    // set color
+    // catch hex value
+    if (_resp[0].orgcolor.length == 6){
+      // add # 
+      this.thisColor = '#' + _resp[0].orgcolor;
+    } else {
+      this.thisColor = _resp[0].orgcolor;
+    }
+    
+
   }
 
   beginNow(){

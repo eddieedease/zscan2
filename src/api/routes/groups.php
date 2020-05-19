@@ -206,6 +206,29 @@ $app->get('/changestatus/{groupid}/{status}', function (Request $request, Respon
 );
 
 
+// API: GET org info (color and logo )
+$app->get('/getorginfo/{groupid}', function (Request $request, Response $response) {
+    $groupid = $request->getAttribute('groupid');
+   
+    include 'db.php';
+    $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
+
+    $sqlgetinfo = "SELECT id, logo, orgcolor FROM groups WHERE id = '$groupid'";
+    $stmtgetinfo = $dbh->prepare($sqlgetinfo);
+    $stmtgetinfo->execute();
+    $resultgetinfo = $stmtgetinfo->fetchAll(PDO::FETCH_ASSOC);
+
+    //     NOTE colleting everything for converting
+    $result = array();
+    array_push($result, $resulgetinfo);
+
+    //     convert it all to jSON TODO change result
+    $response = json_encode($resultgetinfo);
+    return $response;
+}
+);
+
+
 
 // TODO: Ausers from and to group
 $app->get('/ausertofromgroup/{case}/{groupid}/{userid}', function (Request $request, Response $response) {

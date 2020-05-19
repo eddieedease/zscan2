@@ -176,6 +176,23 @@ export class EdserService {
   }
 
 
+  // API GROUPS
+  API_getorginfo(_groupid): Observable < any > {
+    const url = environment.apilink + 'getorginfo/' + _groupid + '?rnd=' + new Date().getTime();
+    // tslint:disable-next-line:prefer-const
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    const options = new RequestOptions({
+      headers: headers
+    });
+    // tslint:disable-next-line:max-line-length
+    return this.http_.get(url, options)
+      .throttleTime(5000)
+      .map(res => res.json());
+  }
+
+
   API_getausers(): Observable < any > {
     const url = environment.apilink + 'getausers?rnd=' + new Date().getTime();
     // tslint:disable-next-line:prefer-const

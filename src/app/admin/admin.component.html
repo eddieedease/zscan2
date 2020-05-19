@@ -399,7 +399,8 @@
 
   <ng-template #areusure>
     <div class="modal-body text-center">
-      <p>Je staat op het punt om dit item te verwijderen</p>
+      <p *ngIf="currentCase == 'copygroup'">Je staat op het punt om dit item te kopiëren. Alle email adressen worden meegenomen, maar alle resultaten worden verwijderd.</p>
+      <p *ngIf="currentCase != 'copygroup'">Je staat op het punt om dit item te verwijderen</p>
       <p>Weet je het zeker?</p>
       <button type="button" class="btn btn-default" (click)="sureModal('no')">Nee</button>&nbsp;&nbsp;&nbsp;&nbsp;
       <button type="button" class="btn btn-primary" (click)="sureModal('yes')">Ja</button>
