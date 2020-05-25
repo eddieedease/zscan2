@@ -866,7 +866,15 @@ export class AdminComponent implements OnInit {
         this.pasKey = element.paskey;
         this.logourl = element.logo;
         this.styleColor = "#" + element.orgcolor;
-        let ts = new Date(element.validto);
+
+        let ts;
+        
+        if (element.validto === null){
+          ts = new Date(2022,12,1);
+        } else {
+          ts = new Date(element.validto);
+        }
+        
         //this.bsValue = element.validto;
         this.bsValue = ts;
         console.log(typeof(this.bsValue));
@@ -897,10 +905,14 @@ export class AdminComponent implements OnInit {
   printResult() {
     // window.print();
     html2canvas(document.getElementById('pdfcourse'), {
-      scale: 0.6
+      scale: 1
     }).then(function (canvas) {
-      const img = canvas.toDataURL('image/png', 1.2);
-      const doc = new jsPDF();
+      const img = canvas.toDataURL('image/png', 1);
+      var doc = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: [2970/3.18 , 4200/3.18 ]
+        })
       doc.addImage(img, 'PNG', 0, 0);
       const stringg = 'Rapport_.pdf';
       doc.save(stringg);
