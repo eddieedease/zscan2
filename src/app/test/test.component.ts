@@ -193,35 +193,35 @@ export class TestComponent implements OnInit {
     } else {
       // we must get the group logo and color if there are any
       this.edSer.API_getorginfo(this.currentGroupId).subscribe(value => this.gotGroupInfo(value));
-      
+
     }
   }
 
 
-  gotGroupInfo(_resp){
+  gotGroupInfo(_resp) {
     this.edSer.debugLog(_resp);
 
-    if (_resp[0].logo == null){
+    if (_resp[0].logo == null) {
       // set default logo
       this.thisLogo = 'assets/logo.png';
     } else {
       // set db value
-      this.thisLogo = 'uploads/orglogo/' + this.currentGroupId  + '/' + _resp[0].logo;
+      this.thisLogo = 'uploads/orglogo/' + this.currentGroupId + '/' + _resp[0].logo;
     }
 
     // set color
     // catch hex value
-    if (_resp[0].orgcolor.length == 6){
+    if (_resp[0].orgcolor.length == 6) {
       // add # 
       this.thisColor = '#' + _resp[0].orgcolor;
     } else {
       this.thisColor = _resp[0].orgcolor;
     }
-    
+
 
   }
 
-  beginNow(){
+  beginNow() {
     this.introShow = false;
   }
 
@@ -364,6 +364,26 @@ export class TestComponent implements OnInit {
       for (let index = 0; index < this.questionArray.length; index++) {
         // tslint:disable-next-line:max-line-length
         if (this.questionArray[index].answer !== null && this.questionArray[index].answer !== undefined && this.questionArray[index].answer !== '') {
+          // smoezen omgepoold
+          if (this.questionArray[index].type === 'SMOE1' || this.questionArray[index].type === 'SMOE2' || this.questionArray[index].type === 'SMOE3' || this.questionArray[index].type === 'SMOE4' || this.questionArray[index].type === 'SMOE5' || this.questionArray[index].type === 'SMOE6') {
+            switch (this.questionArray[index].answer) {
+              case 1:
+                this.questionArray[index].answer = 5;
+                break;
+              case 2:
+                this.questionArray[index].answer = 4;
+                break;
+              case 4:
+                this.questionArray[index].answer = 2;
+                break;
+              case 5:
+                this.questionArray[index].answer = 1;
+                break;
+
+
+            }
+          }
+
           switch (this.questionArray[index].type) {
             case 'IZ1':
               this.IZ1 = this.IZ1 + this.questionArray[index].answer;
@@ -427,14 +447,14 @@ export class TestComponent implements OnInit {
           // Something is not filled in correctly
 
           // exclude the open question
-          if (this.questionArray[index].type === 'OPEN'){
+          if (this.questionArray[index].type === 'OPEN') {
 
           } else {
             somethingempty = true;
             whichemptyArray.push(index + 1);
           }
 
-          
+
         }
       }
     } else if (this.typeTest === '2') {
@@ -507,9 +527,9 @@ export class TestComponent implements OnInit {
             case 'BOR4':
               this.BOR4 = this.BOR4 + this.questionArray[index].answer;
               break;
-              case 'BOR5':
-                this.BOR5 = this.BOR5 + this.questionArray[index].answer;
-                break;
+            case 'BOR5':
+              this.BOR5 = this.BOR5 + this.questionArray[index].answer;
+              break;
           }
         } else {
           // Something is not filled in correctly
@@ -522,13 +542,13 @@ export class TestComponent implements OnInit {
 
     if (somethingempty === false) {
       // toggle feedback template view vars
-     
+
 
 
       // TODO: Below comes the calculating, we need to know how many items one thing has
       if (this.typeTest === '1') {
         // rounded up shared by number of questions
-         // this.result1 = Math.round(this.result1 / 8 * 100) / 100;
+        // this.result1 = Math.round(this.result1 / 8 * 100) / 100;
         this.IZ1 = Math.round(this.IZ1 / 5 * 100) / 100;
         this.IZ2 = Math.round(this.IZ2 / 4 * 100) / 100;
         this.IZ3 = Math.round(this.IZ3 / 2 * 100) / 100;
@@ -572,7 +592,7 @@ export class TestComponent implements OnInit {
         this.BOR4 = Math.round(this.BOR4 / 2 * 100) / 100;
         this.BOR5 = Math.round(this.BOR5 / 3 * 100) / 100;
         // tslint:disable-next-line:max-line-length
-        this.edSer.API_checklistsubmit(this.currentGroupId, this.currentUserId, this.CW1, this.CW2, this.VB1, this.VB2, this.VB3, this.OPL1, this.OPL2, this.OPL3, this.PRO1, this.PRO2, this.PRO3, this.COM1, this.COM2, this.COM3,this.BOR1, this.BOR2, this.BOR3, this.BOR4, this.BOR5).subscribe(value => this.formSend(value));
+        this.edSer.API_checklistsubmit(this.currentGroupId, this.currentUserId, this.CW1, this.CW2, this.VB1, this.VB2, this.VB3, this.OPL1, this.OPL2, this.OPL3, this.PRO1, this.PRO2, this.PRO3, this.COM1, this.COM2, this.COM3, this.BOR1, this.BOR2, this.BOR3, this.BOR4, this.BOR5).subscribe(value => this.formSend(value));
 
       }
       this.testFinished = true;
