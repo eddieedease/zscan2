@@ -113,7 +113,7 @@ export class EdserService {
   API_editgroup(_groupid, _groupname, _orgcolor, _date): Observable < any > {
 
     _orgcolor = _orgcolor.replace('#', '');
-    const url = environment.apilink + 'editgroup/' + _groupid + '/' + _groupname + '/' +  _orgcolor + '/' + _date  + '?rnd=' + new Date().getTime();
+    const url = environment.apilink + 'editgroup/' + _groupid + '/' + _groupname + '/' + _orgcolor + '/' + _date + '?rnd=' + new Date().getTime();
     // tslint:disable-next-line:prefer-const
     const headers = new Headers({
       'Content-Type': 'application/json'
@@ -302,9 +302,9 @@ export class EdserService {
   // API QUESTIONS
 
   // tslint:disable-next-line:max-line-length
-  API_formsubmit(_groupid, _userid, IZ1, IZ2, IZ3, IW1, IW2, IW3, IWE1, IWE2, IWE3, IWE4, IK1, IK2, IK3, SMOE1, SMOE2, SMOE3, SMOE4, SMOE5, SMOE6, _openq): Observable < any > {
+  API_formsubmit(_groupid, _userid, IZ1, IZ2, IZ3, IW1, IW2, IW3, IWE1, IWE2, IWE3, IWE4, IK1, IK2, IK3, SMOE1, SMOE2, SMOE3, SMOE4, SMOE5, SMOE6, SMOE7, SMOE8, _openq): Observable < any > {
     // tslint:disable-next-line:max-line-length
-    const url = environment.apilink + 'formsubmit/' + _groupid + '/' + _userid + '/' + IZ1 + '/' + IZ2 + '/' + IZ3 + '/' + IW1 + '/' + IW2 + '/' + IW3 + '/' + IWE1 + '/' + IWE2 + '/' + IWE3 + '/' + IWE4 + '/' + IK1 + '/' + IK2 + '/' + IK3 + '/' + SMOE1 + '/' + SMOE2 + '/' + SMOE3 + '/' + SMOE4 + '/' + SMOE5 + '/' + SMOE6 + '?rnd=' + new Date().getTime();
+    const url = environment.apilink + 'formsubmit/' + _groupid + '/' + _userid + '/' + IZ1 + '/' + IZ2 + '/' + IZ3 + '/' + IW1 + '/' + IW2 + '/' + IW3 + '/' + IWE1 + '/' + IWE2 + '/' + IWE3 + '/' + IWE4 + '/' + IK1 + '/' + IK2 + '/' + IK3 + '/' + SMOE1 + '/' + SMOE2 + '/' + SMOE3 + '/' + SMOE4 + '/' + SMOE5 + '/' + SMOE6 + '/' + SMOE7 + '/' + SMOE8 + '?rnd=' + new Date().getTime();
     // tslint:disable-next-line:prefer-const
     const upt = {
       'openq': _openq
@@ -333,7 +333,7 @@ export class EdserService {
   // tslint:disable-next-line:max-line-length
   API_checklistsubmit(_groupid, _userid, CW1, CW2, VB1, VB2, VB3, OPL1, OPL2, OPL3, PRO1, PRO2, PRO3, COM1, COM2, COM3, BOR1, BOR2, BOR3, BOR4, BOR5): Observable < any > {
     // tslint:disable-next-line:max-line-length
-    const url = environment.apilink + 'checklistsubmit/' + _groupid + '/' + _userid + '/' +  CW1 + '/' + CW2 + '/' + VB1 + '/' + VB2 + '/' + VB3 + '/' + OPL1 + '/' + OPL2 + '/' + OPL3 + '/' + PRO1 + '/' + PRO2 + '/' + PRO3 + '/' + COM1 + '/' + COM2 + '/' + COM3 + '/' + BOR1 + '/' + BOR2 + '/' + BOR3 + '/' + BOR4 + '/' + BOR5 + '?rnd=' + new Date().getTime();
+    const url = environment.apilink + 'checklistsubmit/' + _groupid + '/' + _userid + '/' + CW1 + '/' + CW2 + '/' + VB1 + '/' + VB2 + '/' + VB3 + '/' + OPL1 + '/' + OPL2 + '/' + OPL3 + '/' + PRO1 + '/' + PRO2 + '/' + PRO3 + '/' + COM1 + '/' + COM2 + '/' + COM3 + '/' + BOR1 + '/' + BOR2 + '/' + BOR3 + '/' + BOR4 + '/' + BOR5 + '?rnd=' + new Date().getTime();
     // tslint:disable-next-line:prefer-const
     const headers = new Headers({
       'Content-Type': 'application/json'
@@ -353,7 +353,7 @@ export class EdserService {
   // API LOGIN
   // API LOGIN
   API_login(_userid, _key): Observable < any > {
-    const url = environment.apilink + 'login/' + _userid + '/' + _key + '?rnd=' + new Date().getTime();
+    const url = environment.apilink + 'site/' + _userid + '/' + _key + '?rnd=' + new Date().getTime();
     // tslint:disable-next-line:prefer-const
     const headers = new Headers({
       'Content-Type': 'application/json'
@@ -603,7 +603,7 @@ export class EdserService {
 
 
   API_deleteItem(_case, _userid): Observable < any > {
-    const url = environment.apilink + 'deleteitem/' + _case  + '/' + _userid + '?rnd=' + new Date().getTime();
+    const url = environment.apilink + 'deleteitem/' + _case + '/' + _userid + '?rnd=' + new Date().getTime();
     console.log(url);
     // tslint:disable-next-line:prefer-const
     const headers = new Headers({
@@ -620,8 +620,8 @@ export class EdserService {
 
 
 
-   // The thumbupload will take an fileevent, case (course, lesson, user), and assigned id
-   API_uploadorglogo($event, _groupid): Observable < any > {
+  // The thumbupload will take an fileevent, case (course, lesson, user), and assigned id
+  API_uploadorglogo($event, _groupid): Observable < any > {
 
 
     const files = $event.target.files || $event.srcElement.files;

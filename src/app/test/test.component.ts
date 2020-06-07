@@ -101,6 +101,10 @@ export class TestComponent implements OnInit {
   resultSMOE5;
   SMOE6;
   resultSMOE6;
+  SMOE7;
+  resultSMOE7;
+  SMOE8;
+  resultSMOE8;
   // test manager
   CW1;
   resultCW1;
@@ -336,6 +340,8 @@ export class TestComponent implements OnInit {
     this.SMOE4 = 0;
     this.SMOE5 = 0;
     this.SMOE6 = 0;
+    this.SMOE7 = 0;
+    this.SMOE8 = 0;
     // test manager
     this.CW1 = 0;
     this.CW2 = 0;
@@ -365,7 +371,7 @@ export class TestComponent implements OnInit {
         // tslint:disable-next-line:max-line-length
         if (this.questionArray[index].answer !== null && this.questionArray[index].answer !== undefined && this.questionArray[index].answer !== '') {
           // smoezen omgepoold
-          if (this.questionArray[index].type === 'SMOE1' || this.questionArray[index].type === 'SMOE2' || this.questionArray[index].type === 'SMOE3' || this.questionArray[index].type === 'SMOE4' || this.questionArray[index].type === 'SMOE5' || this.questionArray[index].type === 'SMOE6') {
+          if (this.questionArray[index].type === 'SMOE1' || this.questionArray[index].type === 'SMOE2' || this.questionArray[index].type === 'SMOE3' || this.questionArray[index].type === 'SMOE4' || this.questionArray[index].type === 'SMOE5' || this.questionArray[index].type === 'SMOE6' || this.questionArray[index].type === 'SMOE7' || this.questionArray[index].type === 'SMOE8') {
             switch (this.questionArray[index].answer) {
               case 1:
                 this.questionArray[index].answer = 5;
@@ -441,6 +447,12 @@ export class TestComponent implements OnInit {
               break;
             case 'SMOE6':
               this.SMOE6 = this.SMOE6 + this.questionArray[index].answer;
+              break;
+            case 'SMOE7':
+              this.SMOE7 = this.SMOE7 + this.questionArray[index].answer;
+              break;
+            case 'SMOE8':
+              this.SMOE8 = this.SMOE8 + this.questionArray[index].answer;
               break;
           }
         } else {
@@ -550,10 +562,10 @@ export class TestComponent implements OnInit {
         // rounded up shared by number of questions
         // this.result1 = Math.round(this.result1 / 8 * 100) / 100;
         this.IZ1 = Math.round(this.IZ1 / 5 * 100) / 100;
-        this.IZ2 = Math.round(this.IZ2 / 4 * 100) / 100;
+        this.IZ2 = Math.round(this.IZ2 / 3 * 100) / 100;
         this.IZ3 = Math.round(this.IZ3 / 2 * 100) / 100;
-        this.IW1 = Math.round(this.IW1 / 10 * 100) / 100;
-        this.IW2 = Math.round(this.IW2 / 4 * 100) / 100;
+        this.IW1 = Math.round(this.IW1 / 8 * 100) / 100;
+        this.IW2 = Math.round(this.IW2 / 5 * 100) / 100;
         this.IW3 = Math.round(this.IW3 / 1 * 100) / 100;
         this.IWE1 = Math.round(this.IWE1 / 1 * 100) / 100;
         this.IWE2 = Math.round(this.IWE2 / 1 * 100) / 100;
@@ -569,7 +581,7 @@ export class TestComponent implements OnInit {
         this.SMOE5 = Math.round(this.SMOE5 / 1 * 100) / 100;
         this.SMOE6 = Math.round(this.SMOE6 / 1 * 100) / 100;
         // tslint:disable-next-line:max-line-length
-        this.edSer.API_formsubmit(this.currentGroupId, this.currentUserId, this.IZ1, this.IZ2, this.IZ3, this.IW1, this.IW2, this.IW3, this.IWE1, this.IWE2, this.IWE3, this.IWE4, this.IK1, this.IK2, this.IK3, this.SMOE1, this.SMOE2, this.SMOE3, this.SMOE4, this.SMOE5, this.SMOE6, this.openQ).subscribe(value => this.formSend(value));
+        this.edSer.API_formsubmit(this.currentGroupId, this.currentUserId, this.IZ1, this.IZ2, this.IZ3, this.IW1, this.IW2, this.IW3, this.IWE1, this.IWE2, this.IWE3, this.IWE4, this.IK1, this.IK2, this.IK3, this.SMOE1, this.SMOE2, this.SMOE3, this.SMOE4, this.SMOE5, this.SMOE6, this.SMOE7, this.SMOE8, this.openQ).subscribe(value => this.formSend(value));
 
       } else if (this.typeTest === '2') {
         this.CW1 = Math.round(this.CW1 / 24 * 100) / 100;

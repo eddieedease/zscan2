@@ -8,7 +8,7 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 
 // MUST GIVE BACK, groupid, filledin!!! GIVE BACK ID, GROUPID, TYPEID
 // this link will be send in the email
-$app->get('/login/{userid}/{keyy}', function (Request $request, Response $response) {
+$app->get('/site/{userid}/{keyy}', function (Request $request, Response $response) {
     $userid = $request->getAttribute('userid');
     $userid = (int) $userid;
     $keyy = $request->getAttribute('keyy');

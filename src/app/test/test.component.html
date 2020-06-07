@@ -43,6 +43,8 @@
           <div *ngIf="introShow" class="text-center py-5" style="padding:70px;text-align: left !important">
             <br><br>
 
+
+            <div *ngIf="typeTest === '1'">
             Beste medewerker,<br>
             <br>
             Graag wil de directie samen met jullie werken aan veiligheid. Daarom vraagt de directie middels deze vragenlijst jullie mening.
@@ -65,6 +67,31 @@
             </ul>
             <br>
             Succes!
+          </div>
+          <div *ngIf="typeTest === '2'">
+            Beste leidinggevende,<br>
+            <br>
+            voor het invullen van deze vragenlijst zult u ongeveer 10 minuten bezig zijn.
+            <br>
+
+            Invulinstructie:<br>
+            <ul>
+              <li>U kunt telkens kiezen uit vijf mogelijke antwoorden.</li>
+              <li>Kies het antwoord dat volgens jou het meest van toepassing is, ook als je het niet precies weet.
+              </li>
+              <li>Vul de vragenlijst naar waarheid in.</li>
+              <li>Kies altijd maar één antwoord.</li>
+              <li>Vul alle vragen in</li>
+            </ul>
+            <br>
+            Succes!
+
+          </div>
+
+
+
+
+
             <br><br>
             <button  type="button" (click)="beginNow()" class="btn btn-primary"
             data-dismiss="modal">Begin</button>

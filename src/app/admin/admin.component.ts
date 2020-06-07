@@ -181,6 +181,10 @@ export class AdminComponent implements OnInit {
   smoe5tot = 0;
   smoe6 = 0;
   smoe6tot = 0;
+  smoe7 = 0;
+  smoe7tot = 0;
+  smoe8 = 0;
+  smoe8tot = 0;
   /* smoe7 = 0;
   smoe7tot = 0; */
 
@@ -500,6 +504,8 @@ export class AdminComponent implements OnInit {
     let smoe4 = 0;
     let smoe5 = 0;
     let smoe6 = 0;
+    let smoe7 = 0;
+    let smoe8 = 0;
     /* let smoe7 = 0; */
 
 
@@ -536,6 +542,8 @@ export class AdminComponent implements OnInit {
       smoe4 = smoe4 + parseFloat(_val['questions'][index].SMOE4);
       smoe5 = smoe5 + parseFloat(_val['questions'][index].SMOE5);
       smoe6 = smoe6 + parseFloat(_val['questions'][index].SMOE6);
+      smoe7 = smoe7 + parseFloat(_val['questions'][index].SMOE7);
+      smoe8 = smoe8 + parseFloat(_val['questions'][index].SMOE8);
       /* smoe7 = smoe7 + parseFloat(_val['questions'][index].SMOE7); */
 
       // Also, store the feedback in array (if value != ''
@@ -602,6 +610,10 @@ export class AdminComponent implements OnInit {
     smoe6 = smoe6 / this.howManySendQuestions;
     smoe6 = Math.round(smoe6 * 100) / 100;
     this.smoe6 = smoe6;
+    smoe7 = Math.round(smoe7 * 100) / 100;
+    this.smoe7 = smoe7;
+    smoe8 = Math.round(smoe8 * 100) / 100;
+    this.smoe8 = smoe8;
     /* smoe7 = smoe7 / this.howManySendQuestions;
     smoe7 = Math.round(smoe7 * 100) / 100;
     this.smoe7 = smoe7; */
@@ -865,6 +877,7 @@ export class AdminComponent implements OnInit {
         this.groupName = element.name;
         this.pasKey = element.paskey;
         this.logourl = element.logo;
+        
         this.styleColor = "#" + element.orgcolor;
 
         let ts;
@@ -877,8 +890,9 @@ export class AdminComponent implements OnInit {
         
         //this.bsValue = element.validto;
         this.bsValue = ts;
-        console.log(typeof(this.bsValue));
         this.logourl = 'uploads/orglogo/' + this.currentGroupID + '/' + this.logourl;
+        console.log('thisFROMEDITEDIT');
+        console.log(this.logourl);
       }
     });
   }
@@ -971,15 +985,25 @@ export class AdminComponent implements OnInit {
     this.tempgroupRows = [..._val];
     this.groupRows.reverse();
     this.loading = false;
+    
 
-    this.groupRows.forEach(element => {
-      if (this.currentGroupID === element.id) {
-        this.groupName = element.name;
-        this.pasKey = element.paskey;
-        this.logourl = element.logo;
-        this.logourl = 'uploads/orglogo/' + this.currentGroupID + '/' + this.logourl;
-      }
-    });
+    console.log('SDFDSFSD');
+    console.log(this.currentGroupID);
+
+    if (this.currentGroupID !== undefined && this.currentGroupID !== null){
+      this.showEdit(this.currentGroupID);
+    }
+    // this.groupRows.forEach(element => {
+    //   if (this.currentGroupID === element.id) {
+    //     console.log("DOES THIS GETSSS HITTTTT");
+    //     this.groupName = element.name;
+    //     this.pasKey = element.paskey;
+    //     this.logourl = element.logo;
+        
+    //     this.logourl = 'uploads/orglogo/' + this.currentGroupID + '/' + this.logourl;
+    //     console.log(this.logourl);
+    //   }
+    // });
   }
 
   resetGroupVals() {

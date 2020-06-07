@@ -188,7 +188,7 @@
               </ng-template>
 
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                <div [innerHTML]="'https://' + locc + '/login/' + row['id'] +'/'+ row['unlockkey']"></div>
+                <div [innerHTML]="'https://' + locc + '/site/' + row['id'] +'/'+ row['unlockkey']"></div>
               </ng-template>
             </ngx-datatable-column>
 
@@ -264,8 +264,8 @@
             </div>
             <h4>Logo</h4>
             <img [src]="logourl" *ngIf="logourl != '' || logourl == NULL" style="display: block; width: 100%; max-width: 210px">
-                    <input type="file" (change)="onLogoChange($event)"> <br>
-                    <br><br>
+            <input type="file" (change)="onLogoChange($event)"> <br>
+            <br><br>
           </form>
 
 
@@ -275,7 +275,7 @@
 
         </div>
         <div class="modal-footer">
-          
+
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
           <button type="button" (click)="editGroup()" class="btn btn-primary" data-dismiss="modal">Wijzigingen
             opslaan</button>
@@ -436,7 +436,7 @@
             </div>
             <li class="nav-item">
               <a class="nav-link active">
-                <img src="assets/logo.png" class="img-fluid" alt="Responsive image">
+                <a routerLink="/"><img src="assets/logo.png" class="img-fluid" alt="Responsive image"></a>
               </a>
             </li>
           </ul>
@@ -558,7 +558,7 @@
                     </ng-template>
                   </ngx-datatable-column>
 
-                  <ngx-datatable-column name="Actief" [sortable]="true">
+                  <ngx-datatable-column name="Actief" width="20" [sortable]="true">
 
                     <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
                       <span style="cursor:pointer">
@@ -618,7 +618,7 @@
 
                   </ngx-datatable-column>
 
-                  <ngx-datatable-column name="Geldig tot" [sortable]="true">
+                  <ngx-datatable-column name="Geldig tot" width="100" [sortable]="true">
 
                     <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
                       <span style="cursor:pointer">
@@ -654,10 +654,10 @@
 
               <hr>
               <div *ngIf="showScore">
-                <div class="container d-none d-xl-block">
+                <div class="container d-none d-lg-block">
                   <button type="button" (click)="showScore = false" class="btn btn-primary" data-toggle="modal" data-html2canvas-ignore="true">
                     <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;&nbsp;Terug naar Overzicht
-                  </button>&nbsp;&nbsp;&nbsp;&nbsp;Exporteren: 
+                  </button>&nbsp;&nbsp;&nbsp;&nbsp;Exporteren:
                   <button type="button" (click)="printResult()" class="btn btn-info" data-toggle="modal" data-html2canvas-ignore="true">
                     <i class="fa fa-print"></i>&nbsp;&nbsp;&nbsp;&nbsp;PDF
                   </button>&nbsp;&nbsp;
@@ -667,13 +667,13 @@
                 </div>
 
                 <div class="container" id="pdfcourse">
-                  
+
                   <div>
                     <br>
                     <h2>{{currentGroup}}</h2>
                     <p>Datum: {{dateToday}}<br>Ingevulde vragenlijsten: <b>{{howManySendQuestions}}</b><br>
                       Checklist: <b>{{howManySendChecklist}}</b></p>
-                    <br>
+
                     <table style="float: left; height: 1028px; color: white" width="100%" cellpadding="10">
                       <tbody>
                         <tr style="height: 23px;">
@@ -772,38 +772,48 @@
                           <td style="height: 23px; width: 15px;" colspan="4"></td>
                         </tr>
                         <tr style="height: 23px;">
-                          <td style="height: 23px; width: 101px;">&nbsp;</td>
-                          <td style="height: 23px; width: 15px;" [style.background-color]="smoe1 >= 3.5 ? 'green' : smoe1 < 3.5 && smoe1 > 2.5 ? '#ff7600' : 'red'">&nbsp;SMOE1&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe1}}</b></td>
+                          <td style="height: 23px; width: 101px;color: black;">&nbsp;1</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="smoe1 >= 3.5 ? 'green' : smoe1 < 3.5 && smoe1 > 2.5 ? '#ff7600' : 'red'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe1}}</b></td>
                           <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">In ons bedrijf hebben we geen tijd voor veiligheid&nbsp;</td>
                         </tr>
                         <tr style="height: 23px;">
-                          <td style="height: 23px; width: 101px;">&nbsp;</td>
-                          <td style="height: 23px; width: 15px;" [style.background-color]="smoe2 >= 3.5 ? 'green' : smoe2 < 3.5 && smoe2 > 2.5 ? '#ff7600' : 'red'">&nbsp;SMOE2&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe2}}</b></td>
-                          <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">Ik ga er van uit dat mij niets overkomt op mijn werk&nbsp;</td>
+                          <td style="height: 23px; width: 101px;color: black;">&nbsp;2</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="smoe2 >= 3.5 ? 'green' : smoe2 < 3.5 && smoe2 > 2.5 ? '#ff7600' : 'red'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe2}}</b></td>
+                          <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">Mij overkomt niets&nbsp;</td>
                         </tr>
                         <tr style="height: 23px;">
-                          <td style="height: 23px; width: 101px;">&nbsp;</td>
-                          <td style="height: 23px; width: 15px;" [style.background-color]="smoe3 >= 3.5 ? 'green' : smoe3 < 3.5 && smoe3 > 2.5 ? '#ff7600' : 'red'">&nbsp;SMOE3&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe3}}</b></td>
-                          <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">Voor mij is productie belangrijker dan veiligheid&nbsp;</td>
+                          <td style="height: 23px; width: 101px;color: black;">&nbsp;3</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="smoe3 >= 3.5 ? 'green' : smoe3 < 3.5 && smoe3 > 2.5 ? '#ff7600' : 'red'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe3}}</b></td>
+                          <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">Ik mag de productie niet in de weg staan&nbsp;</td>
                         </tr>
                         <tr style="height: 23px;">
-                          <td style="height: 23px; width: 101px;">&nbsp;</td>
-                          <td style="height: 23px; width: 15px;" [style.background-color]="smoe4 >= 3.5 ? 'green' : smoe4 < 3.5 && smoe4 > 2.5 ? '#ff7600' : 'red'">&nbsp;SMOE4&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe4}}</b></td>
-                          <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">Niemand werkt echt veilig bij ons&nbsp;</td>
+                          <td style="height: 23px; width: 101px;color: black;">&nbsp;4</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="smoe4 >= 3.5 ? 'green' : smoe4 < 3.5 && smoe4 > 2.5 ? '#ff7600' : 'red'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe4}}</b></td>
+                          <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">We werken al jaren zo&nbsp;</td>
                         </tr>
                         <tr style="height: 23px;">
-                          <td style="height: 23px; width: 101px;">&nbsp;</td>
-                          <td style="height: 23px; width: 15px;" [style.background-color]="smoe5 >= 3.5 ? 'green' : smoe5 < 3.5 && smoe5 > 2.5 ? '#ff7600' : 'red'">&nbsp;SMOE5&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe5}}</b></td>
-                          <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">Ik weet wat van mij verwacht wordt rondom veilig werken&nbsp;</td>
+                          <td style="height: 23px; width: 101px;color: black;">&nbsp;5</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="smoe5 >= 3.5 ? 'green' : smoe5 < 3.5 && smoe5 > 2.5 ? '#ff7600' : 'red'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe5}}</b></td>
+                          <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">Ik ben al gecertificeerd en werk veilig&nbsp;</td>
                         </tr>
                         <tr style="height: 23px;">
-                          <td style="height: 23px; width: 101px;">&nbsp;</td>
-                          <td style="height: 23px; width: 15px;" [style.background-color]="iz1 >= 3.5 ? 'green' : iz1 < 3.5 && iz1 > 2.5 ? '#ff7600' : 'red'">&nbsp;SMOE6&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe6}}</b></td>
-                          <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">Als ik niet veilig kan werken, werk ik niet&nbsp;</td>
+                          <td style="height: 23px; width: 101px;color: black;">&nbsp;6</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="smoe6 >= 3.5 ? 'green' : smoe6 < 3.5 && smoe6 > 2.5 ? '#ff7600' : 'red'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe6}}</b></td>
+                          <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">Er wordt toch niet opgelet&nbsp;</td>
+                        </tr>
+                        <tr style="height: 23px;">
+                          <td style="height: 23px; width: 101px;color: black;">&nbsp;7</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="smoe7 >= 3.5 ? 'green' : smoe7 < 3.5 && smoe7 > 2.5 ? '#ff7600' : 'red'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe7}}</b></td>
+                          <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">Niet mijn verantwoordelijkheid&nbsp;</td>
+                        </tr>
+                        <tr style="height: 23px;">
+                          <td style="height: 23px; width: 101px;color: black;">&nbsp;8</td>
+                          <td style="height: 23px; width: 15px;" [style.background-color]="smoe8 >= 3.5 ? 'green' : smoe8 < 3.5 && smoe8 > 2.5 ? '#ff7600' : 'red'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe8}}</b></td>
+                          <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">Het melden van bijna ongevallen is tijdsverspilling &nbsp;</td>
                         </tr>
                       </tbody>
                     </table>
-                    
+
                   </div>
                   <br><br><br><br><b><br><br>Open vragen antwoorden:</b><br><br>
                   <div>

@@ -37,7 +37,7 @@
     },
     "Vraag10": {
         "vraag": "De leiding kijkt de andere kant uit, als er onveilig wordt gewerkt",
-        "type": "IZ2"
+        "type": "SMOE6"
     },
     "Vraag11": {
         "vraag": "Ik voel me verantwoordelijk voor de veiligheid van mijn collega’s",
@@ -53,7 +53,7 @@
     },
     "Vraag14": {
         "vraag": "Mijn collega’s moeten zelf bepalen hoe zij met veiligheid omgaan",
-        "type": "IW1"
+        "type": "SMOE7"
     },
     "Vraag15": {
         "vraag": "Ik vind de veiligheidsregels in ons bedrijf zinvol",
@@ -65,7 +65,7 @@
     },
     "Vraag17": {
         "vraag": "Het melden van bijna ongevallen is tijdsverspilling",
-        "type": "IW1"
+        "type": "SMOE8"
     },
     "Vraag18": {
         "vraag": "Voor mij is productie belangrijker dan veiligheid",
@@ -73,7 +73,7 @@
     },
     "Vraag19": {
         "vraag": "Ik ben al voldoende geschoold om veilig te werken",
-        "type": "IW3"
+        "type": "SMOE5"
     },
     "Vraag20": {
         "vraag": "Niemand werkt echt veilig bij ons",
@@ -97,7 +97,7 @@
     },
     "Vraag25": {
         "vraag": "Ik  heb voldoende trainingen gehad om veiligheidsbewust te werken",
-        "type": "IWE3"
+        "type": "IW3"
     },
     "Vraag26": {
         "vraag": "Ik krijg informatie over de oorzaken van incidenten",
@@ -105,7 +105,7 @@
     },
     "Vraag27": {
         "vraag": "Ik weet wat van mij verwacht wordt rondom veilig werken",
-        "type": "SMOE5"
+        "type": "IWE3"
     },
     "Vraag28": {
         "vraag": "Ik kan veilig werken tijdens mijn werk",
@@ -125,7 +125,7 @@
     },
     "Vraag32": {
         "vraag": "Als ik niet veilig kan werken, werk ik niet",
-        "type": "SMOE6"
+        "type": "IW2"
     },
     "Vraag33": {
         "vraag": "Ik overleg ten minste 1 keer per week over veiligheid",

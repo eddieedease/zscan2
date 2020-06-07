@@ -23,6 +23,8 @@ import {
   ColorPickerModule
 } from 'ngx-color-picker';
 
+import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
+import { NgxPageScrollModule } from 'ngx-page-scroll';
 
 import {
   BsDatepickerModule
@@ -51,11 +53,11 @@ import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 const appRoutes: Routes = [
   { path: 'vragenlijst', component: TestComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'login/:id/:key', component: LoginComponent },
+  { path: 'site/:id/:key', component: LoginComponent },
   { path: 'about', component: AboutComponent },
   { path: 'admin', component: AdminComponent },
   { path: '',
-    redirectTo: '/login',
+    redirectTo: '/site',
     pathMatch: 'full'
   },
   { path: '**', component: LoginComponent }
@@ -88,6 +90,8 @@ const appRoutes: Routes = [
     TabsModule.forRoot(),
     NgxDatatableModule,
     NgxLoadingModule,
+    NgxPageScrollCoreModule,
+    NgxPageScrollModule,
     // CarouselModule.forRoot(),
     ProgressbarModule.forRoot()
   ],

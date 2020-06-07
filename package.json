@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build.prod": "ng build --prod --build-optimizer --aot --no-sourcemaps --output-path dist",
+    "build.prod": "ng build --prod --build-optimizer --aot  --output-path dist",
     "noreload": "ng serve --live-reload false"
   },
   "private": true,
@@ -36,6 +36,8 @@
     "ngx-bootstrap": "^5.2.0",
     "ngx-color-picker": "^9.1.0",
     "ngx-loading": "^8.0.0",
+    "ngx-page-scroll": "^7.0.1",
+    "ngx-page-scroll-core": "^7.0.1",
     "ngx-pagination": "^4.1.0",
     "ngx-toastr": "^11.1.2",
     "popper.js": "^1.16.0",
