@@ -21,7 +21,7 @@
             <button (click)="loginAttempt()" class="btn btn-primary btn-lg">Login</button>
           </form>
           <br>
-          <div style='color:#ff7600red' *ngIf="errorMsg == true">Geen juiste inloggegevens
+          <div style='color:#ff7600' *ngIf="errorMsg == true">Geen juiste inloggegevens
           </div>
         </div>
       </div>
@@ -575,6 +575,16 @@
 
                   </ngx-datatable-column>
 
+                  <ngx-datatable-column name="Landkaart">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                      <div class="btn-group" style="border-radius: 10px; color: white" role="group" aria-label="Basic example">
+                        <button style="color: white;" (click)="showResult(row.id)" type="button" class="btn btn-warning">
+                          <i class="fa fa-eye"></i> Landkaart
+                        </button>
+                      </div>
+                    </ng-template>
+
+                  </ngx-datatable-column>
 
 
                   <!--   <ngx-datatable-column name="Aantal Ingevuld">
@@ -607,16 +617,7 @@
                   </ngx-datatable-column>
 
 
-                  <ngx-datatable-column name="Landkaart">
-                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                      <div class="btn-group" style="border-radius: 10px; color: white" role="group" aria-label="Basic example">
-                        <button style="color: white;" (click)="showResult(row.id)" type="button" class="btn btn-warning">
-                          <i class="fa fa-eye"></i> Landkaart
-                        </button>
-                      </div>
-                    </ng-template>
-
-                  </ngx-datatable-column>
+                 
 
                   <ngx-datatable-column name="Geldig tot" width="100" [sortable]="true">
 

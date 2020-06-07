@@ -921,16 +921,30 @@ export class AdminComponent implements OnInit {
     html2canvas(document.getElementById('pdfcourse'), {
       scale: 1
     }).then(function (canvas) {
-      const img = canvas.toDataURL('image/png', 1);
-      var doc = new jsPDF({
-        orientation: 'portrait',
-        unit: 'mm',
-        format: [2970/3.18 , 4200/3.18 ]
-        })
-      doc.addImage(img, 'PNG', 0, 0);
-      const stringg = 'Rapport_.pdf';
+      var imgData = canvas.toDataURL('image/png');
+      var imgWidth = 205; 
+      var pageHeight = 295;  
+      var imgHeight = canvas.height * imgWidth / canvas.width;
+      var heightLeft = imgHeight;
+      var doc = new jsPDF('p', 'mm');
+      var position = 10; // give some top padding to first page
+      
+      doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+      
+      while (heightLeft >= 0) {
+        position += heightLeft - imgHeight; // top padding for other pages
+        doc.addPage();
+        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
+      const stringg = 'Landkaart_export.pdf';
       doc.save(stringg);
     });
+
+
+
   };
 
   printResultPng() {

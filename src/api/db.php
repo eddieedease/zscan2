@@ -8,11 +8,15 @@ $ownurl = 'http://localhost/zscan2/src/api';
 // $ownurl = 'http://atgard/api';
 
 
-$orgurlll = 'inervo.nl';
-$mailusr = 'mailer@inervo.nl';
-$mailpwd = 'inervo';
-$hostt = 'mail.inervo.nl';
-$portt = 465;
+$orgurlll = 'xxx.nl';
+$mailusr = 'mailer@xxx.nl';
+$mailpwd = 'xxx';
+$hostt = 'mail.mijndomein.nl';
+$portt = 587;
+
+
+
+
 
 // copied from mijndomein
 // $mail->isSMTP();

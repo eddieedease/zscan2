@@ -32,19 +32,19 @@ $app->get('/sendlinktouser/{userid}', function (Request $request, Response $resp
     $personUrl = $aiid . '/' . $aiunlockkey;
 
     $mail = new PHPMailer;
-    $mail->isSMTP();
+        $mail->isSMTP();
 
-    $mail->SMTPSecure = 'ssl';
-    $mail->Host = "mail.antagonist.nl";
-    $mail->SMTPAuth = true;
-    $mail->SMTPKeepAlive = true; // SMTP connection will not close after each email sent, reduces SMTP overhead
-    $mail->Port = 465;
-    $mail->Username = 'noreply@cubestick.nl';
-    $mail->Password = 'replyno';
-    $mail->setFrom('noreply@cubestick.nl', 'Ri&S Vragenlijst');
-    $mail->addReplyTo('noreply@cubestick.nl', 'Ri&S Vragenlijst');
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Host = $hostt;
+        $mail->SMTPAuth = true;
+        $mail->SMTPKeepAlive = true; // SMTP connection will not close after each email sent, reduces SMTP overhead
+        $mail->Port = $portt;
+        $mail->Username = $mailusr;
+        $mail->Password = $mailpwd;
+        $mail->setFrom($mailusr, 'Atgard Vragenlijst');
+        $mail->addReplyTo($mailusr, 'Atgard Vragenlijst');
 
-    $mail->Subject = "Ri&S Vragenlijst";
+        $mail->Subject = "Atgard &S Vragenlijst";
 
     //msgHTML also sets AltBody, but if you want a custom one, set it afterwards
     $mail->AltBody = 'Om deze html te bekijken heb je een email client nodig die html mails kan laten zien!';
@@ -57,7 +57,7 @@ $app->get('/sendlinktouser/{userid}', function (Request $request, Response $resp
   <head>
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Ri&S Vragenlijst</title>
+    <title>Atgard Vragenlijst</title>
     <style>
       /* -------------------------------------
           GLOBAL RESETS
@@ -409,17 +409,17 @@ $app->get('/sendlinktobulk/{groupid}', function (Request $request, Response $res
         $mail = new PHPMailer;
         $mail->isSMTP();
 
-        $mail->SMTPSecure = 'ssl';
-        $mail->Host = "mail.antagonist.nl";
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Host = $hostt;
         $mail->SMTPAuth = true;
         $mail->SMTPKeepAlive = true; // SMTP connection will not close after each email sent, reduces SMTP overhead
-        $mail->Port = 465;
-        $mail->Username = 'noreply@cubestick.nl';
-        $mail->Password = 'replyno';
-        $mail->setFrom('noreply@cubestick.nl', 'Ri&S Vragenlijst');
-        $mail->addReplyTo('noreply@cubestick.nl', 'Ri&S Vragenlijst');
+        $mail->Port = $portt;
+        $mail->Username = $mailusr;
+        $mail->Password = $mailpwd;
+        $mail->setFrom($mailusr, 'Atgard Vragenlijst');
+        $mail->addReplyTo($mailusr, 'Atgard Vragenlijst');
 
-        $mail->Subject = "Ri&S Vragenlijst";
+        $mail->Subject = "Atgard &S Vragenlijst";
 
         //msgHTML also sets AltBody, but if you want a custom one, set it afterwards
         $mail->AltBody = 'Om deze html te bekijken heb je een email client nodig die html mails kan laten zien!';
