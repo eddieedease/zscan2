@@ -1,7 +1,6 @@
 <?php
 use \Psr\Http\Message\ResponseInterface as Response;
 use \Psr\Http\Message\ServerRequestInterface as Request;
-
 use \Psr\Http\Message\UploadedFileInterface as UploadedFile;
 // API
 // API CALL: Make an groupkey
@@ -12,7 +11,7 @@ use \Psr\Http\Message\UploadedFileInterface as UploadedFile;
 $app->get('/makegroup/{groupname}/{aid}', function (Request $request, Response $response) {
     $groupname = $request->getAttribute('groupname');
     $aid = $request->getAttribute('aid');
-    $aid = (int)$aid;
+    $aid = (int) $aid;
     // aid can be admin or a number, if it is number --> assign with new query
     include 'db.php';
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
@@ -94,7 +93,7 @@ $app->get('/editgroup/{groupid}/{groupname}/{orgcolor}/{orgdate}', function (Req
 // if not, make new query to get the users to groups
 $app->get('/getgroups/{userid}', function (Request $request, Response $response) {
     $userid = $request->getAttribute('userid');
-    $userid = (int)$userid;
+    $userid = (int) $userid;
     include 'db.php';
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
 
@@ -104,8 +103,7 @@ $app->get('/getgroups/{userid}', function (Request $request, Response $response)
     $stmt_u->execute();
     $result_u = $stmt_u->fetchAll(PDO::FETCH_ASSOC);
     $aitype = $result_u[0]['type'];
-    $aitype = (int)$aitype;
-    
+    $aitype = (int) $aitype;
 
     if ($aitype == 2) {
         // is admin type, give it back all
@@ -122,8 +120,8 @@ $app->get('/getgroups/{userid}', function (Request $request, Response $response)
         $prefix1 = $idstring1 = '';
         // TODO, WE MUST CREATE 2 DIFFERENT ARRAYS
         foreach ($result_g as $group) {
-                $idstring1 .= $prefix1 . '' . $group['groupid'] . '';
-                $prefix1 = ', ';
+            $idstring1 .= $prefix1 . '' . $group['groupid'] . '';
+            $prefix1 = ', ';
         }
 
         $sqlgetgroups = "SELECT * FROM groups WHERE id IN ($idstring1)";
@@ -139,7 +137,6 @@ $app->get('/getgroups/{userid}', function (Request $request, Response $response)
     return $response;
 });
 
-
 // API: Edit Group
 $app->get('/getausergroups/{id}', function (Request $request, Response $response) {
     $id = $request->getAttribute('id');
@@ -151,9 +148,7 @@ $app->get('/getausergroups/{id}', function (Request $request, Response $response
     $stmt_gr = $dbh->prepare($sql_gr);
     $stmt_gr->execute();
     $result_gr = $stmt_gr->fetchAll(PDO::FETCH_ASSOC);
-    
-    
-    
+
     $sql_g = "SELECT * FROM admin_to_groups WHERE userid = '$id'";
     $stmt_g = $dbh->prepare($sql_g);
     $stmt_g->execute();
@@ -164,7 +159,6 @@ $app->get('/getausergroups/{id}', function (Request $request, Response $response
     return $response;
 }
 );
-
 
 // API: Edit Group
 $app->get('/getgrouplist/{id}', function (Request $request, Response $response) {
@@ -181,7 +175,6 @@ $app->get('/getgrouplist/{id}', function (Request $request, Response $response) 
     return $response;
 }
 );
-
 
 // API: Test status
 $app->get('/changestatus/{groupid}/{status}', function (Request $request, Response $response) {
@@ -205,11 +198,10 @@ $app->get('/changestatus/{groupid}/{status}', function (Request $request, Respon
 }
 );
 
-
 // API: GET org info (color and logo )
 $app->get('/getorginfo/{groupid}', function (Request $request, Response $response) {
     $groupid = $request->getAttribute('groupid');
-   
+
     include 'db.php';
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
 
@@ -227,8 +219,6 @@ $app->get('/getorginfo/{groupid}', function (Request $request, Response $respons
     return $response;
 }
 );
-
-
 
 // TODO: Ausers from and to group
 $app->get('/ausertofromgroup/{case}/{groupid}/{userid}', function (Request $request, Response $response) {
@@ -258,7 +248,6 @@ $app->get('/ausertofromgroup/{case}/{groupid}/{userid}', function (Request $requ
             break;
     }
 
-    
     $response = json_encode($debug);
     return $response;
 }
@@ -271,9 +260,6 @@ $app->get('/copygroup/{groupid}/{auserid}', function (Request $request, Response
     // we must also get the auserid, because if it is reseller, it needs to be attaced to group
     $auserid = $request->getAttribute('auserid');
     $auserid = (int) $auserid;
-    
-
-
 
     include 'db.php';
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
@@ -287,13 +273,10 @@ $app->get('/copygroup/{groupid}/{auserid}', function (Request $request, Response
     // Make Array of emailadresses
     $emailArray = [];
 
-   
-      
-      for ($x = 0; $x < count($result_g); $x++) {
+    for ($x = 0; $x < count($result_g); $x++) {
         // $emailArray.push($result_g[$x]['email']);
         array_push($emailArray, $result_g[$x]['email']);
     }
-
 
     // 2) Get Group info
     // Check if the groupname is already taken
@@ -306,7 +289,6 @@ $app->get('/copygroup/{groupid}/{auserid}', function (Request $request, Response
     $groupcolor = $result_u[0]['orgcolor'];
     $grouplogo = $result_u[0]['logo'];
 
-
     // 3 Create New Group with same name
     $sqlinsertgroup = "INSERT INTO groups (name, status, logo, orgcolor) VALUES ('$groupname', 1, '$grouplogo', '$groupcolor')";
     $stmtinsertgroup = $dbh->prepare($sqlinsertgroup);
@@ -315,62 +297,51 @@ $app->get('/copygroup/{groupid}/{auserid}', function (Request $request, Response
     // get the last group id ID
     $lastIdInsert = $dbh->lastInsertId();
 
-
     // 4 Loop through the emailarray and assign them to the group. We are doing this by calling our own API (creatuser)
 
     for ($z = 0; $z < count($emailArray); $z++) {
-        
+
         $curlie = curl_init();
         curl_setopt($curlie, CURLOPT_URL, $ownurl . "/createuseringroup" . "/" . $lastIdInsert);
         curl_setopt($curlie, CURLOPT_HTTPHEADER, array(
-            'content-type: application/json'
+            'content-type: application/json',
         ));
         curl_setopt($curlie, CURLOPT_POST, 1);
         $datass = array("email" => $emailArray[$z]);
         $data_string = json_encode($datass);
         curl_setopt($curlie, CURLOPT_POSTFIELDS, $data_string);
         curl_setopt($curlie, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($curlie, CURLOPT_RETURNTRANSFER, false);
-
-        curl_setopt($curlie, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curlie, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curlie, CURLOPT_VERBOSE, 0);
 
         $curlieresponse = curl_exec($curlie);
         $curlieinfo = curl_errno($curlie) > 0 ? array("curl_error_" . curl_errno($curlie) => curl_error($curlie)) : curl_getinfo($curlie);
 
         curl_close($curlie);
 
-      };
+    };
 
-      // Now also give a call and link the calling user to this group
-      $curl2 = curl_init();
-      curl_setopt($curl2, CURLOPT_URL, $ownurl . "/ausertofromgroup" . "/"  . "add" . "/" . $lastIdInsert . "/" . $auserid );
-      curl_setopt($curl2, CURLOPT_HTTPHEADER, array(
-          'content-type: application/json'
-      ));
-      curl_setopt($curliemail, CURLOPT_CUSTOMREQUEST, 'GET');
-      curl_setopt($curl2, CURLOPT_SSL_VERIFYPEER, false);
-      curl_setopt($curl2, CURLOPT_RETURNTRANSFER, true);
+    // Now also give a call and link the calling user to this group
+    $curl2 = curl_init();
+    curl_setopt($curl2, CURLOPT_URL, $ownurl . "/ausertofromgroup" . "/" . "add" . "/" . $lastIdInsert . "/" . $auserid);
+    curl_setopt($curl2, CURLOPT_HTTPHEADER, array(
+        'content-type: application/json',
+    ));
+    curl_setopt($curl2, CURLOPT_CUSTOMREQUEST, 'GET');
+    curl_setopt($curl2, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($curl2, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl2, CURLOPT_VERBOSE, 0);
 
-      curl_setopt($curl2, CURLOPT_RETURNTRANSFER, 1);
+    $curl2response = curl_exec($curl2);
+    $curl2info = curl_errno($curl2) > 0 ? array("curl_error_" . curl_errno($curl2) => curl_error($curl2)) : curl_getinfo($curl2);
 
-      $curl2response = curl_exec($curl2);
-      $curl2info = curl_errno($curl2) > 0 ? array("curl_error_" . curl_errno($curl2) => curl_error($curl2)) : curl_getinfo($curl2);
+    curl_close($curl2);
 
-      curl_close($curl2);
-
-
-
-    
-
-
-
-
-    $debug = array('status' => 'success', 'action' => 'groupcopied', 'debug' => $emailArray);
+    $debug = array('status' => 'success', 'action' => 'groupcopied', 'debug' => $emailArray, 'curlinfo' => $curl2info);
     $response = json_encode($debug);
     return $response;
 }
 );
-
 
 // uploading a logo of a organisation
 $app->post('/uploadorglogo/{id}', function (Request $request, Response $response) {
@@ -415,30 +386,30 @@ $app->post('/uploadorglogo/{id}', function (Request $request, Response $response
             imagegif($targetLayer, $directory . DIRECTORY_SEPARATOR . 'orglogo' . DIRECTORY_SEPARATOR . $groupid . DIRECTORY_SEPARATOR . $filename);
             break;
         case "jpg":
-        $file = correctImageOrientation($file);
-        list($width, $height) = getimagesize($file);
-        $imageResourceId = imagecreatefromjpeg($file);
+            $file = correctImageOrientation($file);
+            list($width, $height) = getimagesize($file);
+            $imageResourceId = imagecreatefromjpeg($file);
             $targetLayer = resize_image_max($imageResourceId, 900, 900);
             imagejpeg($targetLayer, $directory . DIRECTORY_SEPARATOR . 'orglogo' . DIRECTORY_SEPARATOR . $groupid . DIRECTORY_SEPARATOR . $filename);
             break;
         case "JPG":
-        $file = correctImageOrientation($file);
-        list($width, $height) = getimagesize($file);
-        $imageResourceId = imagecreatefromjpeg($file);
+            $file = correctImageOrientation($file);
+            list($width, $height) = getimagesize($file);
+            $imageResourceId = imagecreatefromjpeg($file);
             $targetLayer = resize_image_max($imageResourceId, 900, 900);
             imagejpeg($targetLayer, $directory . DIRECTORY_SEPARATOR . 'orglogo' . DIRECTORY_SEPARATOR . $groupid . DIRECTORY_SEPARATOR . $filename);
             break;
         case "jpeg":
-        $file = correctImageOrientation($file);
-        list($width, $height) = getimagesize($file);
-        $imageResourceId = imagecreatefromjpeg($file);
+            $file = correctImageOrientation($file);
+            list($width, $height) = getimagesize($file);
+            $imageResourceId = imagecreatefromjpeg($file);
             $targetLayer = resize_image_max($imageResourceId, 900, 900);
             imagejpeg($targetLayer, $directory . DIRECTORY_SEPARATOR . 'orglogo' . DIRECTORY_SEPARATOR . $groupid . DIRECTORY_SEPARATOR . $filename);
             break;
         case "JPEG":
-        $file = correctImageOrientation($file);
-        list($width, $height) = getimagesize($file);
-        $imageResourceId = imagecreatefromjpeg($file);
+            $file = correctImageOrientation($file);
+            list($width, $height) = getimagesize($file);
+            $imageResourceId = imagecreatefromjpeg($file);
             $targetLayer = resize_image_max($imageResourceId, 900, 900);
             imagejpeg($targetLayer, $directory . DIRECTORY_SEPARATOR . 'orglogo' . DIRECTORY_SEPARATOR . $groupid . DIRECTORY_SEPARATOR . $filename);
             break;
@@ -474,9 +445,6 @@ $app->post('/uploadorglogo/{id}', function (Request $request, Response $response
     $response = json_encode($cb);
     return $response;
 });
-
-
-
 
 /**
  * Resizes file
@@ -537,9 +505,3 @@ function correctImageOrientation($filename)
     } // if function exists
     return $filename;
 };
-
-
-
-
-
-?>

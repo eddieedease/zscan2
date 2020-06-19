@@ -322,7 +322,7 @@ $app->get('/sendlinktouser/{userid}', function (Request $request, Response $resp
                                 <table border="0" cellpadding="0" cellspacing="0">
                                   <tbody>
                                     <tr>
-                                      <td> <a href="https://cubestick.nl/login/' . $personUrl . '" target="_blank">Naar de vragenlijst -></a> </td>
+                                      <td> <a href="https://atgard.nl/site/' . $personUrl . '" target="_blank">Naar de vragenlijst -></a> </td>
                                     </tr>
                                   </tbody>
                                 </table>
@@ -697,7 +697,7 @@ $app->get('/sendlinktobulk/{groupid}', function (Request $request, Response $res
                                 <table border="0" cellpadding="0" cellspacing="0">
                                   <tbody>
                                     <tr>
-                                      <td> <a href="https://cubestick.nl/login/' . $personUrl . '" target="_blank">Naar de vragenlijst -></a> </td>
+                                      <td> <a href="https://atgard.nl/site/' . $personUrl . '" target="_blank">Naar de vragenlijst -></a> </td>
                                     </tr>
                                   </tbody>
                                 </table>

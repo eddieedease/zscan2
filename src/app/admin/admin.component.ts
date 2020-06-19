@@ -1398,7 +1398,7 @@ export class AdminComponent implements OnInit {
 
   groupCopied(_resp){
     this.modalRef.hide();
-    this.serCred.debugLog(_resp);
+    console.log(_resp);
     this.toastr.success('Kopie van groep gemaakt', '');
     this.serCred.API_getgroups(this.admnId).subscribe(value => this.gotGroups(value));
   }
