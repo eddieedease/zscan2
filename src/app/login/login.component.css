@@ -57,7 +57,6 @@ section h2 {
 
 #mainNav {
   border-color: rgba(34, 34, 34, 0.05);
-  background-color: white;
   -webkit-transition: all .35s;
   -moz-transition: all .35s;
   transition: all .35s;
@@ -154,8 +153,10 @@ header.masthead {
   padding-top: 150px;
   padding-bottom: 100px;
   color: white;
-  background:  #7b4397;
-  background: linear-gradient(to left, #0c0430, #04081c);
+  background: #ECE9E6;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 
 header.masthead .header-content {
@@ -187,7 +188,6 @@ header.masthead .device-container .screen img {
   }
   header.masthead .header-content {
     margin-bottom: 0;
-    text-align: left;
   }
   header.masthead .header-content h1 {
     font-size: 50px;

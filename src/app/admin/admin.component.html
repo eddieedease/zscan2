@@ -415,7 +415,7 @@
   <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
 
   <div *ngIf="adminLogged == true">
-    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <nav class="navbar fixed-top flex-md-nowrap p-0 shadow" style="background-color: #008caa;color: white">
       <a class="navbar-brand col-sm-3 col-md-2 mr-0">Beheer</a>
 
       <ul class="navbar-nav px-3">
@@ -428,15 +428,16 @@
     <div class="container">
 
       <div class="row">
-        <br><br>
-        <div class="col-sm-12 col-md-6">
+        
+        <div class="col-sm-12 col-md-12 text-center">
+          <br><br><br><br>
           <ul class="nav flex-column">
             <div *ngIf="admnType === 2">
-              <br><br>
+              
             </div>
-            <li class="nav-item">
-              <a class="nav-link active">
-                <a routerLink="/"><img src="assets/logo.png" class="img-fluid" alt="Responsive image"></a>
+            <li class="nav-item ">
+              <a class="nav-link active ">
+                <a routerLink="/"><img src="assets/logo.png" class="img-fluid" style="max-width: 100px" alt="Responsive image"></a>
               </a>
             </li>
           </ul>
@@ -446,13 +447,7 @@
         <img src="assets/headban.png" class="img-fluid" alt="Responsive image">
       </div></div> -->
         <main role="main" class="col-md-12">
-          <br>
-
-
-
-
-
-
+        
           <tabset [justified]="true">
             <tab heading="Admin" *ngIf="admnType === 2" (selectTab)="onSelect($event, 'admins')"><br><br>
               <p>Het beheer Admins</p>
@@ -604,10 +599,10 @@
                   <ngx-datatable-column name="Acties">
                     <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                       <div class="btn-group" style="border-radius: 10px; color: white" role="group" aria-label="Basic example">
-                        <button (click)="showGroupList(row.id)" type="button" style="color: white" class="btn btn-primary" data-toggle="modal" data-target=".modal-grouplist">
-                          <i class="fa fa-list"></i> Groepslijst
+                        <button (click)="showGroupList(row.id)" type="button" style="color: white" class="btn btn-sm btn-primary" data-toggle="modal" data-target=".modal-grouplist">
+                          <i class="fa fa-list"></i> Lijst
                         </button>
-                        <button (click)="showEdit(row.id)" type="button" style="color: white" class="btn btn-info" data-toggle="modal" data-target=".modal-edit">
+                        <button (click)="showEdit(row.id)" type="button" style="color: white" class="btn btn-sm btn-info" data-toggle="modal" data-target=".modal-edit">
                           <i class="fa fa-edit"></i> &nbsp;&nbsp;Edit&nbsp;&nbsp;
                         </button>
 
@@ -767,7 +762,7 @@
                           <td style="height: 23px; width: 15px;" [style.background-color]="bor3 >= 3.5 ? 'green' : bor3 < 3.5 && bor3 > 2.5 ? '#ff7600' : 'red'">&nbsp;BOR 3&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{bor3}}</b><br>Lijsten met 'kritieke apparatuur'</td>
                           <td style="height: 23px; width: 15px;" [style.background-color]="bor4 >= 3.5 ? 'green' : bor4 < 3.5 && bor4 > 2.5 ? '#ff7600' : 'red'">&nbsp;BOR 4&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{bor4}}</b><br>Een auditplan/<br>programma</td>
                           <td style="height: 23px; width: 15px;" [style.background-color]="bor5 >= 3.5 ? 'green' : bor5 < 3.5 && bor5 > 2.5 ? '#ff7600' : 'red'">&nbsp;BOR 5&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{bor5}}</b><br>Afgetekende, afgehandelde rapporten over afwijkingen</td>
-                        </tr>
+                        </tr><br><br><br><br><br>
                         <tr style="height: 23px;">
                           <td style="height: 23px; width: 15px;" style="color: black;" colspan="3">Smoezen</td>
                           <td style="height: 23px; width: 15px;" colspan="4"></td>
