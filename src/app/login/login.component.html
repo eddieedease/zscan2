@@ -28,13 +28,12 @@
 
           <fieldset class="form-group has-danger">
             <label for="password" class="form-control-label">Vul hier de verkregen sleutel in:</label>
-            <input [(ngModel)]="usrPwd" [ngModelOptions]="{standalone: true}" type="password" class="form-control form-control-danger"
-              id="password">
+            <input [(ngModel)]="usrPwd" [ngModelOptions]="{standalone: true}" type="password" class="form-control form-control-danger" id="password">
           </fieldset>
 
 
-          <button (click)="loginAttempt()"  class="btn btn-primary btn-lg">Login</button>
-          
+          <button (click)="loginAttempt()" class="btn btn-primary btn-lg">Login</button>
+
         </form><br>
         <div style='color:orangered' *ngIf="errorMsg == true">Geen (geldige) sleutel ingevoerd</div>
         <div style='color:orangered' *ngIf="errorMsg2 == true">De sleutel klopt, alleen het formulier is gesloten</div>
@@ -44,126 +43,126 @@
 </div>
 
 
-  
 
 
-  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
-  <!-- Navigation -->
-   
-      <div class="d-flex flex-column flex-md-row align-items-center fixed-top p-3 px-md-4 mb-3 border-bottom box-shadow" style="background-color: #008caa">
-        <h5 class="my-0 mr-md-auto font-weight-normal" style="color: white;">Atgard</h5>
-        <nav class="my-2 my-md-0 mr-md-3">
-          <a class="p-2" pageScroll href="#wiee">Wie</a>
-          <a class="p-2" pageScroll href="#watt">Wat</a>
-          <a class="p-2" pageScroll href="#waarr">Waar</a>
-          <a class="p-2" pageScroll href="#contactt">Contact</a>
-        </nav>
-        <a class="btn btn-outline-primary" style="border-color: white" routerLink="/admin">Inloggen</a>
-      </div>
-    
-  
-  
-  <header class="masthead">
-    <div class="container h-100">
-      <div class="row h-100">
-        <div class="col-lg-12 my-auto">
-          <div *ngIf="alreadyFilled" class="alert alert-succes">U heeft deze vragenlijst al ingevuld. U hoeft niets meer te doen!<br></div>
-          <div *ngIf="formClosed" class="alert alert-succes">De vragenlijst die u aanriep is gesloten.<br></div>
 
-          <div class="header-content mx-auto ">
-            <img src="assets/logo.png" class="img-fluid" alt="Responsive image">
-            <!-- <h1 class="mb-5">Zelfscan</h1> -->
-            <!-- <a data-toggle="modal" data-target="#exampleModal" class="btn btn-outline btn-xl js-scroll-trigger">Start!</a> -->
-          </div>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+<!-- Navigation -->
+
+<div class="d-flex flex-column flex-md-row align-items-center fixed-top p-3 px-md-4 mb-3 border-bottom box-shadow" style="background-color: #01748d">
+  <h5 class="my-0 mr-md-auto font-weight-normal" style="color: white;">Atgard</h5>
+  <nav class="my-2 my-md-0 mr-md-3">
+    <a class="p-2" pageScroll href="#watt">Wat?</a>
+    <a class="p-2" pageScroll href="#waarr">Waarom?</a>
+    <a class="p-2" pageScroll href="#contactt">Contact</a>
+  </nav>
+  <a class="btn btn-outline-primary" style="border-color: white" routerLink="/admin">Inloggen</a>
+</div>
+
+
+
+<header class="masthead">
+  <div class="container h-100">
+    <div class="row h-100">
+      <div class="col-lg-12 my-auto">
+        <div *ngIf="alreadyFilled" class="alert alert-succes">U heeft deze vragenlijst al ingevuld. U hoeft niets meer te doen!<br></div>
+        <div *ngIf="formClosed" class="alert alert-succes">De vragenlijst die u aanriep is gesloten.<br></div>
+
+        <div class="header-content mx-auto ">
+          <img src="assets/logo.png" class="img-fluid" alt="Responsive image"><br><br><br><br>
+          <!-- <h1 class="mb-5">Zelfscan</h1> -->
+          <!-- <a data-toggle="modal" data-target="#exampleModal" class="btn btn-outline btn-xl js-scroll-trigger">Start!</a> -->
+          <h3 style="color:#01748d">Hoe veilig is uw bedrijf?</h3>
+
         </div>
-       
-      </div>
-    </div>
-  </header>
 
-  <section class="py-5 bg-blue">
-    <div class="container">
-	<div class="row mb-3">
-		<div class="col-md-12 text-center"><br><br>
-		    <h2>Krijg inzicht in je organisatie<br></h2>
-		</div>
-	</div><br><br>
-	<div class="row">
-	    <div class="col-md-4 text-center">
-	        <i class="fa fa-bullseye fa-4x text-danger mb-3"></i>
-	        <h5>Een uitgebreid rapport</h5>
-	        <p>Uiteindelijk .. doormiddel van ons....</p>
-	    </div>
-	    <div class="col-md-4 text-center">
-	        <i class="fa fa-user fa-4x text-success mb-3"></i>
-	        <h5>Gemakkelijk</h5>
-	        <p>Via een simpele link in de mail vullen medewerkers gemakkelijk de input</p>
-	    </div>
-	    <div class="col-md-4 text-center">
-	        <i class="fa fa-user-secret fa-4x text-warning mb-3"></i>
-	        <h5>Anoniem</h5>
-	        <p>Werknemers vullen anoniem een vragenlijst. Privacy staat bij ons voorop.</p>
-	    </div>
-	</div>
-</div><br><br><br>
-</section>
-<div id="wiee" class="container pt-5 pb-5">
+      </div>
+
+    </div>
+  </div>
+</header>
+
+
+<div id="watt" class="container pt-5 pb-5">
+
   <div class="row no-gutters pt-5 pb-5">
     <div class="col-md-6 d-flex align-items-center bg-white">
       <div class="mr-5 ml-5 mt-5">
-        <h2 class="headingbig pb-3">Kevin Richardson</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio mollitia, ipsa accusamus eius. Aspernatur ab sed minima, doloremque eligendi voluptatibus repellat unde, facilis natus ex ipsum eius atque suscipit fugit.</p>
+        <h2 class="headingbig pb-3">Wat is Atgard?</h2>
+        <p>Atgard is een slim instrument dat meet met welke onderdelen op het gebied van veiligheid u aan de slag moet in een bedrijf.<br><br>
+          Met Atgard maken we een scan van de huidige situatie. We brengen de balans in kaart tussen de voorschriften, de organisatorische maatregelen en de mensen binnen het bedrijf.</p>
         <div class="d-flex dd pb-3"> <a href="" class="mr-2">
-          <div class="social-icon d-flex align-items-center justify-content-center"> <i class="lni-facebook"></i></div>
+            <div class="social-icon d-flex align-items-center justify-content-center"> <i class="lni-facebook"></i></div>
           </a> <a href="" class="mr-2">
-          <div class="social-icon d-flex align-items-center justify-content-center"> <i class="lni-linkedin"></i></div>
+            <div class="social-icon d-flex align-items-center justify-content-center"> <i class="lni-linkedin"></i></div>
           </a> <a href="" class="mr-2">
-          <div class="social-icon d-flex align-items-center justify-content-center"> <i class="lni-twitter"></i></div>
+            <div class="social-icon d-flex align-items-center justify-content-center"> <i class="lni-twitter"></i></div>
           </a> </div>
       </div>
     </div>
-    <div class="col-md-6 d-flex align-items-center bg-white"> <img class="img-fluid" src="https://bootstraplily.com/demo/about-section/about-one/img/profile-one.jpg"> </div>
+    <div class="col-md-6 d-flex align-items-center bg-white"> <img class="img-fluid" src="assets/profile-one.png"> </div>
     <div class="col-md-6 order-md-12  d-flex align-items-center bg-white">
       <div class="ml-5 mr-5 pb-5 mt-5">
-        <h2 class="headingbig pb-3">Jenifer Brening</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio mollitia, ipsa accusamus eius. Aspernatur ab sed minima, doloremque eligendi voluptatibus repellat unde, facilis natus ex ipsum eius atque suscipit fugit.</p>
+        <h2 class="headingbig pb-3"></h2>
+        <p>Hoe is het gesteld met de motivatie, de kennis en vaardigheden en het gevoel van veiligheid binnen het bedrijf? <br><br> Welke verleidingen liggen op de loer die medewerkers ertoe bewegen om van de voorschriften af te wijken?</p>
         <div class="d-flex"> <a href="" class="mr-2">
-          <div class="social-icon d-flex align-items-center justify-content-center"> <i class="lni-facebook"></i></div>
+            <div class="social-icon d-flex align-items-center justify-content-center"> <i class="lni-facebook"></i></div>
           </a> <a href="" class="mr-2">
-          <div class="social-icon d-flex align-items-center justify-content-center"> <i class="lni-linkedin"></i></div>
+            <div class="social-icon d-flex align-items-center justify-content-center"> <i class="lni-linkedin"></i></div>
           </a> <a href="" class="mr-2">
-          <div class="social-icon d-flex align-items-center justify-content-center"> <i class="lni-twitter"></i></div>
+            <div class="social-icon d-flex align-items-center justify-content-center"> <i class="lni-twitter"></i></div>
           </a> </div>
       </div>
     </div>
-    <div class="col-md-6 order-md-1  d-flex align-items-center bg-white"> <img class="img-fluid" src="https://bootstraplily.com/demo/about-section/about-one/img/profile-two.jpg"> </div>
-    
+    <div class="col-md-6 order-md-1  d-flex align-items-center bg-white"> <img class="img-fluid" src="assets/profile-two.png"> </div>
+
   </div>
 </div>
 <!-- Header -->
 <header class="bg-primary py-5 mb-5">
-  <div class="container h-100">
-    <div class="row h-100 align-items-center">
-      <div class="col-lg-12">
-        <h1 class="display-4 text-white mt-5 mb-2">Business Name or Tagline</h1>
-        <p class="lead mb-5 text-white-50">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non possimus ab labore provident mollitia. Id assumenda voluptate earum corporis facere quibusdam quisquam iste ipsa cumque unde nisi, totam quas ipsam.</p>
+  <div class="container h-100"><br><br>
+    <div class="row" style="color:white !important">
+      <div class="col-md-4 text-center" >
+        <i class="fa fa-bullseye fa-4x text-warning mb-3"></i>
+        <h5>Een uitgebreid rapport</h5>
+        <br>
+        <p>Doormiddel van vragenlijsten voor de werknemers, alswel voor de werkgever ontstaat er een duidelijk beeld van het bedrijf</p>
       </div>
-    </div>
+      <div class="col-md-4 text-center">
+        <i class="fa fa-user fa-4x text-warning mb-3"></i>
+        <h5>Gemakkelijk</h5>
+        <br>
+        <p>Via een simpele link in de mail vullen leveren medewerkers gemakkelijk de gewenste input in.</p>
+      </div>
+      <div class="col-md-4 text-center">
+        <i class="fa fa-user-secret fa-4x text-warning mb-3"></i>
+        <h5>Anoniem</h5>
+        <br>
+        <p>Alle input wordt volledig anoniem verzameld. Privacy staat bij ons voorop.</p>
+      </div>
+    </div><br><br>
   </div>
 </header>
 
 <!-- Page Content -->
 <div class="container">
 
-  <div class="row" id="watt">
+  <div class="row" id="waarr">
     <div class="col-md-8 mb-5">
-      <h2>What We Do</h2>
-      <hr>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A deserunt neque tempore recusandae animi soluta quasi? Asperiores rem dolore eaque vel, porro, soluta unde debitis aliquam laboriosam. Repellat explicabo, maiores!</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis optio neque consectetur consequatur magni in nisi, natus beatae quidem quam odit commodi ducimus totam eum, alias, adipisci nesciunt voluptate. Voluptatum.</p>
-      <a class="btn btn-primary btn-lg" href="#">Call to Action &raquo;</a>
+      <h2>Waarom?</h2>
+      In een succesvol bedrijf is veiligheid een prioriteit. Toch staan incidenten en onveilige situaties dit vaak in de weg. Komt dit omdat medewerkers van de voorschriften afwijken? Of zijn de voorschriften misschien onduidelijk? En zijn de juiste veiligheidsvoorzieningen aanwezig?<br><br> Met Atgard onderzoeken we dit. Als we weten waar het probleem zit, kunnen we gericht met veiligheid aan de slag.
+      Met Atgard kan uw bedrijf aan de slag om:<br><br>
+      <ul>
+        <li>De kans op incidenten en de kosten hiervan te verminderen</li>
+        <li>Effectief te werken aan veiligheid met resultaat binnen 1 jaar</li>
+        <li>Medewerkers te stimuleren om zelf (veiligheids)problemen aan te pakken</li>
+        <li>Stappen en resultaten op het gebied van veiligheid in kaart te brengen</li>
+        <li>Voor een veilige omgeving te zorgen, met gebruik van bestaande (veiligheids)systemen</li>
+      </ul>
+      <!-- <a class="btn btn-primary btn-lg" href="#">Call to Action &raquo;</a> -->
     </div>
     <div class="col-md-4 mb-5">
+      <img class="img-fluid" src="assets/running.jpg">
       <!-- <h2>Contact Us</h2>
       <hr>
       <address>
@@ -181,9 +180,10 @@
       </address> -->
     </div>
   </div>
+ 
   <!-- /.row -->
 
-  <div class="row" id="waarr">
+  <!-- <div class="row" id="waarr">
     <div class="col-md-4 mb-5">
       <div class="card h-100">
         <img class="card-img-top" src="http://placehold.it/300x200" alt="">
@@ -220,31 +220,30 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <!-- /.row -->
 
 </div>
-<div id="contactt" class="container-fluid" style='background-color: #090627;'><br><br><br><br><br><br>
-<div class="container"><div class="jumbotron" style='background-color: #fff;'>
-  <h1>Geïnteresseerd?</h1>
-  <p class="lead">Vragen over deze tool? ....</p>
-  <a class="btn btn-lg btn-primary" href="mailto:test@test.nl" role="button">Neem contact op</a>
-</div></div><br><br><br><br><br><br></div>
-
-
-
-
-
-
-
-  <section class="contact" id="contact">
-    <div class="container">
-      <h6>Copyright © 
-        <a href="https://www.ri-s.com" target="_blank">RI&S</a>
-      </h6>
+<div id="contactt" class="container-fluid text-center" style='background-color: #090627;'><br><br><br><br><br><br>
+  <div class="container">
+    <div class="jumbotron" style='background-color: #fff;'>
+      <h1>Geïnteresseerd?</h1>
+      <p class="lead">Wij staan u graag te woord voor verdere informatie.</p>
+      <a class="btn btn-lg btn-primary" style="padding:15px " href="mailto:info@atgard.nl" role="button">Neem contact op</a>
     </div>
-  </section>
+  </div><br><br><br><br><br><br>
+</div>
 
 
 
 
+
+
+
+<section class="contact" id="contact">
+  <div class="container">
+    <h6>Copyright ©
+      <a href="https://www.ri-s.com" target="_blank">RI&S</a>
+    </h6>
+  </div>
+</section>

@@ -57,15 +57,18 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Groepen aan admins</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Beheerders aan groepen</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body"><br>
-          <p>Hier kunnen admins aan groepen worden gehangen</p>
-          <p>Als een admin (niet Superadmin) een nieuwe groep aanmaakt, wordt deze automatisch aan zijn/haar hieraan toegevoegd.
+          <p>Hier kunnen beheerders aan groepen worden gehangen<br>
+          Als een beheerder een nieuwe groep aanmaakt, wordt deze automatisch aan de nieuwe groep toegevoegd.
           </p>
+          <div class="alert alert-primary" role="alert">
+            Alle 'Admins' zien standaard alle groepen. Beheerders alleen waaraan deze zijn gekoppeld.
+          </div>
 
           <br>
           <input [(ngModel)]="searchadminstogroup" [ngModelOptions]="{standalone: true}" type="text" class="form-control" (keyup)="updateFilter('admintogroups',$event)" placeholder="Zoeken..">&nbsp;&nbsp;<br>
@@ -450,7 +453,7 @@
         
           <tabset [justified]="true">
             <tab heading="Admin" *ngIf="admnType === 2" (selectTab)="onSelect($event, 'admins')"><br><br>
-              <p>Het beheer Admins</p>
+              <p>Admin instellingen</p>
 
               <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 
@@ -541,7 +544,7 @@
                 <br> <input [(ngModel)]="searchgroupname" [ngModelOptions]="{standalone: true}" type="text" class="form-control" (keyup)="updateFilter('groupname',$event)" placeholder="Zoeken..">&nbsp;&nbsp;<br>
 
                 <ngx-datatable [scrollbarH]="true" class="material" [rows]="groupRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
-                  <ngx-datatable-column name="Titel" [sortable]="true">
+                  <ngx-datatable-column name="Titel" [sortable]="true" prop="name">
                     <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
                       <span (click)="sort()" style="cursor:pointer">
                         {{column.name}}
@@ -553,7 +556,7 @@
                     </ng-template>
                   </ngx-datatable-column>
 
-                  <ngx-datatable-column name="Actief" width="20" [sortable]="true">
+                  <ngx-datatable-column name="Actief" width="20" [sortable]="true" prop="active">
 
                     <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
                       <span style="cursor:pointer">
@@ -570,11 +573,11 @@
 
                   </ngx-datatable-column>
 
-                  <ngx-datatable-column name="Landkaart">
+                  <ngx-datatable-column name="Rapport">
                     <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                       <div class="btn-group" style="border-radius: 10px; color: white" role="group" aria-label="Basic example">
                         <button style="color: white;" (click)="showResult(row.id)" type="button" class="btn btn-warning">
-                          <i class="fa fa-eye"></i> Landkaart
+                          <i class="fa fa-eye"></i> Rapport
                         </button>
                       </div>
                     </ng-template>
@@ -603,7 +606,7 @@
                           <i class="fa fa-list"></i> Lijst
                         </button>
                         <button (click)="showEdit(row.id)" type="button" style="color: white" class="btn btn-sm btn-info" data-toggle="modal" data-target=".modal-edit">
-                          <i class="fa fa-edit"></i> &nbsp;&nbsp;Edit&nbsp;&nbsp;
+                          <i class="fa fa-edit"></i> Edit
                         </button>
 
                       </div>
@@ -614,7 +617,7 @@
 
                  
 
-                  <ngx-datatable-column name="Geldig tot" width="100" [sortable]="true">
+                  <ngx-datatable-column name="Geldig tot" width="100" prop="validto" [sortable]="true">
 
                     <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
                       <span style="cursor:pointer">
@@ -628,7 +631,7 @@
 
                   </ngx-datatable-column>
 
-                  <ngx-datatable-column name="Aangemaakt" [sortable]="true">
+                  <ngx-datatable-column name="Aangemaakt" [sortable]="true"  prop="made">
 
                     <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
                       <span style="cursor:pointer">
@@ -768,42 +771,42 @@
                           <td style="height: 23px; width: 15px;" colspan="4"></td>
                         </tr>
                         <tr style="height: 23px;">
-                          <td style="height: 23px; width: 101px;color: black;">&nbsp;1</td>
+                          <td style="height: 23px; width: 101px;color: black;"></td>
                           <td style="height: 23px; width: 15px;" [style.background-color]="smoe1 >= 3.5 ? 'green' : smoe1 < 3.5 && smoe1 > 2.5 ? '#ff7600' : 'red'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe1}}</b></td>
                           <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">In ons bedrijf hebben we geen tijd voor veiligheid&nbsp;</td>
                         </tr>
                         <tr style="height: 23px;">
-                          <td style="height: 23px; width: 101px;color: black;">&nbsp;2</td>
+                          <td style="height: 23px; width: 101px;color: black;"></td>
                           <td style="height: 23px; width: 15px;" [style.background-color]="smoe2 >= 3.5 ? 'green' : smoe2 < 3.5 && smoe2 > 2.5 ? '#ff7600' : 'red'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe2}}</b></td>
                           <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">Mij overkomt niets&nbsp;</td>
                         </tr>
                         <tr style="height: 23px;">
-                          <td style="height: 23px; width: 101px;color: black;">&nbsp;3</td>
+                          <td style="height: 23px; width: 101px;color: black;"></td>
                           <td style="height: 23px; width: 15px;" [style.background-color]="smoe3 >= 3.5 ? 'green' : smoe3 < 3.5 && smoe3 > 2.5 ? '#ff7600' : 'red'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe3}}</b></td>
                           <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">Ik mag de productie niet in de weg staan&nbsp;</td>
                         </tr>
                         <tr style="height: 23px;">
-                          <td style="height: 23px; width: 101px;color: black;">&nbsp;4</td>
+                          <td style="height: 23px; width: 101px;color: black;"></td>
                           <td style="height: 23px; width: 15px;" [style.background-color]="smoe4 >= 3.5 ? 'green' : smoe4 < 3.5 && smoe4 > 2.5 ? '#ff7600' : 'red'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe4}}</b></td>
                           <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">We werken al jaren zo&nbsp;</td>
                         </tr>
                         <tr style="height: 23px;">
-                          <td style="height: 23px; width: 101px;color: black;">&nbsp;5</td>
+                          <td style="height: 23px; width: 101px;color: black;"></td>
                           <td style="height: 23px; width: 15px;" [style.background-color]="smoe5 >= 3.5 ? 'green' : smoe5 < 3.5 && smoe5 > 2.5 ? '#ff7600' : 'red'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe5}}</b></td>
                           <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">Ik ben al gecertificeerd en werk veilig&nbsp;</td>
                         </tr>
                         <tr style="height: 23px;">
-                          <td style="height: 23px; width: 101px;color: black;">&nbsp;6</td>
+                          <td style="height: 23px; width: 101px;color: black;"></td>
                           <td style="height: 23px; width: 15px;" [style.background-color]="smoe6 >= 3.5 ? 'green' : smoe6 < 3.5 && smoe6 > 2.5 ? '#ff7600' : 'red'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe6}}</b></td>
                           <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">Er wordt toch niet opgelet&nbsp;</td>
                         </tr>
                         <tr style="height: 23px;">
-                          <td style="height: 23px; width: 101px;color: black;">&nbsp;7</td>
+                          <td style="height: 23px; width: 101px;color: black;"></td>
                           <td style="height: 23px; width: 15px;" [style.background-color]="smoe7 >= 3.5 ? 'green' : smoe7 < 3.5 && smoe7 > 2.5 ? '#ff7600' : 'red'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe7}}</b></td>
                           <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">Niet mijn verantwoordelijkheid&nbsp;</td>
                         </tr>
                         <tr style="height: 23px;">
-                          <td style="height: 23px; width: 101px;color: black;">&nbsp;8</td>
+                          <td style="height: 23px; width: 101px;color: black;"></td>
                           <td style="height: 23px; width: 15px;" [style.background-color]="smoe8 >= 3.5 ? 'green' : smoe8 < 3.5 && smoe8 > 2.5 ? '#ff7600' : 'red'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{smoe8}}</b></td>
                           <td style="height: 23px; width: 250px;" style="color: black;" colspan="4">Het melden van bijna ongevallen is tijdsverspilling &nbsp;</td>
                         </tr>
