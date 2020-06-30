@@ -44,7 +44,7 @@ $app->get('/sendlinktouser/{userid}', function (Request $request, Response $resp
         $mail->setFrom($mailusr, 'Atgard Vragenlijst');
         $mail->addReplyTo($mailusr, 'Atgard Vragenlijst');
 
-        $mail->Subject = "Atgard &S Vragenlijst";
+        $mail->Subject = "Atgard Vragenlijst";
 
     //msgHTML also sets AltBody, but if you want a custom one, set it afterwards
     $mail->AltBody = 'Om deze html te bekijken heb je een email client nodig die html mails kan laten zien!';
@@ -387,7 +387,7 @@ $app->get('/sendlinktouser/{userid}', function (Request $request, Response $resp
 $app->get('/sendlinktobulk/{groupid}', function (Request $request, Response $response) {
     $groupid = $request->getAttribute('groupid');
     $groupid = (int) $groupid;
-
+    set_time_limit(3000);
     include 'db.php';
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
 
@@ -419,7 +419,7 @@ $app->get('/sendlinktobulk/{groupid}', function (Request $request, Response $res
         $mail->setFrom($mailusr, 'Atgard Vragenlijst');
         $mail->addReplyTo($mailusr, 'Atgard Vragenlijst');
 
-        $mail->Subject = "Atgard &S Vragenlijst";
+        $mail->Subject = "Atgard Vragenlijst";
 
         //msgHTML also sets AltBody, but if you want a custom one, set it afterwards
         $mail->AltBody = 'Om deze html te bekijken heb je een email client nodig die html mails kan laten zien!';
@@ -432,7 +432,7 @@ $app->get('/sendlinktobulk/{groupid}', function (Request $request, Response $res
   <head>
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Ri&S Vragenlijst</title>
+    <title>Atgard Vragenlijst</title>
     <style>
       /* -------------------------------------
           GLOBAL RESETS
@@ -719,7 +719,7 @@ $app->get('/sendlinktobulk/{groupid}', function (Request $request, Response $res
               <table border="0" cellpadding="0" cellspacing="0">
                 <tr>
                   <td class="content-block">
-                    <span class="apple-link">Ri&S</span>
+                    <span class="apple-link">Atgard</span>
                   </td>
                 </tr>
                 <tr>

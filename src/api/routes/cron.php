@@ -5,7 +5,7 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 
 // TODO: Delete specifc user
 $app->get('/sendmassmail', function (Request $request, Response $response) {
-
+    set_time_limit(3000);
     include 'db.php';
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
 
