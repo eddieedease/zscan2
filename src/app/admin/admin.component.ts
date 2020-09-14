@@ -929,7 +929,7 @@ export class AdminComponent implements OnInit {
       var doc = new jsPDF('p', 'mm');
       var position = 10; // give some top padding to first page
       
-      doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
       heightLeft -= pageHeight;
       
       while (heightLeft >= 0) {

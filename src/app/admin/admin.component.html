@@ -3,7 +3,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Admin inlog</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Inloggen</h5>
 
         </div>
         <div class="modal-body">
@@ -652,11 +652,12 @@
               </div>
 
               <hr>
+              <button type="button" *ngIf="showScore" (click)="showScore = false" class="btn btn-primary" data-toggle="modal" data-html2canvas-ignore="true">
+                <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;&nbsp;Terug naar Overzicht
+              </button><br><br>
               <div *ngIf="showScore">
                 <div class="container d-none d-lg-block">
-                  <button type="button" (click)="showScore = false" class="btn btn-primary" data-toggle="modal" data-html2canvas-ignore="true">
-                    <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;&nbsp;Terug naar Overzicht
-                  </button>&nbsp;&nbsp;&nbsp;&nbsp;Exporteren:
+                  &nbsp;&nbsp;&nbsp;&nbsp;Exporteren:
                   <button type="button" (click)="printResult()" class="btn btn-info" data-toggle="modal" data-html2canvas-ignore="true">
                     <i class="fa fa-print"></i>&nbsp;&nbsp;&nbsp;&nbsp;PDF
                   </button>&nbsp;&nbsp;
@@ -676,8 +677,7 @@
                     <table style="float: left; height: 1028px; color: white" width="100%" cellpadding="10">
                       <tbody>
                         <tr style="height: 23px;">
-                          <td style="height: 23px; width: 15px;" style="color: black;" colspan="3">Mens</td>
-                          <td style="height: 23px; width: 15px;" colspan="4"></td>
+                          <td style="height: 23px; width: 15px;" style="color: black;" colspan="3"><br>Mens</td>
                         </tr>
                         <tr style="height: 23px;">
                           <td style="height: 23px; width: 15px;" style="color: black;">&nbsp;<b>IZ</b>&nbsp;&nbsp;&nbsp;&nbsp;<br>Ik zie<br>
@@ -713,8 +713,8 @@
                           <td style="height: 23px; width: 15px;" [style.background-color]="ik3 >= 3.5 ? 'green' : ik3 < 3.5 && ik3 > 2.5 ? '#ff7600' : 'red'">&nbsp;IK 3&nbsp;&nbsp;&nbsp;&nbsp;<b data-html2canvas-ignore="true">{{iz3}}</b><br>Overleg veiligheid</td>
                         </tr>
                         <tr style="height: 23px;">
-                          <td style="height: 23px; width: 15px;" style="color: black;" colspan="3">Organisatie</td>
-                          <td style="height: 23px; width: 15px;" colspan="4"></td>
+                          <td style="height: 23px; width: 15px;" style="color: black;" colspan="3"><br>Organisatie</td>
+                          <br>
                         </tr>
                         <tr style="height: 23px;">
                           <td style="height: 23px; width: 15px;" style="color: black;">&nbsp;<b>CW</b>&nbsp;&nbsp;&nbsp;&nbsp;<br>Compliance, wetgeving &amp; richtlijnen<br>
