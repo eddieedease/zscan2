@@ -5,7 +5,7 @@ $username = 'root';
 $password = 'root';
 
 $ownurl = 'http://localhost/zscan2/src/api';
-// $ownurl = 'http://atgard/api';
+// $ownurl = 'https://atgard/api';
 
 
 $orgurlll = 'xxx.nl';

@@ -145,7 +145,7 @@
         "CW1" : "false"
     },
     "Monitoring3": {
-        "vraag": "Er zijn lijsten met 'kritieke apparatuur'",
+        "vraag": "Er zijn lijsten met 'kritieke apparatuur/machine's/middelen'",
         "type": "BOR3",
         "CW1" : "false"
     },
