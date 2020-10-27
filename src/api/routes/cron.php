@@ -37,11 +37,7 @@ $app->get('/sendmassmail', function (Request $request, Response $response) {
     // result_getusers now has the userID's.
     // Now just send the mail
     foreach ($result_getusers as $user) {
-
-        // get the ID
         $uid = $user['id'];
-
-
         $curliemail = curl_init();
         curl_setopt($curliemail, CURLOPT_URL, $ownurl . "/sendlinktouser" . "/" . $uid);
         curl_setopt($curliemail, CURLOPT_HTTPHEADER, array(
@@ -54,7 +50,7 @@ $app->get('/sendmassmail', function (Request $request, Response $response) {
 
         curl_exec($curliemail);
         curl_close($curliemail);
-    }
+    };
 
     // TODO:
     // Eventually use own API send mail to user when this is nessy
