@@ -436,7 +436,7 @@ export class AdminComponent implements OnInit {
 
     // TODO: RESET ALL VARS?
 
-
+    this.loading = true;
     // adjust template view var
     this.showScore = !this.showScore;
 
@@ -818,7 +818,7 @@ export class AdminComponent implements OnInit {
     }
 
 
-
+    this.loading = false;
 
     /* 
     // TODO: Below 3 lines times 1000
