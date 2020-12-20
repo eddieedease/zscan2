@@ -240,6 +240,8 @@ export class AdminComponent implements OnInit {
 
 
   showScore = false;
+  // show Scores
+  visScore = false;
 
   feedbackArray = [];
 
