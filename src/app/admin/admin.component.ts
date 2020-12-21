@@ -266,6 +266,8 @@ export class AdminComponent implements OnInit {
   searchadminname = '';
   searchadminemail = '';
   searchadminstogroup = '';
+
+  exportingg = false;
   // columns = [
   //   { prop: 'name' },
   //   { name: 'Gender' },
@@ -920,48 +922,88 @@ export class AdminComponent implements OnInit {
 
   printResult() {
     // window.print();
-    html2canvas(document.getElementById('pdfcourse'), {
-      scale: 1
-    }).then(function (canvas) {
-      var imgData = canvas.toDataURL('image/png');
-      var imgWidth = 205; 
-      var pageHeight = 295;  
-      var imgHeight = canvas.height * imgWidth / canvas.width;
-      var heightLeft = imgHeight;
-      var doc = new jsPDF('p', 'mm');
-      var position = 10; // give some top padding to first page
-      
-      doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
-      
-      while (heightLeft >= 0) {
-        position += heightLeft - imgHeight; // top padding for other pages
-        doc.addPage();
-        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
-      }
+    this.exportingg = true;
+    this.loading = true;
+    
+    setTimeout(() => {
+      html2canvas(document.getElementById('pdfcourse'), {
+        scale: 1
+      }).then(function (canvas) {
+        var imgData = canvas.toDataURL('image/png');
+        var imgWidth = 210; 
+        var pageHeight = 297; 
+        var imgHeight = canvas.height * imgWidth / canvas.width;;
+        var heightLeft = imgHeight;
+        var doc = new jsPDF('p', 'mm', 'a4');
 
-      const stringg = 'Landkaart_export.pdf';
-      doc.save(stringg);
-    });
+        var pageHeight2 = doc.internal.pageSize.height;
 
+
+        var position = 10; // give some top padding to first page
+        
+        doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight,'','SLOW');
+        
+        // heightLeft -= pageHeight;
+        console.log("imageheight: " + imgHeight);
+        console.log("pageheight: " + pageHeight);
+        console.log("heightleft: " + heightLeft);
+        while (heightLeft >= 0) {
+          
+          position += heightLeft - imgHeight; // top padding for other pages
+          doc.addPage();
+          doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight,'','SLOW');
+          heightLeft -= pageHeight;
+          console.log("heightleft: " + heightLeft);
+          console.log("position: " + position);
+        }
+  
+        const stringg = 'Landkaart_export.pdf';
+        doc.save(stringg);
+      });
+      
+      setTimeout(() => {
+        this.exportingg = false;
+        this.loading = false;
+      }, 4000);
+    }, 2000);
+    
 
 
   };
 
   printResultPng() {
     // window.print();
+ 
+    this.loading = true;
+    setTimeout(() => {
     html2canvas(document.getElementById('pdfcourse'), {
       scale: 1
     }).then(function (canvas) {
-      const img = canvas.toDataURL('image/png', 1);
-      let iframe = "<iframe width='100%' height='100%' src='" + img + "'></iframe>"
+      //const img = canvas.toDataURL('image/png', 1);
+      var yourlink= document.getElementById('linkId');
+
+      var image = canvas.toDataURL("image/png",1 );  // here is the most important part because if you dont replace you will get a DOM 18 exception.
+
+
+      // window.name = 'download.png';
+      //window.location.href = image;
+      let iframe = '<iframe width="100%" height="100%" src="' + image + '"></iframe>';
       let x = window.open();
+      
       x.document.open();
+      x.document.write('<a href="' + image + '" target="_blanc" download="Landkaart.png">');
+      x.document.write('<br>Klik hier om te downloaden<br><br>');
+      x.document.write('</a>');
       x.document.write(iframe);
+
       x.document.close();
 
     });
+
+    setTimeout(() => {
+      this.loading = false;
+    }, 3000);
+  }, 1000);
   };
 
   publishToggle(_id, _status) {
@@ -1448,6 +1490,7 @@ export class AdminComponent implements OnInit {
 
   bulkGroupLinkSend(_resp) {
     this.loading = false;
+    this.userSendMails = false;
     this.toastr.success('Mail gestuurd naar de groepsleden met inloglink', '');
   }
 

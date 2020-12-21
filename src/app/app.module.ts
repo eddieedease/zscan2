@@ -43,7 +43,8 @@ import { AdminComponent } from './admin/admin.component';
 
 // DATATABLE COMPONENT
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { NgxLoadingModule  } from 'ngx-loading';
+import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
+
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
 
@@ -89,7 +90,13 @@ const appRoutes: Routes = [
     ToastrModule.forRoot(), // ToastrModule added,
     TabsModule.forRoot(),
     NgxDatatableModule,
-    NgxLoadingModule,
+    NgxLoadingModule.forRoot({
+      animationType: ngxLoadingAnimationTypes.wanderingCubes,
+      backdropBackgroundColour: 'rgba(33, 114, 175, 0.52)', 
+      primaryColour: '#fff', 
+      secondaryColour: '#ffffff', 
+      tertiaryColour: '#ffffff'
+  }),
     NgxPageScrollCoreModule,
     NgxPageScrollModule,
     // CarouselModule.forRoot(),
