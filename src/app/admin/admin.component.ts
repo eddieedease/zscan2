@@ -62,7 +62,7 @@ export class AdminComponent implements OnInit {
   thisRef;
 
 
-  maxDate = new Date(2037,12,1);
+  maxDate = new Date(2037, 12, 1);
 
   // modalRef
   modalRef: BsModalRef;
@@ -108,6 +108,8 @@ export class AdminComponent implements OnInit {
   userSendMails = false;
 
   locc;
+
+  noResults = false;
 
 
   dateToday;
@@ -260,7 +262,7 @@ export class AdminComponent implements OnInit {
 
 
   logourl = '';
-    // search vars
+  // search vars
   searchgroupname = '';
   searchusersemail = '';
   searchadminname = '';
@@ -280,15 +282,15 @@ export class AdminComponent implements OnInit {
 
 
   // date vars
-   // DATE vars
+  // DATE vars
 
-    // start and end date
+  // start and end date
   date1;
-   bsValue = new Date();
-   bsRangeValue: Date[];
+  bsValue = new Date();
+  bsRangeValue: Date[];
 
-   // colorpicker
-   styleColor = '#fff ';
+  // colorpicker
+  styleColor = '#fff ';
 
   constructor(private thisrouter: Router, private datePipe: DatePipe, private serCred: EdserService, private toastr: ToastrService, private modalService: BsModalService) {
 
@@ -429,15 +431,21 @@ export class AdminComponent implements OnInit {
 
   gotAusers(_resp) {
     this.serCred.debugLog(_resp);
+
+    _resp.forEach(au => {
+      au.name = au.name + ' ' + au.lastname;
+    });
+    
     this.manageRows = _resp;
     this.tempmanageRows = [..._resp];
+
   }
 
   showResult(_id) {
     // Frist of, reset all bool values for the result table
 
     // TODO: RESET ALL VARS?
-
+    this.noResults = false;
     this.loading = true;
     // adjust template view var
     this.showScore = !this.showScore;
@@ -462,6 +470,10 @@ export class AdminComponent implements OnInit {
     this.serCred.debugLog(_val);
     this.howManySendQuestions = _val['questions'].length;
     this.howManySendChecklist = _val['checklists'].length;
+
+    if (this.howManySendQuestions === 0 && this.howManySendChecklist === 0) {
+      this.noResults = true;
+    }
     // NOTE: This gives back 2 arrays
     // _val['questions'] = userArray
     // _val['checklists'] = managerArray
@@ -716,108 +728,138 @@ export class AdminComponent implements OnInit {
 
 
 
+
     // TODO: Let the ugly happen
 
-    if (this.iz1 <= 2.5 || this.iz2 <= 2.5 || this.iz3 <= 2.5) {
+    if (this.howManySendQuestions === 0) {
       this.iztot = 1;
-    } else if (this.iz1 >= 3.5 && this.iz2 >= 3.5 && this.iz3 >= 3.5) {
-      this.iztot = 3;
-    } else {
-      this.iztot = 2;
-    }
-
-
-    // iw
-    if (this.iw1 <= 2.5 || this.iw2 <= 2.5 || this.iw3 <= 2.5) {
       this.iwtot = 1;
-    } else if (this.iw1 >= 3.5 && this.iw2 >= 3.5 && this.iw3 >= 3.5) {
-      this.iwtot = 3;
-    } else {
-      this.iwtot = 2;
-    }
-
-
-
-    // iwe
-    if (this.iwe1 <= 2.5 || this.iwe2 <= 2.5 || this.iwe3 <= 2.5 || this.iwe4 <= 2.5) {
       this.iwetot = 1;
-    } else if (this.iwe1 >= 3.5 && this.iwe2 >= 3.5 && this.iwe3 >= 3.5 && this.iwe4 >= 3.5) {
-      this.iwetot = 3;
-    } else {
-      this.iwetot = 2;
-    }
-
-
-    // ik
-    if (this.ik1 <= 2.5 || this.ik2 <= 2.5 || this.ik3 <= 2.5) {
       this.iktot = 1;
-    } else if (this.ik1 >= 3.5 && this.ik2 >= 3.5 && this.ik3 >= 3.5) {
-      this.iktot = 3;
+      this.smoe1 = 1;
+      this.smoe2 = 1;
+      this.smoe3 = 1;
+      this.smoe4 = 1;
+      this.smoe5 = 1;
+      this.smoe6 = 1;
+      this.smoe7 = 1;
+      this.smoe8 = 1;
     } else {
-      this.iktot = 2;
+      if (this.iz1 <= 2.5 || this.iz2 <= 2.5 || this.iz3 <= 2.5) {
+        this.iztot = 1;
+      } else if (this.iz1 >= 3.5 && this.iz2 >= 3.5 && this.iz3 >= 3.5) {
+        this.iztot = 3;
+      } else {
+        this.iztot = 2;
+      }
+
+
+      // iw
+      if (this.iw1 <= 2.5 || this.iw2 <= 2.5 || this.iw3 <= 2.5) {
+        this.iwtot = 1;
+      } else if (this.iw1 >= 3.5 && this.iw2 >= 3.5 && this.iw3 >= 3.5) {
+        this.iwtot = 3;
+      } else {
+        this.iwtot = 2;
+      }
+
+
+
+      // iwe
+      if (this.iwe1 <= 2.5 || this.iwe2 <= 2.5 || this.iwe3 <= 2.5 || this.iwe4 <= 2.5) {
+        this.iwetot = 1;
+      } else if (this.iwe1 >= 3.5 && this.iwe2 >= 3.5 && this.iwe3 >= 3.5 && this.iwe4 >= 3.5) {
+        this.iwetot = 3;
+      } else {
+        this.iwetot = 2;
+      }
+
+
+      // ik
+      if (this.ik1 <= 2.5 || this.ik2 <= 2.5 || this.ik3 <= 2.5) {
+        this.iktot = 1;
+      } else if (this.ik1 >= 3.5 && this.ik2 >= 3.5 && this.ik3 >= 3.5) {
+        this.iktot = 3;
+      } else {
+        this.iktot = 2;
+      }
     }
 
 
 
-    //cw
-    if (this.cw1 <= 2.5 || this.cw2 <= 2.5) {
+
+
+
+    if (this.howManySendChecklist === 0) {
       this.cwtot = 1;
-    } else if (this.cw1 >= 3.5 && this.cw2 >= 3.5) {
-      this.cwtot = 3;
-    } else {
-      this.cwtot = 2;
-    }
-
-
-    // vb
-    if (this.vb1 <= 2.5 || this.vb2 <= 2.5 || this.vb3 <= 2.5) {
       this.vbtot = 1;
-    } else if (this.vb1 >= 3.5 && this.vb2 >= 3.5 && this.vb3 >= 3.5) {
-      this.vbtot = 3;
-    } else {
-      this.vbtot = 2;
-    }
-
-
-
-    // opl
-    if (this.opl1 <= 2.5 || this.opl2 <= 2.5 || this.opl3 <= 2.5) {
       this.opltot = 1;
-    } else if (this.opl1 >= 3.5 && this.opl2 >= 3.5 && this.opl3 >= 3.5) {
-      this.opltot = 3;
-    } else {
-      this.opltot = 2;
-    }
-
-
-    // pro
-    if (this.pro1 <= 2.5 || this.pro2 <= 2.5 || this.pro3 <= 2.5) {
       this.protot = 1;
-    } else if (this.pro1 >= 3.5 && this.pro2 >= 3.5 && this.pro3 >= 3.5) {
-      this.protot = 3;
-    } else {
-      this.protot = 2;
-    }
-
-
-    // com
-    if (this.com1 <= 2.5 || this.com2 <= 2.5 || this.com3 <= 2.5) {
       this.comtot = 1;
-    } else if (this.com1 >= 3.5 && this.com2 >= 3.5 && this.com3 >= 3.5) {
-      this.comtot = 3;
-    } else {
-      this.comtot = 2;
-    }
-
-
-    // bor
-    if (this.bor1 <= 2.5 || this.bor2 <= 2.5 || this.bor3 <= 2.5 || this.bor4 <= 2.5 || this.bor5 <= 2.5) {
       this.bortot = 1;
-    } else if (this.bor1 >= 3.5 && this.bor2 >= 3.5 && this.bor3 >= 3.5 && this.bor4 >= 3.5 && this.bor5 >= 3.5) {
-      this.bortot = 3;
     } else {
-      this.bortot = 2;
+      //cw
+      if (this.cw1 <= 2.5 || this.cw2 <= 2.5) {
+        this.cwtot = 1;
+      } else if (this.cw1 >= 3.5 && this.cw2 >= 3.5) {
+        this.cwtot = 3;
+      } else {
+        this.cwtot = 2;
+      }
+
+
+      // vb
+      if (this.vb1 <= 2.5 || this.vb2 <= 2.5 || this.vb3 <= 2.5) {
+        this.vbtot = 1;
+      } else if (this.vb1 >= 3.5 && this.vb2 >= 3.5 && this.vb3 >= 3.5) {
+        this.vbtot = 3;
+      } else {
+        this.vbtot = 2;
+      }
+
+
+
+      // opl
+      if (this.opl1 <= 2.5 || this.opl2 <= 2.5 || this.opl3 <= 2.5) {
+        this.opltot = 1;
+      } else if (this.opl1 >= 3.5 && this.opl2 >= 3.5 && this.opl3 >= 3.5) {
+        this.opltot = 3;
+      } else {
+        this.opltot = 2;
+      }
+
+
+      // pro
+      if (this.pro1 <= 2.5 || this.pro2 <= 2.5 || this.pro3 <= 2.5) {
+        this.protot = 1;
+      } else if (this.pro1 >= 3.5 && this.pro2 >= 3.5 && this.pro3 >= 3.5) {
+        this.protot = 3;
+      } else {
+        this.protot = 2;
+      }
+
+
+      // com
+      if (this.com1 <= 2.5 || this.com2 <= 2.5 || this.com3 <= 2.5) {
+        this.comtot = 1;
+      } else if (this.com1 >= 3.5 && this.com2 >= 3.5 && this.com3 >= 3.5) {
+        this.comtot = 3;
+      } else {
+        this.comtot = 2;
+      }
+
+
+      // bor
+      if (this.bor1 <= 2.5 || this.bor2 <= 2.5 || this.bor3 <= 2.5 || this.bor4 <= 2.5 || this.bor5 <= 2.5) {
+        this.bortot = 1;
+      } else if (this.bor1 >= 3.5 && this.bor2 >= 3.5 && this.bor3 >= 3.5 && this.bor4 >= 3.5 && this.bor5 >= 3.5) {
+        this.bortot = 3;
+      } else {
+        this.bortot = 2;
+      }
     }
+
+
 
 
     this.loading = false;
@@ -881,17 +923,17 @@ export class AdminComponent implements OnInit {
         this.groupName = element.name;
         this.pasKey = element.paskey;
         this.logourl = element.logo;
-        
+
         this.styleColor = "#" + element.orgcolor;
 
         let ts;
-        
-        if (element.validto === null){
-          ts = new Date(2022,12,1);
+
+        if (element.validto === null) {
+          ts = new Date(2022, 12, 1);
         } else {
           ts = new Date(element.validto);
         }
-        
+
         //this.bsValue = element.validto;
         this.bsValue = ts;
         this.logourl = 'uploads/orglogo/' + this.currentGroupID + '/' + this.logourl;
@@ -924,86 +966,98 @@ export class AdminComponent implements OnInit {
     // window.print();
     this.exportingg = true;
     this.loading = true;
-    
+
     setTimeout(() => {
       html2canvas(document.getElementById('pdfcourse'), {
         scale: 1
       }).then(function (canvas) {
         var imgData = canvas.toDataURL('image/png');
-        var imgWidth = 210; 
-        var pageHeight = 297; 
-        var imgHeight = canvas.height * imgWidth / canvas.width;;
+        var imgWidth = 595.28;
+        var pageHeight = 841.89;
+
+        var canheight = 3 / 4 * canvas.height;
+        var canwidth = 3 / 4 * canvas.width;
+
+        var imgHeight = canheight * imgWidth / canwidth;
         var heightLeft = imgHeight;
-        var doc = new jsPDF('p', 'mm', 'a4');
+        var doc = new jsPDF('p', 'pt');
 
-        var pageHeight2 = doc.internal.pageSize.height;
+        // var pageHeight2 = doc.internal.pageSize.height;
 
 
-        var position = 10; // give some top padding to first page
-        
-        doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight,'','SLOW');
-        
+        // give some top padding to first page
+
+        doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight, '', 'SLOW');
+
         // heightLeft -= pageHeight;
-        console.log("imageheight: " + imgHeight);
-        console.log("pageheight: " + pageHeight);
-        console.log("heightleft: " + heightLeft);
-        while (heightLeft >= 0) {
-          
-          position += heightLeft - imgHeight; // top padding for other pages
-          doc.addPage();
-          doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight,'','SLOW');
+        console.log("totalheight: " + pageHeight);
+        console.log("heileft: " + heightLeft);
+
+        var position = 0;
+        var pagecount = 1;
+        while (heightLeft >= pageHeight) {
+          console.log("heileft: " + heightLeft);
+          pagecount++;
           heightLeft -= pageHeight;
-          console.log("heightleft: " + heightLeft);
-          console.log("position: " + position);
+          position = position + pageHeight;
+          console.log(position);
+          // position += heightLeft - imgHeight; // top padding for other pages
+          doc.addPage();
+
+          doc.addImage(imgData, 'PNG', 0, position * -1, imgWidth, imgHeight, '', 'SLOW');
+
+
         }
-  
+
+        console.log("totalPages: " + pagecount);
+
         const stringg = 'Landkaart_export.pdf';
         doc.save(stringg);
       });
-      
+
       setTimeout(() => {
         this.exportingg = false;
         this.loading = false;
       }, 4000);
     }, 2000);
-    
+
 
 
   };
 
   printResultPng() {
     // window.print();
- 
+
     this.loading = true;
     setTimeout(() => {
-    html2canvas(document.getElementById('pdfcourse'), {
-      scale: 1
-    }).then(function (canvas) {
-      //const img = canvas.toDataURL('image/png', 1);
-      var yourlink= document.getElementById('linkId');
+      html2canvas(document.getElementById('pdfcourse'), {
+        scale: 1
+      }).then(function (canvas) {
+        //const img = canvas.toDataURL('image/png', 1);
+        var yourlink = document.getElementById('linkId');
 
-      var image = canvas.toDataURL("image/png",1 );  // here is the most important part because if you dont replace you will get a DOM 18 exception.
+        var image = canvas.toDataURL("image/png", 1); // here is the most important part because if you dont replace you will get a DOM 18 exception.
 
 
-      // window.name = 'download.png';
-      //window.location.href = image;
-      let iframe = '<iframe width="100%" height="100%" src="' + image + '"></iframe>';
-      let x = window.open();
-      
-      x.document.open();
-      x.document.write('<a href="' + image + '" target="_blanc" download="Landkaart.png">');
-      x.document.write('<br>Klik hier om te downloaden<br><br>');
-      x.document.write('</a>');
-      x.document.write(iframe);
+        // window.name = 'download.png';
+        //window.location.href = image;
+        let iframe = '<iframe width="100%" height="100%" src="' + image + '"></iframe>';
+        let x = window.open();
 
-      x.document.close();
+        x.document.open();
+        x.document.write('<a href="' + image + '" target="_blanc" download="Landkaart.png">');
+        x.document.write('<br>Klik hier om te downloaden<br><br>');
+        x.document.write('</a>');
+        x.document.write(iframe);
 
-    });
+        x.document.close();
 
-    setTimeout(() => {
-      this.loading = false;
-    }, 3000);
-  }, 1000);
+      });
+
+      setTimeout(() => {
+        this.loading = false;
+      }, 3000);
+    }, 1000);
   };
 
   publishToggle(_id, _status) {
@@ -1043,12 +1097,12 @@ export class AdminComponent implements OnInit {
     this.tempgroupRows = [..._val];
     this.groupRows.reverse();
     this.loading = false;
-    
+
 
     console.log('SDFDSFSD');
     console.log(this.currentGroupID);
 
-    if (this.currentGroupID !== undefined && this.currentGroupID !== null){
+    if (this.currentGroupID !== undefined && this.currentGroupID !== null) {
       this.showEdit(this.currentGroupID);
     }
     // this.groupRows.forEach(element => {
@@ -1057,7 +1111,7 @@ export class AdminComponent implements OnInit {
     //     this.groupName = element.name;
     //     this.pasKey = element.paskey;
     //     this.logourl = element.logo;
-        
+
     //     this.logourl = 'uploads/orglogo/' + this.currentGroupID + '/' + this.logourl;
     //     console.log(this.logourl);
     //   }
@@ -1286,12 +1340,12 @@ export class AdminComponent implements OnInit {
 
   editGroup() {
 
-    
+
     this.serCred.debugLog(this.pasKey);
     if (this.groupName !== '') {
       ///////////////////////
       this.date1 = this.transformDate(this.bsValue);
-      this.serCred.API_editgroup(this.currentGroupID, this.groupName, this.styleColor, this.date1 ).subscribe(value => this.groupEditted(value));
+      this.serCred.API_editgroup(this.currentGroupID, this.groupName, this.styleColor, this.date1).subscribe(value => this.groupEditted(value));
     } else {
       this.toastr.warning('Veld mag niet leeg zijn', 'Group niet bewerkt');
     }
@@ -1424,7 +1478,7 @@ export class AdminComponent implements OnInit {
       case 'yes':
         this.loading = true;
 
-        if (this.currentCase === 'copygroup'){
+        if (this.currentCase === 'copygroup') {
           // admnId
           this.serCred.API_copygroup(this.currentId, this.admnId).subscribe(value => this.groupCopied(value));
 
@@ -1440,7 +1494,7 @@ export class AdminComponent implements OnInit {
   };
 
 
-  groupCopied(_resp){
+  groupCopied(_resp) {
     this.modalRef.hide();
     console.log(_resp);
     this.toastr.success('Kopie van groep gemaakt', '');
@@ -1500,8 +1554,8 @@ export class AdminComponent implements OnInit {
     return this.datePipe.transform(date, 'yyyy-MM-dd');
   }
 
-   // the button is pressed
-   dateFilter() {
+  // the button is pressed
+  dateFilter() {
     this.loading = true;
     this.date1 = this.transformDate(this.bsValue);
     // Alright send it to API

@@ -92,7 +92,7 @@ const appRoutes: Routes = [
     NgxDatatableModule,
     NgxLoadingModule.forRoot({
       animationType: ngxLoadingAnimationTypes.wanderingCubes,
-      backdropBackgroundColour: 'rgba(33, 114, 175, 0.52)', 
+      backdropBackgroundColour: 'rgba(33, 114, 175, 0.90)', 
       primaryColour: '#fff', 
       secondaryColour: '#ffffff', 
       tertiaryColour: '#ffffff'

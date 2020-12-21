@@ -49,14 +49,14 @@
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
 <!-- Navigation -->
 
-<div class="d-flex flex-column flex-md-row align-items-center fixed-top p-3 px-md-4 mb-3 border-bottom box-shadow" style="background-color: #01748d">
-  <h5 class="my-0 mr-md-auto font-weight-normal" style="color: white;">Atgard</h5>
-  <nav class="my-2 my-md-0 mr-md-3">
+<div class="d-flex flex-column flex-md-row align-items-center fixed-top p-3 px-md-4 mb-3 border-bottom box-shadow" style="background-color: #15395d">
+  <h5 class="my-0 mr-md-auto font-weight-normal" style="color: white;"></h5>
+  <nav *ngIf="!alreadyFilled && !formClosed" class="my-2 my-md-0 mr-md-3">
     <a class="p-2" pageScroll href="#watt">Wat?</a>
     <a class="p-2" pageScroll href="#waarr">Waarom?</a>
     <a class="p-2" pageScroll href="#contactt">Contact</a>
   </nav>
-  <a class="btn btn-outline-primary" style="border-color: white" routerLink="/admin">Inloggen</a>
+  <a *ngIf="!alreadyFilled && !formClosed" class="btn btn-outline-primary" style="border-color: white" routerLink="/admin">Inloggen</a>
 </div>
 
 
@@ -65,14 +65,29 @@
   <div class="container h-100">
     <div class="row h-100">
       <div class="col-lg-12 my-auto">
-        <div *ngIf="alreadyFilled" class="alert alert-succes">U heeft deze vragenlijst al ingevuld. U hoeft niets meer te doen!<br></div>
-        <div *ngIf="formClosed" class="alert alert-succes">De vragenlijst die u aanriep is gesloten.<br></div>
+        <div *ngIf="alreadyFilled" class="text-center" ><br>
+          <div class="alert alert-success" role="alert">
+            <br><i class="fa fa-info-circle fa-3x" style="color:#3d8e1b"></i><br><br><p>U heeft deze vragenlijst al ingevuld. U hoeft niets meer te doen, bedankt!</p><br>
+            <hr><br>
+          </div>
+          
+          
+          </div>
+        <div *ngIf="formClosed" class="text-center"><br>
+          <div class="alert alert-info" role="alert">
+            <br><i class="fa fa-info-circle fa-3x" style="color:#bd2130"></i><br><br><p>De vragenlijst die u aanriep is gesloten of bestaat niet meer.</p><br>
+          <hr><br>
+          </div>
+          
+          </div>
 
         <div class="header-content mx-auto ">
+          <h5 *ngIf="!alreadyFilled && !formClosed" style="color:#fff">Hoe veilig is uw bedrijf?</h5>
+          <h6 *ngIf="!alreadyFilled && !formClosed" style="color:#fff">Breng het in kaart met</h6><br><br><br>
           <img src="assets/logo.png" class="img-fluid" alt="Responsive image"><br><br><br><br>
           <!-- <h1 class="mb-5">Zelfscan</h1> -->
           <!-- <a data-toggle="modal" data-target="#exampleModal" class="btn btn-outline btn-xl js-scroll-trigger">Start!</a> -->
-          <h3 style="color:#01748d">Hoe veilig is uw bedrijf?</h3>
+          
 
         </div>
 
@@ -82,25 +97,21 @@
   </div>
 </header>
 
-
+<div *ngIf="!alreadyFilled && !formClosed" >
 <div id="watt" class="container pt-5 pb-5">
 
   <div class="row no-gutters pt-5 pb-5">
+    <br><br><br>
     <div class="col-md-6 d-flex align-items-center bg-white">
       <div class="mr-5 ml-5 mt-5">
         <h2 class="headingbig pb-3">Wat is Atgard?</h2>
-        <p>Atgard is een slim instrument dat meet met welke onderdelen op het gebied van veiligheid u aan de slag moet in een bedrijf.<br><br>
-          Met Atgard maken we een scan van de huidige situatie. We brengen de balans in kaart tussen de voorschriften, de organisatorische maatregelen en de mensen binnen het bedrijf.</p>
-        <div class="d-flex dd pb-3"> <a href="" class="mr-2">
-            <div class="social-icon d-flex align-items-center justify-content-center"> <i class="lni-facebook"></i></div>
-          </a> <a href="" class="mr-2">
-            <div class="social-icon d-flex align-items-center justify-content-center"> <i class="lni-linkedin"></i></div>
-          </a> <a href="" class="mr-2">
-            <div class="social-icon d-flex align-items-center justify-content-center"> <i class="lni-twitter"></i></div>
-          </a> </div>
+        <p>Atgard is een slim digitaal instrument dat meet met welke onderdelen op het gebied van veiligheid u aan de slag moet in een bedrijf.<br><br>
+          Met Atgard maken we een scan van de huidige situatie. We brengen de balans in kaart tussen de voorschriften, de organisatorische maatregelen en de mensen binnen het bedrijf.</p><br><br><br>
+        
       </div>
     </div>
     <div class="col-md-6 d-flex align-items-center bg-white"> <img class="img-fluid"  src="assets/profile-one.png"> </div>
+    <br><br><br>
     <div class="col-md-6 order-md-12  d-flex align-items-center bg-white">
       <div class="ml-5 mr-5 pb-5 mt-5">
         <h2 class="headingbig pb-3"></h2>
@@ -119,26 +130,27 @@
   </div>
 </div>
 <!-- Header -->
-<header class="bg-primary py-5 mb-5">
+<header class="py-5 mb-5" style="background-color:#091929">
   <div class="container h-100"><br><br>
     <div class="row" style="color:white !important">
+      
+      <div class="col-md-4 text-center">
+        <i class="fa fa-user fa-4x mb-3" style="color:#bd2130"></i>
+        <br><br><h5 style="color:#ffc107" >Gemakkelijk</h5>
+        
+        <p>Medewerkers krijgen via de mail een link een uitnodiging om input aan te leveren.</p>
+      </div>
+      <div class="col-md-4 text-center">
+        <i class="fa fa-user-secret fa-4x mb-3" style="color:#bd2130"></i>
+        <br><br><h5 style="color:#ffc107">Anoniem</h5>
+        
+        <p>Alle input wordt volledig anoniem verzameld. Privacy staat bij ons voorop. Wel is in te zien wie het al ingevuld hebben. Individuele scores niet.</p>
+      </div>
       <div class="col-md-4 text-center" >
-        <i class="fa fa-bullseye fa-4x mb-3" style="color:#273148"></i>
-        <h5 style="color:#ffc107">Een uitgebreid rapport</h5>
-        <br>
-        <p>Door middel van vragenlijsten voor de werknemers en werkgever krijgen we een duidelijk beeld van het bedrijf.</p>
-      </div>
-      <div class="col-md-4 text-center">
-        <i class="fa fa-user fa-4x mb-3" style="color:#273148"></i>
-        <h5 style="color:#ffc107" >Gemakkelijk</h5>
-        <br>
-        <p>Via een simpele link in de mail leveren medewerkers makkelijk de informatie in die nodig is.</p>
-      </div>
-      <div class="col-md-4 text-center">
-        <i class="fa fa-user-secret fa-4x mb-3" style="color:#273148"></i>
-        <h5 style="color:#ffc107">Anoniem</h5>
-        <br>
-        <p>Alle input wordt volledig anoniem verzameld. Privacy staat bij ons voorop.</p>
+        <i class="fa fa-bullseye fa-4x mb-3" style="color:#bd2130"></i>
+        <br><br><h5 style="color:#ffc107">Een uitgebreid rapport</h5>
+        
+        <p>Door middel van aparte vragenlijsten voor de werknemers en de werkgever krijgen we een duidelijk beeld van het bedrijf.</p>
       </div>
     </div><br><br>
   </div>
@@ -148,7 +160,7 @@
 <div class="container">
 
   <div class="row" id="waarr">
-    <div class="col-md-8 mb-5">
+    <div class="col-md-6 mb-5">
       <br><br>
       <h2>Waarom?</h2>
       In een succesvol bedrijf is veiligheid een prioriteit. Toch staan incidenten en onveilige situaties dit vaak in de weg. Komt dit omdat medewerkers van de voorschriften afwijken? Of zijn de voorschriften misschien onduidelijk? En zijn de juiste veiligheidsvoorzieningen aanwezig?<br><br> Met Atgard onderzoeken we dit. Als we weten waar het probleem zit, kunnen we gericht met veiligheid aan de slag.
@@ -162,8 +174,8 @@
       </ul>
       <!-- <a class="btn btn-primary btn-lg" href="#">Call to Action &raquo;</a> -->
     </div>
-    <div class="col-md-4 mb-5">
-      <img class="img-fluid" src="assets/running.jpg">
+    <div class="col-md-6 mb-5">
+      <img class="img-fluid" src="assets/running.jpg" style="border-radius: 15px;">
       <!-- <h2>Contact Us</h2>
       <hr>
       <address>
@@ -230,9 +242,10 @@
     <div class="jumbotron" style='background-color: #fff;'>
       <h1>Geïnteresseerd?</h1>
       <p class="lead">Wij staan u graag te woord voor verdere informatie.</p>
-      <a class="btn btn-lg btn-primary" style="padding:15px " href="mailto:info@atgard.nl" role="button">Neem contact op</a>
+      <a class="btn btn-lg btn-primary" style="padding:20px " href="mailto:info@atgard.nl" role="button">Neem contact op</a>
     </div>
   </div><br><br><br><br><br><br>
+</div>
 </div>
 
 

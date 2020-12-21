@@ -67,13 +67,13 @@
           Als een beheerder een nieuwe groep aanmaakt, wordt deze automatisch aan de nieuwe groep toegevoegd.
           </p>
           <div class="alert alert-primary" role="alert">
-            Alle 'Admins' zien standaard alle groepen. Beheerders alleen waaraan deze zijn gekoppeld.
+            Beheerders alleen waaraan deze zijn gekoppeld. Alle 'Admins' hebben inzicht in alle groepen. 
           </div>
 
           <br>
           <input [(ngModel)]="searchadminstogroup" [ngModelOptions]="{standalone: true}" type="text" class="form-control" (keyup)="updateFilter('admintogroups',$event)" placeholder="Zoeken..">&nbsp;&nbsp;<br>
-          <ngx-datatable *ngIf="loading == false" class="material" [rows]="allGroupRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
-            <ngx-datatable-column name="Titel" [sortable]="true">
+          <ngx-datatable *ngIf="loading == false" class="material" [rows]="allGroupRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'" [sorts]="[{prop: 'ingroup', dir: 'desc'}]">
+            <ngx-datatable-column name="Titel" [sortable]="true" prop="name">
               <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
                 <span (click)="sort()" style="cursor:pointer">
                   {{column.name}}
@@ -85,7 +85,15 @@
               </ng-template>
             </ngx-datatable-column>
 
-            <ngx-datatable-column name="Aan groep">
+            <ngx-datatable-column name="Aan groep" [sortable]="true" prop="ingroup">
+
+
+
+              <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+                <span (click)="sort()" style="cursor:pointer">
+                  {{column.name}}
+                </span>
+              </ng-template>
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                 <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                   <button type="button" *ngIf="!row['ingroup']" (click)="groupCourseHandler('add',row['id'])" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></button>
@@ -122,9 +130,9 @@
           </button>
         </div>
         <div class="modal-body">
-          <div class="container">
-            <p>Hier kunnen emailadressen aan groepen worden gekoppeld die de zelfscan moeten uitvoeren</p>
-            <p>Ook kunnen hier personen aangewezen worden om de checklist uit te voeren</p><br>
+          <div class="container"><br><br>
+            <p>Hier kunnen emailadressen aan groepen worden gekoppeld die de zelfscan moeten uitvoeren.<br>
+            Ook kunnen hier personen aangewezen worden om de checklist uit te voeren</p><br>
             <h5>Groepsopties</h5>
             <div class="btn-group">
               <button type="button" class="btn btn-primary" (click)="addClick('user')" data-toggle="modal">
@@ -138,7 +146,8 @@
             </button>
             <br><br>
 
-            <div *ngIf="userAddUser">
+            <div *ngIf="userAddUser"><br>
+              <p>Voer een enkel emailadres toe aan deze groep.</p>
               <fieldset class="form-group has-danger">
                 <label class="form-control-label">Emailadres:</label>
                 <input [(ngModel)]="emailAdd" [ngModelOptions]="{standalone: true}" type="email" class="form-control form-control-danger" id="emailadd">
@@ -148,7 +157,7 @@
               </button>
             </div>
 
-            <div *ngIf="userAddBulk">
+            <div *ngIf="userAddBulk"><br>
               <br>
               <p>Importeer meerdere emailadressen via een csv bestand met een comma (,) gescheiden. Eenmaal geïmporteerd worden er nog geen mails verstuurd. Dit gebeurd pas met de wekelijkse herriningsmail of de knop 'Mails versturen'</p>
               <fieldset class="form-group has-danger">
@@ -159,7 +168,7 @@
               </fieldset>
             </div>
 
-            <div *ngIf="userSendMails">
+            <div *ngIf="userSendMails"><br>
               <hr>
               <p>Klik op de knop hieronder om mails te versturen naar iedereen van deze lijst die de scan nog niet heeft gemaakt</p>
 
@@ -168,12 +177,12 @@
           </div>
 
           <div class="text-center">
-            <div class="fa fa-user fa-2x" style="color:blue"></div> Vragenlijst&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='font-size: x-small;'>SMOES </span><b>1</b><div class="fa fa-user-circle fa-2x" style="color:rgb(146, 9, 112)"></div> Checklistgebruiker<br><br>
+            <div class="fa fa-user fa-2x" style="color:blue"></div> Vragenlijst&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="fa fa-user-circle fa-2x" style="color:rgb(146, 9, 112)"></div> Checklistgebruiker<br><br>
           </div>
           <br> <input [(ngModel)]="searchusersemail" [ngModelOptions]="{standalone: true}" type="text" class="form-control" (keyup)="updateFilter('usersemail',$event)" placeholder="Zoeken op email..">&nbsp;&nbsp;<br>
 
           <ngx-datatable *ngIf="loading == false" class="material" [rows]="groupListUsers" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
-            <ngx-datatable-column name="Email" [sortable]="true">
+            <ngx-datatable-column name="Email" [sortable]="true" prop="email">
               <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
                 <span (click)="sort()" style="cursor:pointer">
                   {{column.name}}
@@ -197,7 +206,13 @@
               </ng-template>
             </ngx-datatable-column>
 
-            <ngx-datatable-column name="Checklist">
+            <ngx-datatable-column name="Checklist" [sortable]="true" prop="type">
+
+              <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+                <span (click)="sort()" style="cursor:pointer">
+                  {{column.name}}
+                </span>
+              </ng-template>
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                 <div class="text-center" style="cursor: pointer;">
                   <i (click)="changeUserType(row['id'], row['filled'], 2)" *ngIf="row['type'] == '1'" class="fa fa-user fa-3x" style="color:blue"></i>
@@ -206,7 +221,12 @@
               </ng-template>
             </ngx-datatable-column>
 
-            <ngx-datatable-column name="Ingevuld">
+            <ngx-datatable-column name="Ingevuld" [sortable]="true" prop="filled">
+              <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+                <span (click)="sort()" style="cursor:pointer">
+                  {{column.name}}
+                </span>
+              </ng-template>
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                 <i *ngIf="row['filled'] == '1'" class="fa fa-check" aria-hidden="true" style="color: green;"></i>
                 <i *ngIf="row['filled'] == '0'" class="fa fa-times" aria-hidden="true" style="color: red;"></i>
@@ -315,8 +335,9 @@
             <div class="form-group">
 
               <p>Als onderstaand wachtwoord veld leeg wordt gelaten, verandert het oude wachtwoord niet.</p>
-              <label for="group_name_edit" class="col-form-label">Gewenst wachtwoord:</label>
+              <label for="group_name_edit" class="col-form-label">Wachtwoord:</label>
               <input [(ngModel)]="ausrWw" [ngModelOptions]="{standalone: true}" type="text" class="form-control" id="usr_ww_edit">
+              
             </div>
 
             <div class="form-group">
@@ -332,6 +353,8 @@
                 </label>
               </div>
             </div>
+
+            
           </form>
         </div>
         <div class="modal-footer">
@@ -391,6 +414,7 @@
                 </label>
               </div>
             </div>
+            <b>Als het account aangemaakt is dient het opgegeven wachtwoord en de url<br> <span style='color:blue'>'https://www.atgard.nl/admin'</span> <br>aan de nieuwe gebruiker gecommuniceerd te worden</b>
           </form>
         </div>
         <div class="modal-footer">
@@ -455,7 +479,7 @@
         
           <tabset [justified]="true">
             <tab heading="Admin" *ngIf="admnType === 2" (selectTab)="onSelect($event, 'admins')"><br><br>
-              <p>Admin instellingen</p>
+              <p>Admin pagina</p>
 
               <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 
@@ -475,7 +499,7 @@
                   </ng-template>
 
                   <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                    <div [innerHTML]="row['name'] + ' ' + row['lastname']"></div>
+                    <div [innerHTML]="row['name']"></div>
                   </ng-template>
                 </ngx-datatable-column>
 
@@ -501,7 +525,7 @@
                 <ngx-datatable-column name="Email" prop="email" [sortable]="true">
 
                   <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
-                    <span style="cursor:pointer">
+                    <span (click)="sort()" style="cursor:pointer">
                       {{column.name}}
                     </span>
                   </ng-template>
@@ -512,10 +536,10 @@
 
                 </ngx-datatable-column>
 
-                <ngx-datatable-column name="type" prop="type" [sortable]="true">
+                <ngx-datatable-column name="type" prop="type" [sortable]="true" >
 
                   <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
-                    <span style="cursor:pointer">
+                    <span (click)="sort()" style="cursor:pointer">
                       {{column.name}}
                     </span>
                   </ng-template>
@@ -545,13 +569,13 @@
               <div *ngIf="!showScore">
                 <br> <input [(ngModel)]="searchgroupname" [ngModelOptions]="{standalone: true}" type="text" class="form-control" (keyup)="updateFilter('groupname',$event)" placeholder="Zoeken..">&nbsp;&nbsp;<br>
 
-                <ngx-datatable [scrollbarH]="true" class="material" [rows]="groupRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
+                <ngx-datatable [scrollbarH]="true" class="material" [rows]="groupRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'" [sorts]="[{prop: 'made', dir: 'desc'}]">
                  
                   
-                  <ngx-datatable-column name="Actief" width="20" [sortable]="true" prop="active">
+                  <ngx-datatable-column name="Actief" width="20" [sortable]="true" prop="status">
 
                     <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
-                      <span style="cursor:pointer">
+                      <span (click)="sort()" style="cursor:pointer">
                         {{column.name}}
                       </span>
                     </ng-template>
@@ -578,11 +602,11 @@
                   </ngx-datatable-column>
 
 
-                  <ngx-datatable-column name="Rapport">
+                  <ngx-datatable-column name="Landkaart inzien">
                     <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                       <div class="btn-group" style="border-radius: 10px; color: white" role="group" aria-label="Basic example">
                         <button style="color: white;" (click)="showResult(row.id)" type="button" class="btn btn-info">
-                          <i class="fa fa-eye"></i> Rapport
+                          <i class="fa fa-map"></i><br>Landkaart
                         </button>
                       </div>
                     </ng-template>
@@ -604,13 +628,13 @@
                 </ngx-datatable-column> -->
 
 
-                  <ngx-datatable-column name="Acties">
+                  <ngx-datatable-column name="Groep bewerken">
                     <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                       <div class="btn-group" style="border-radius: 10px; color: white" role="group" aria-label="Basic example">
-                        <button (click)="showGroupList(row.id)" type="button" style="color: white" class="btn btn-sm btn-primary" data-toggle="modal" data-target=".modal-grouplist">
-                          <i class="fa fa-list"></i> Lijst
+                        <button (click)="showGroupList(row.id)" type="button" style="color: white;padding:10px" class="btn btn-sm btn-primary" data-toggle="modal" data-target=".modal-grouplist">
+                          <i class="fa fa-users"></i> Lijst
                         </button>
-                        <button (click)="showEdit(row.id)" type="button" style="color: white" class="btn btn-sm btn-warning" data-toggle="modal" data-target=".modal-edit">
+                        <button (click)="showEdit(row.id)" type="button" style="color: white;padding:10px" class="btn btn-sm btn-danger" data-toggle="modal" data-target=".modal-edit">
                           <i class="fa fa-edit"></i> Edit
                         </button>
 
@@ -622,10 +646,10 @@
 
                  
 
-                  <ngx-datatable-column name="Geldig tot" width="100" prop="validto" [sortable]="true">
+                  <ngx-datatable-column name="Geldig tot" [sortable]="true" prop="validto" >
 
                     <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
-                      <span style="cursor:pointer">
+                      <span (click)="sort()" style="cursor:pointer">
                         {{column.name}}
                       </span>
                     </ng-template>
@@ -636,10 +660,10 @@
 
                   </ngx-datatable-column>
 
-                  <ngx-datatable-column name="Aangemaakt" [sortable]="true"  prop="made">
+                  <ngx-datatable-column name="Aangemaakt (y-d-m)" prop="made">
 
                     <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
-                      <span style="cursor:pointer">
+                      <span (click)="sort()" style="cursor:pointer">
                         {{column.name}}
                       </span>
                     </ng-template>
@@ -660,7 +684,10 @@
               <button type="button" *ngIf="showScore" (click)="showScore = false" class="btn btn-danger  btn-block" data-toggle="modal" data-html2canvas-ignore="true">
                 <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;&nbsp;Terug naar groepenoverzicht
               </button><br><br>
-              <div *ngIf="showScore" >
+              <div *ngIf="showScore && noResults"><div class="alert alert-danger" role="alert"><br>
+                <i class="fa fa-info-circle fa-2x">&nbsp;&nbsp;&nbsp;</i>Deze groep heeft nog geen resultaten.<br><br>
+              </div><br><br><br><br></div>
+              <div *ngIf="showScore && !noResults">
                 <div class="container d-none d-lg-block">
                   &nbsp;&nbsp;&nbsp;&nbsp;<p data-html2canvas-ignore="true">Opslaan:</p>
                   <button type="button" (click)="printResult()" class="btn btn-info" data-toggle="modal" data-html2canvas-ignore="true">
@@ -671,157 +698,158 @@
                   </button>
                 </div>
 
-                <div class="container" id="pdfcourse">
+                <div class="container" id="pdfcourse" >
                   <img src="assets/logo.png" class="img" style="max-width: 150px;float:right;margin:50px" alt="Responsive image">
                 
                     <br><br><br>
-                    
+                    <div *ngIf="exportingg" style="padding-bottom:100px"></div>
                     <div style="padding-left: 20px"><h2>{{currentGroup}}</h2>
                       <p>Datum: {{dateToday}}<br>Ingevulde vragenlijsten: <b>{{howManySendQuestions}}</b><br>
                         Checklist: <b>{{howManySendChecklist}}</b></p></div>
                     
                       <br><br><br>
-                      
+                      <div *ngIf="exportingg" style="padding-bottom:100px"></div>
                     <table style="float: left; color: white" width="100%" cellpadding="10">
                       <tbody>
                         <tr style="height: 23px;vertical-align: baseline; background-color: #086276;">
-                          <td style="height: 23px; width: 15px;" style="color: black;"  colspan="6"><br><br><h4 style="color:white">Mens</h4></td>
+                          <td style="height: 23px; width: 15px;" style="color: black;"  colspan="6"><br><br><h4 style="color:white">Mens<span *ngIf="howManySendQuestions == 0" style="color:#10deff">&nbsp;&nbsp;<i class="fa fa-info-circle fa-1x" >&nbsp;</i>Nog niet ingevuld</span></h4></td>
                          
                         </tr>
                         <tr style="height: 23px;vertical-align: baseline;">
-                          <td style="height: 23px; width: 15px;" style="color: black;"><span [style.background-color]="iztot == 1 ? 'red' : iztot == 3 ? 'green' : '#ff7600'" class="square"></span><h5 >IZ</h5>Ik zie<br>
+                          <td style="height: 23px; width: 15px;" style="color: black;"><span [style.background-color]="iztot == 1 ? '#B81D13' : iztot == 3 ? '#008450' : '#ef8f00'" class="square"></span><h5 >IZ</h5>Ik zie<br>
                             
                           </td>
-                          <td style="height: 175px; width: 10px;" [style.color]="iz1 >= 3.5 ? 'green' : iz1 < 3.5 && iz1 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="iz1 >= 3.5 ? 'green' : iz1 < 3.5 && iz1 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>IZ </span><b>1</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{iz1}}</b>Aansturen op veilig gedrag / voorbeeld gedrag management<br><br></td>
-                          <td  [style.color]="iz2 >= 3.5 ? 'green' : iz2 < 3.5 && iz2 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="iz2 >= 3.5 ? 'green' : iz2 < 3.5 && iz2 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>IZ </span><b>2</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{iz2}}</b>Toezicht & handhaving</td>
-                          <td  [style.color]="iz3 >= 3.5 ? 'green' : iz3 < 3.5 && iz3 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="iz3 >= 3.5 ? 'green' : iz3 < 3.5 && iz3 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>IZ </span><b>3</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{iz3}}</b>Aanspreekcultuur</td>
+                          <td style="height: 175px; width: 10px;" [style.color]="iz1 >= 3.5 ? '#008450' : iz1 < 3.5 && iz1 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="iz1 >= 3.5 ? '#008450' : iz1 < 3.5 && iz1 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>IZ </span><b>1</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{iz1}}</b>Aansturen op veilig gedrag / voorbeeld gedrag management<br><br></td>
+                          <td  [style.color]="iz2 >= 3.5 ? '#008450' : iz2 < 3.5 && iz2 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="iz2 >= 3.5 ? '#008450' : iz2 < 3.5 && iz2 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>IZ </span><b>2</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{iz2}}</b>Toezicht & handhaving</td>
+                          <td  [style.color]="iz3 >= 3.5 ? '#008450' : iz3 < 3.5 && iz3 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="iz3 >= 3.5 ? '#008450' : iz3 < 3.5 && iz3 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>IZ </span><b>3</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{iz3}}</b>Aanspreekcultuur</td>
                         </tr>
                         <tr style="height: 23px;vertical-align: baseline;">
-                          <td style="height: 23px; width: 15px;" style="color: black;"><span [style.background-color]="iwtot == 1 ? 'red' : iwtot == 3 ? 'green' : '#ff7600'" class="square"></span><h5>IW</h5>Ik wil<br>
+                          <td style="height: 23px; width: 15px;" style="color: black;"><span [style.background-color]="iwtot == 1 ? '#B81D13' : iwtot == 3 ? '#008450' : '#ef8f00'" class="square"></span><h5>IW</h5>Ik wil<br>
                             
                           </td>
-                          <td style="height: 175px; width: 10px;" [style.color]="iw1 >= 3.5 ? 'green' : iw1 < 3.5 && iw1 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="iw1 >= 3.5 ? 'green' : iw1 < 3.5 && iw1 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>IW </span><b>1</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{iw1}}</b>Positieve houding t.a.v. veiligheid</td>
-                          <td  [style.color]="iw2 >= 3.5 ? 'green' : iw2 < 3.5 && iw2 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="iw2 >= 3.5 ? 'green' : iw2 < 3.5 && iw2 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>IW </span><b>2</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{iw2}}</b>Regels volgen / respecteren</td>
-                          <td  [style.color]="iw3 >= 3.5 ? 'green' : iw3 < 3.5 && iw3 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="iw3 >= 3.5 ? 'green' : iw3 < 3.5 && iw3 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>IW </span><b>3</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{iw3}}</b>Opleidingsbehoefte</td>
+                          <td style="height: 175px; width: 10px;" [style.color]="iw1 >= 3.5 ? '#008450' : iw1 < 3.5 && iw1 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="iw1 >= 3.5 ? '#008450' : iw1 < 3.5 && iw1 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>IW </span><b>1</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{iw1}}</b>Positieve houding t.a.v. veiligheid</td>
+                          <td  [style.color]="iw2 >= 3.5 ? '#008450' : iw2 < 3.5 && iw2 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="iw2 >= 3.5 ? '#008450' : iw2 < 3.5 && iw2 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>IW </span><b>2</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{iw2}}</b>Regels volgen / respecteren</td>
+                          <td  [style.color]="iw3 >= 3.5 ? '#008450' : iw3 < 3.5 && iw3 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="iw3 >= 3.5 ? '#008450' : iw3 < 3.5 && iw3 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>IW </span><b>3</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{iw3}}</b>Opleidingsbehoefte</td>
                         </tr>
                         <tr style="height: 23px;vertical-align: baseline;">
-                          <td style="height: 23px; width: 15px;" style="color: black;"><span [style.background-color]="iwetot == 1 ? 'red' : iwetot == 3 ? 'green' : '#ff7600'" class="square"></span>
+                          <td style="height: 23px; width: 15px;" style="color: black;"><span [style.background-color]="iwetot == 1 ? '#B81D13' : iwetot == 3 ? '#008450' : '#ef8f00'" class="square"></span>
                             <h5>IWE</h5>Ik weet<br>
                           </td>
-                          <td style="height: 175px; width: 10px;" [style.color]="iwe1 >= 3.5 ? 'green' : iwe1 < 3.5 && iwe1 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="iwe1 >= 3.5 ? 'green' : iwe1 < 3.5 && iwe1 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>IWE </span><b>1</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{iwe1}}</b>Vakkennis</td>
-                          <td  [style.color]="iwe2 >= 3.5 ? 'green' : iwe2 < 3.5 && iwe2 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="iwe2 >= 3.5 ? 'green' : iwe2 < 3.5 && iwe2 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>IWE </span><b>2</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{iwe2}}</b>Kennis veiligheid algemen</td>
-                          <td  [style.color]="iwe3 >= 3.5 ? 'green' : iwe3 < 3.5 && iwe3 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="iwe3 >= 3.5 ? 'green' : iwe3 < 3.5 && iwe3 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>IWE </span><b>3</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{iwe3}}</b>Veiligheidsbewustzijn</td>
-                          <td  [style.color]="iwe4 >= 3.5 ? 'green' : iwe4 < 3.5 && iwe4 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="iwe4 >= 3.5 ? 'green' : iwe4 < 3.5 && iwe4 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>IWE </span><b>4</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{iwe4}}</b>Uitwisselen informatie</td>
+                          <td style="height: 175px; width: 10px;" [style.color]="iwe1 >= 3.5 ? '#008450' : iwe1 < 3.5 && iwe1 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="iwe1 >= 3.5 ? '#008450' : iwe1 < 3.5 && iwe1 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>IWE </span><b>1</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{iwe1}}</b>Vakkennis</td>
+                          <td  [style.color]="iwe2 >= 3.5 ? '#008450' : iwe2 < 3.5 && iwe2 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="iwe2 >= 3.5 ? '#008450' : iwe2 < 3.5 && iwe2 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>IWE </span><b>2</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{iwe2}}</b>Kennis veiligheid algemen</td>
+                          <td  [style.color]="iwe3 >= 3.5 ? '#008450' : iwe3 < 3.5 && iwe3 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="iwe3 >= 3.5 ? '#008450' : iwe3 < 3.5 && iwe3 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>IWE </span><b>3</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{iwe3}}</b>Veiligheidsbewustzijn</td>
+                          <td  [style.color]="iwe4 >= 3.5 ? '#008450' : iwe4 < 3.5 && iwe4 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="iwe4 >= 3.5 ? '#008450' : iwe4 < 3.5 && iwe4 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>IWE </span><b>4</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{iwe4}}</b>Uitwisselen informatie</td>
                         </tr>
                         <tr style="height: 23px;vertical-align: baseline;">
-                          <td style="height: 23px; width: 15px;" style="color: black;"><span class="square" [style.background-color]="iktot == 1 ? 'red' : iktot == 3 ? 'green' : '#ff7600'"></span>
+                          <td style="height: 23px; width: 15px;" style="color: black;"><span class="square" [style.background-color]="iktot == 1 ? '#B81D13' : iktot == 3 ? '#008450' : '#ef8f00'"></span>
                             <h5>IK</h5>Ik kan<br>
                           </td>
-                          <td style="height: 175px; width: 10px;" [style.color]="ik1 >= 3.5 ? 'green' : ik1 < 3.5 && ik1 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="ik1 >= 3.5 ? 'green' : ik1 < 3.5 && ik1 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>IK </span><b>1</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{ik1}}</b>Vaardigheden</td>
-                          <td  [style.color]="ik2 >= 3.5 ? 'green' : ik2 < 3.5 && ik2 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="ik2 >= 3.5 ? 'green' : ik2 < 3.5 && ik2 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>IK </span><b>2</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{ik2}}</b>Randvoorwaarden veilig werken</td>
-                          <td  [style.color]="ik3 >= 3.5 ? 'green' : ik3 < 3.5 && ik3 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="ik3 >= 3.5 ? 'green' : ik3 < 3.5 && ik3 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>IK </span><b>3</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{iz3}}</b>Overleg veiligheid</td>
+                          <td style="height: 175px; width: 10px;" [style.color]="ik1 >= 3.5 ? '#008450' : ik1 < 3.5 && ik1 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="ik1 >= 3.5 ? '#008450' : ik1 < 3.5 && ik1 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>IK </span><b>1</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{ik1}}</b>Vaardigheden</td>
+                          <td  [style.color]="ik2 >= 3.5 ? '#008450' : ik2 < 3.5 && ik2 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="ik2 >= 3.5 ? '#008450' : ik2 < 3.5 && ik2 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>IK </span><b>2</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{ik2}}</b>Randvoorwaarden veilig werken</td>
+                          <td  [style.color]="ik3 >= 3.5 ? '#008450' : ik3 < 3.5 && ik3 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="ik3 >= 3.5 ? '#008450' : ik3 < 3.5 && ik3 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>IK </span><b>3</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{iz3}}</b>Overleg veiligheid</td>
                         </tr>
-                        
+                        <div *ngIf="exportingg" style="padding-bottom:400px"></div>
                         <tr style="height: 23px;vertical-align: baseline;; background-color: #086276;">
-                          <td style="height: 23px; width: 15px;" style="color: white;" colspan="6"><br><br><h4>Organisatie</h4></td>
+                          <td style="height: 23px; width: 15px;" style="color: white;" colspan="6"><br><br><h4>Organisatie<span *ngIf="howManySendChecklist == 0" style="color:#10deff">&nbsp;&nbsp;<i class="fa fa-info-circle fa-1x" >&nbsp;</i>Nog niet ingevuld</span></h4></td>
                           <br>
                         </tr>
                         <tr style="height: 23px;vertical-align: baseline;">
-                          <td style="height: 23px; width: 15px;" style="color: black;"><span class="square" [style.background-color]="cwtot == 1 ? 'red' : cwtot == 3 ? 'green' : '#ff7600'"></span>
+                          <td style="height: 23px; width: 15px;" style="color: black;"><span class="square" [style.background-color]="cwtot == 1 ? '#B81D13' : cwtot == 3 ? '#008450' : '#ef8f00'"></span>
                             <h5>CW</h5>Compliance, wetgeving &amp; richtlijnen<br>
                           </td>
-                          <td style="height: 175px; width: 10px;" [style.color]="cw1 >= 3.5 ? 'green' : cw1 < 3.5 && cw1 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="cw1 >= 3.5 ? 'green' : cw1 < 3.5 && cw1 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>CW </span><b>1</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{cw1}}</b>Arbowet</td>
-                          <td  [style.color]="cw2 >= 3.5 ? 'green' : cw2 < 3.5 && cw2 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="cw2 >= 3.5 ? 'green' : cw2 < 3.5 && cw2 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>CW </span><b>2</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{cw2}}</b>Moederorganisatie</td>
+                          <td style="height: 175px; width: 10px;" [style.color]="cw1 >= 3.5 ? '#008450' : cw1 < 3.5 && cw1 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="cw1 >= 3.5 ? '#008450' : cw1 < 3.5 && cw1 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>CW </span><b>1</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{cw1}}</b>Arbowet</td>
+                          <td  [style.color]="cw2 >= 3.5 ? '#008450' : cw2 < 3.5 && cw2 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="cw2 >= 3.5 ? '#008450' : cw2 < 3.5 && cw2 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>CW </span><b>2</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{cw2}}</b>Moederorganisatie</td>
                           <!-- <td style="height: 23px; width: 15px;">CW 3<b>{{cw3}}</b>Andere relevante wetgeving</td> -->
                         </tr>
                         <tr style="height: 23px;vertical-align: baseline;">
-                          <td style="height: 23px; width: 15px;" style="color: black;"><span class="square" [style.background-color]="vbtot == 1 ? 'red' : vbtot == 3 ? 'green' : '#ff7600'"></span>
+                          <td style="height: 23px; width: 15px;" style="color: black;"><span class="square" [style.background-color]="vbtot == 1 ? '#B81D13' : vbtot == 3 ? '#008450' : '#ef8f00'"></span>
                             <h5>VB</h5>Veiligheidsbeleid<br>
                           </td>
-                          <td style="height: 175px; width: 10px;" [style.color]="vb1 >= 3.5 ? 'green' : vb1 < 3.5 && vb1 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="vb1 >= 3.5 ? 'green' : vb1 < 3.5 && vb1 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>VB</span><b>1</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{vb1}}</b>Veiligheidsbeleid vastgelegd</td>
-                          <td  [style.color]="vb2 >= 3.5 ? 'green' : vb2 < 3.5 && vb2 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="vb2 >= 3.5 ? 'green' : vb2 < 3.5 && vb2 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>VB </span><b>2</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{vb2}}</b>Veiligheidsbeleid vertaald in functieomschrijving</td>
-                          <td  [style.color]="vb3 >= 3.5 ? 'green' : vb3 < 3.5 && vb3 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="vb3 >= 3.5 ? 'green' : vb3 < 3.5 && vb3 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>VB </span><b>3</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{vb3}}</b>Veiligheidsbeleid bekend &amp; beschikbaar</td>
+                          <td style="height: 175px; width: 10px;" [style.color]="vb1 >= 3.5 ? '#008450' : vb1 < 3.5 && vb1 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="vb1 >= 3.5 ? '#008450' : vb1 < 3.5 && vb1 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>VB</span><b>1</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{vb1}}</b>Veiligheidsbeleid vastgelegd</td>
+                          <td  [style.color]="vb2 >= 3.5 ? '#008450' : vb2 < 3.5 && vb2 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="vb2 >= 3.5 ? '#008450' : vb2 < 3.5 && vb2 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>VB </span><b>2</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{vb2}}</b>Veiligheidsbeleid vertaald in functieomschrijving</td>
+                          <td  [style.color]="vb3 >= 3.5 ? '#008450' : vb3 < 3.5 && vb3 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="vb3 >= 3.5 ? '#008450' : vb3 < 3.5 && vb3 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>VB </span><b>3</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{vb3}}</b>Veiligheidsbeleid bekend &amp; beschikbaar</td>
                         </tr>
                         <tr style="height: 23px;vertical-align: baseline;">
-                          <td style="height: 23px; width: 15px;" style="color: black;"><span class="square" [style.background-color]="opltot == 1 ? 'red' : opltot == 3 ? 'green' : '#ff7600'"></span>
+                          <td style="height: 23px; width: 15px;" style="color: black;"><span class="square" [style.background-color]="opltot == 1 ? '#B81D13' : opltot == 3 ? '#008450' : '#ef8f00'"></span>
                             <h5>OPL</h5>Opleiding<br>
                           </td>
-                          <td style="height: 175px; width: 10px;" [style.color]="opl1 >= 3.5 ? 'green' : opl1 < 3.5 && opl1 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="opl1 >= 3.5 ? 'green' : opl1 < 3.5 && opl1 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>OPL </span><b>1</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{opl1}}</b>Eisen vastgelegd</td>
-                          <td  [style.color]="opl2 >= 3.5 ? 'green' : opl2 < 3.5 && opl2 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="opl2 >= 3.5 ? 'green' : opl2 < 3.5 && opl2 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>OPL </span><b>2</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{opl2}}</b>Opleidingsplan</td>
-                          <td  [style.color]="opl3 >= 3.5 ? 'green' : opl3 < 3.5 && opl3 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="opl3 >= 3.5 ? 'green' : opl3 < 3.5 && opl3 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>OPL </span><b>3</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{opl3}}</b>Registratie</td>
+                          <td style="height: 175px; width: 10px;" [style.color]="opl1 >= 3.5 ? '#008450' : opl1 < 3.5 && opl1 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="opl1 >= 3.5 ? '#008450' : opl1 < 3.5 && opl1 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>OPL </span><b>1</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{opl1}}</b>Eisen vastgelegd</td>
+                          <td  [style.color]="opl2 >= 3.5 ? '#008450' : opl2 < 3.5 && opl2 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="opl2 >= 3.5 ? '#008450' : opl2 < 3.5 && opl2 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>OPL </span><b>2</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{opl2}}</b>Opleidingsplan</td>
+                          <td  [style.color]="opl3 >= 3.5 ? '#008450' : opl3 < 3.5 && opl3 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="opl3 >= 3.5 ? '#008450' : opl3 < 3.5 && opl3 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>OPL </span><b>3</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{opl3}}</b>Registratie</td>
                         </tr>
                         <tr style="height: 23px;vertical-align: baseline;">
-                          <td style="height: 23px; width: 101px;" style="color: black;"><span class="square" [style.background-color]="protot == 1 ? 'red' : protot == 3 ? 'green' : '#ff7600'"></span><h5>PRO</h5>Procedures, Beheersing werkzaamheden, beheer &amp; onderhoud<br>
+                          <td style="height: 23px; width: 101px;" style="color: black;"><span class="square" [style.background-color]="protot == 1 ? '#B81D13' : protot == 3 ? '#008450' : '#ef8f00'"></span><h5>PRO</h5>Procedures, Beheersing werkzaamheden, beheer &amp; onderhoud<br>
                             
                           </td>
-                          <td style="height: 175px; width: 10px;" [style.color]="pro1 >= 3.5 ? 'green' : pro1 < 3.5 && pro1 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="pro1 >= 3.5 ? 'green' : pro1 < 3.5 && pro1 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>PRO </span><b>1</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{pro1}}</b>Procedures uitvoeren gevaarlijke werkzaamheden</td>
-                          <td  [style.color]="pro2 >= 3.5 ? 'green' : pro2 < 3.5 && pro2 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="pro2 >= 3.5 ? 'green' : pro2 < 3.5 && pro2 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>PRO </span><b>2</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{pro2}}</b>Procedures omgaan met gevaarlijke materialen</td>
-                          <td  [style.color]="pro3 >= 3.5 ? 'green' : pro3 < 3.5 && pro3 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="pro3 >= 3.5 ? 'green' : pro3 < 3.5 && pro3 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>PRO </span><b>3</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{pro3}}</b>Procedures onderhoud van installaties &amp; uitrusting t.v.b. de veiligheid</td>
+                          <td style="height: 175px; width: 10px;" [style.color]="pro1 >= 3.5 ? '#008450' : pro1 < 3.5 && pro1 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="pro1 >= 3.5 ? '#008450' : pro1 < 3.5 && pro1 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>PRO </span><b>1</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{pro1}}</b>Procedures uitvoeren gevaarlijke werkzaamheden</td>
+                          <td  [style.color]="pro2 >= 3.5 ? '#008450' : pro2 < 3.5 && pro2 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="pro2 >= 3.5 ? '#008450' : pro2 < 3.5 && pro2 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>PRO </span><b>2</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{pro2}}</b>Procedures omgaan met gevaarlijke materialen</td>
+                          <td  [style.color]="pro3 >= 3.5 ? '#008450' : pro3 < 3.5 && pro3 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="pro3 >= 3.5 ? '#008450' : pro3 < 3.5 && pro3 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>PRO </span><b>3</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{pro3}}</b>Procedures onderhoud van installaties &amp; uitrusting t.v.b. de veiligheid</td>
                         </tr>
                         <tr style="height: 23px;vertical-align: baseline;">
-                          <td style="height: 23px; width: 101px;" style="color: black;width: 25%;"><span class="square" [style.background-color]="comtot == 1 ? 'red' : comtot == 3 ? 'green' : '#ff7600'"></span><h5>Communicatie</h5>Communicatiestructuren<br>
+                          <td style="height: 23px; width: 101px;" style="color: black;width: 25%;"><span class="square" [style.background-color]="comtot == 1 ? '#B81D13' : comtot == 3 ? '#008450' : '#ef8f00'"></span><h5>Communicatie</h5>Communicatiestructuren<br>
                             
                           </td>
-                          <td style="height: 175px; width: 10px;" [style.color]="com1 >= 3.5 ? 'green' : com1 < 3.5 && com1 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="com1 >= 3.5 ? 'green' : com1 < 3.5 && com1 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>COM </span><b>1</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{com1}}</b>Formeel overleg management/werkvloer</td>
-                          <td  [style.color]="com2 >= 3.5 ? 'green' : com2 < 3.5 && com2 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="com2 >= 3.5 ? 'green' : com2 < 3.5 && com2 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>COM </span><b>2</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{com2}}</b>Werknemers betrokken bij risicobeoordeling &amp; onderzoek incidenten</td>
-                          <td  [style.color]="com3 >= 3.5 ? 'green' : com3 < 3.5 && com3 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="com3 >= 3.5 ? 'green' : com3 < 3.5 && com3 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>COM </span><b>3</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{com3}}</b>Communicatie veiligheidsprestaties</td>
+                          <td style="height: 175px; width: 10px;" [style.color]="com1 >= 3.5 ? '#008450' : com1 < 3.5 && com1 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="com1 >= 3.5 ? '#008450' : com1 < 3.5 && com1 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>COM </span><b>1</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{com1}}</b>Formeel overleg management/werkvloer</td>
+                          <td  [style.color]="com2 >= 3.5 ? '#008450' : com2 < 3.5 && com2 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="com2 >= 3.5 ? '#008450' : com2 < 3.5 && com2 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>COM </span><b>2</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{com2}}</b>Werknemers betrokken bij risicobeoordeling &amp; onderzoek incidenten</td>
+                          <td  [style.color]="com3 >= 3.5 ? '#008450' : com3 < 3.5 && com3 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="com3 >= 3.5 ? '#008450' : com3 < 3.5 && com3 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>COM </span><b>3</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{com3}}</b>Communicatie veiligheidsprestaties</td>
                         </tr>
                         <tr style="height: 23px;vertical-align: baseline;">
-                          <td style="height: 23px; width: 101px;" style="color: black;"><span class="square" [style.background-color]="bortot == 1 ? 'red' : bortot == 3 ? 'green' : '#ff7600'"></span><h5>Borging</h5>Meter, monitoren, bijstellen &amp; borgen<br>
+                          <td style="height: 23px; width: 101px;" style="color: black;"><span class="square" [style.background-color]="bortot == 1 ? '#B81D13' : bortot == 3 ? '#008450' : '#ef8f00'"></span><h5>Borging</h5>Meter, monitoren, bijstellen &amp; borgen<br>
                             
                           </td>
-                          <td style="height: 175px; width: 10px;" [style.color]="bor1 >= 3.5 ? 'green' : bor1 < 3.5 && bor1 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="bor1 >= 3.5 ? 'green' : bor1 < 3.5 && bor1 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>BOR </span><b>1</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{bor1}}</b>Procedure beheer van documenten, inclusief verantwoordelijkheden &amp; bevoegdheden.</td>
-                          <td  [style.color]="bor2 >= 3.5 ? 'green' : bor2 < 3.5 && bor2 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="bor2 >= 3.5 ? 'green' : bor2 < 3.5 && bor2 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>BOR </span><b>2</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{bor2}}</b>Evaluatie procedures</td>
-                          <td  [style.color]="bor3 >= 3.5 ? 'green' : bor3 < 3.5 && bor3 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="bor3 >= 3.5 ? 'green' : bor3 < 3.5 && bor3 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>BOR </span><b>3</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{bor3}}</b>Lijsten met 'kritieke apparatuur'</td>
-                          <td  [style.color]="bor4 >= 3.5 ? 'green' : bor4 < 3.5 && bor4 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="bor4 >= 3.5 ? 'green' : bor4 < 3.5 && bor4 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>BOR </span><b>4</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{bor4}}</b>Een auditplan/<br>programma</td>
-                          <td  [style.color]="bor5 >= 3.5 ? 'green' : bor5 < 3.5 && bor5 > 2.5 ? '#ff7600' : 'red'"><div class="alert" style="color:white" [style.background-color]="bor5 >= 3.5 ? 'green' : bor5 < 3.5 && bor5 > 2.5 ? '#ff7600' : 'red'" role="alert"><span style='font-size: x-small;'>BOR </span><b>5</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{bor5}}</b>Afgetekende, afgehandelde rapporten over afwijkingen</td>
+                          <td style="height: 175px; width: 10px;" [style.color]="bor1 >= 3.5 ? '#008450' : bor1 < 3.5 && bor1 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="bor1 >= 3.5 ? '#008450' : bor1 < 3.5 && bor1 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>BOR </span><b>1</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{bor1}}</b>Procedure beheer van documenten, inclusief verantwoordelijkheden &amp; bevoegdheden.</td>
+                          <td  [style.color]="bor2 >= 3.5 ? '#008450' : bor2 < 3.5 && bor2 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="bor2 >= 3.5 ? '#008450' : bor2 < 3.5 && bor2 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>BOR </span><b>2</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{bor2}}</b>Evaluatie procedures</td>
+                          <td  [style.color]="bor3 >= 3.5 ? '#008450' : bor3 < 3.5 && bor3 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="bor3 >= 3.5 ? '#008450' : bor3 < 3.5 && bor3 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>BOR </span><b>3</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{bor3}}</b>Lijsten met 'kritieke apparatuur'</td>
+                          <td  [style.color]="bor4 >= 3.5 ? '#008450' : bor4 < 3.5 && bor4 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="bor4 >= 3.5 ? '#008450' : bor4 < 3.5 && bor4 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>BOR </span><b>4</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{bor4}}</b>Een auditplan/<br>programma</td>
+                          <td  [style.color]="bor5 >= 3.5 ? '#008450' : bor5 < 3.5 && bor5 > 2.5 ? '#ef8f00' : '#B81D13'"><div class="alert" style="color:white" [style.background-color]="bor5 >= 3.5 ? '#008450' : bor5 < 3.5 && bor5 > 2.5 ? '#ef8f00' : '#B81D13'" role="alert"><span style='font-size: x-small;'>BOR </span><b>5</b></div><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{bor5}}</b>Afgetekende, afgehandelde rapporten over afwijkingen</td>
                         </tr>
-                        
+                        <div *ngIf="exportingg" style="padding-bottom:300px"></div>
                         <tr style="height: 30px;vertical-align: baseline; background-color: #086276;">
                           <td style="height: 30px; width: 15px;text-align: center" style="color: white;" colspan="6"><br><br><h4>Smoezen</h4></td>
                         </tr>
                         <tr style="height: 30px;vertical-align: baseline;">
-                          <td style="height: 30px; width: 15px;text-align: center;padding:15px" [style.background-color]="smoe1 >= 3.5 ? 'green' : smoe1 < 3.5 && smoe1 > 2.5 ? '#ff7600' : 'red'"><span style='font-size: x-small;'>SMOES </span><b>1</b><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{smoe1}}</b></td>
+                          <td style="height: 30px; width: 15px;text-align: center;padding:15px" [style.background-color]="smoe1 >= 3.5 ? '#008450' : smoe1 < 3.5 && smoe1 > 2.5 ? '#ef8f00' : '#B81D13'"><span style='font-size: x-small;'>SMOES </span><b>1</b><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{smoe1}}</b></td>
                           <td  style="color: black;" colspan="3">'In ons bedrijf hebben we geen tijd voor veiligheid'&nbsp;</td>
                         </tr>
                         <tr style="height: 30px;vertical-align: baseline;">
-                          <td style="height: 30px; width: 15px;text-align: center;padding:15px" [style.background-color]="smoe2 >= 3.5 ? 'green' : smoe2 < 3.5 && smoe2 > 2.5 ? '#ff7600' : 'red'"><span style='font-size: x-small;'>SMOES </span><b>2</b><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{smoe2}}</b></td>
+                          <td style="height: 30px; width: 15px;text-align: center;padding:15px" [style.background-color]="smoe2 >= 3.5 ? '#008450' : smoe2 < 3.5 && smoe2 > 2.5 ? '#ef8f00' : '#B81D13'"><span style='font-size: x-small;'>SMOES </span><b>2</b><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{smoe2}}</b></td>
                           <td  style="color: black;" colspan="3">'Mij overkomt niets'&nbsp;</td>
                         </tr>
                         <tr style="height: 30px;vertical-align: baseline;">
-                          <td style="height: 30px; width: 15px;text-align: center;padding:15px" [style.background-color]="smoe3 >= 3.5 ? 'green' : smoe3 < 3.5 && smoe3 > 2.5 ? '#ff7600' : 'red'"><span style='font-size: x-small;'>SMOES </span><b>3</b><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{smoe3}}</b></td>
+                          <td style="height: 30px; width: 15px;text-align: center;padding:15px" [style.background-color]="smoe3 >= 3.5 ? '#008450' : smoe3 < 3.5 && smoe3 > 2.5 ? '#ef8f00' : '#B81D13'"><span style='font-size: x-small;'>SMOES </span><b>3</b><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{smoe3}}</b></td>
                           <td  style="color: black;" colspan="3">'Ik mag de productie niet in de weg staan'&nbsp;</td>
                         </tr>
                         <tr style="height: 30px;vertical-align: baseline;">
-                          <td style="height: 30px; width: 15px;text-align: center;padding:15px" [style.background-color]="smoe4 >= 3.5 ? 'green' : smoe4 < 3.5 && smoe4 > 2.5 ? '#ff7600' : 'red'"><span style='font-size: x-small;'>SMOES </span><b>4</b><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{smoe4}}</b></td>
+                          <td style="height: 30px; width: 15px;text-align: center;padding:15px" [style.background-color]="smoe4 >= 3.5 ? '#008450' : smoe4 < 3.5 && smoe4 > 2.5 ? '#ef8f00' : '#B81D13'"><span style='font-size: x-small;'>SMOES </span><b>4</b><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{smoe4}}</b></td>
                           <td  style="color: black;" colspan="3">'We werken al jaren zo'&nbsp;</td>
                         </tr>
                         <tr style="height: 30px;vertical-align: baseline;">
-                          <td style="height: 30px; width: 15px;text-align: center;padding:15px" [style.background-color]="smoe5 >= 3.5 ? 'green' : smoe5 < 3.5 && smoe5 > 2.5 ? '#ff7600' : 'red'"><span style='font-size: x-small;'>SMOES </span><b>5</b><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{smoe5}}</b></td>
+                          <td style="height: 30px; width: 15px;text-align: center;padding:15px" [style.background-color]="smoe5 >= 3.5 ? '#008450' : smoe5 < 3.5 && smoe5 > 2.5 ? '#ef8f00' : '#B81D13'"><span style='font-size: x-small;'>SMOES </span><b>5</b><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{smoe5}}</b></td>
                           <td  style="color: black;" colspan="3">'Ik ben al gecertificeerd en werk veilig'&nbsp;</td>
                         </tr>
                         <tr style="height: 30px;vertical-align: baseline;">
-                          <td style="height: 30px; width: 15px;text-align: center;padding:15px" [style.background-color]="smoe6 >= 3.5 ? 'green' : smoe6 < 3.5 && smoe6 > 2.5 ? '#ff7600' : 'red'"><span style='font-size: x-small;'>SMOES </span><b>6</b><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{smoe6}}</b></td>
+                          <td style="height: 30px; width: 15px;text-align: center;padding:15px" [style.background-color]="smoe6 >= 3.5 ? '#008450' : smoe6 < 3.5 && smoe6 > 2.5 ? '#ef8f00' : '#B81D13'"><span style='font-size: x-small;'>SMOES </span><b>6</b><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{smoe6}}</b></td>
                           <td  style="color: black;" colspan="3">'Er wordt toch niet opgelet'&nbsp;</td>
                         </tr>
                         <tr style="height: 30px;vertical-align: baseline;">
-                          <td style="height: 30px; width: 15px;text-align: center;padding:15px" [style.background-color]="smoe7 >= 3.5 ? 'green' : smoe7 < 3.5 && smoe7 > 2.5 ? '#ff7600' : 'red'"><span style='font-size: x-small;'>SMOES </span><b>7</b><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{smoe7}}</b></td>
+                          <td style="height: 30px; width: 15px;text-align: center;padding:15px" [style.background-color]="smoe7 >= 3.5 ? '#008450' : smoe7 < 3.5 && smoe7 > 2.5 ? '#ef8f00' : '#B81D13'"><span style='font-size: x-small;'>SMOES </span><b>7</b><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{smoe7}}</b></td>
                           <td  style="color: black;" colspan="3">'Niet mijn verantwoordelijkheid'&nbsp;</td>
                         </tr>
                         <tr style="height: 30px;vertical-align: baseline;">
-                          <td style="height: 30px; width: 15px;text-align: center;padding:15px" [style.background-color]="smoe8 >= 3.5 ? 'green' : smoe8 < 3.5 && smoe8 > 2.5 ? '#ff7600' : 'red'"><span style='font-size: x-small;'>SMOES </span><b>8</b><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{smoe8}}</b></td>
+                          <td style="height: 30px; width: 15px;text-align: center;padding:15px" [style.background-color]="smoe8 >= 3.5 ? '#008450' : smoe8 < 3.5 && smoe8 > 2.5 ? '#ef8f00' : '#B81D13'"><span style='font-size: x-small;'>SMOES </span><b>8</b><b *ngIf="visScore == true" data-html2canvas-ignore="true">{{smoe8}}</b></td>
                           <td  style="color: black;" colspan="3">'Het melden van bijna ongevallen is tijdsverspilling'&nbsp;</td>
                         </tr>
+                        <div *ngIf="exportingg" style="padding-bottom:150px"></div>
                         <tr style="height: 23px;vertical-align: baseline; background-color: #086276;">
                           <td style="height: 23px; width: 15px;"  colspan="6"><br><br><h4 style="color:white">Open vragen antwoorden</h4></td>
                         </tr>
                         <tr style="height: 23px;vertical-align: baseline; background-color: #fff;color:black">
                           <td style="height: 23px; width: 15px;"  colspan="6">
-                            <ol>
+                            <ul style="list-style:none">
                               <li *ngFor="let item of feedbackArray; let i = index" style="padding:15px">
-                                {{item}}
+                                <b>-</b> {{item}}
                               </li>
-                            </ol>
+                            </ul>
                           </td>
                         </tr>
                        
