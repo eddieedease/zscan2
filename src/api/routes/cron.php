@@ -14,7 +14,7 @@ $app->get('/sendmassmail', function (Request $request, Response $response) {
     $datenow = date("Y-m-d");
 
     // Check if the groupname is already taken
-    $sql_getgroups = "SELECT * FROM groups WHERE validto > '$datenow'";
+    $sql_getgroups = "SELECT * FROM groups WHERE validto > '$datenow' AND status = '1'";
     $stmt_getgroups = $dbh->prepare($sql_getgroups);
     $stmt_getgroups->execute();
     $result_getgroups = $stmt_getgroups->fetchAll(PDO::FETCH_ASSOC);
