@@ -626,8 +626,10 @@ export class AdminComponent implements OnInit {
     smoe6 = smoe6 / this.howManySendQuestions;
     smoe6 = Math.round(smoe6 * 100) / 100;
     this.smoe6 = smoe6;
+    smoe7 = smoe7 / this.howManySendQuestions;
     smoe7 = Math.round(smoe7 * 100) / 100;
     this.smoe7 = smoe7;
+    smoe8 = smoe8 / this.howManySendQuestions;
     smoe8 = Math.round(smoe8 * 100) / 100;
     this.smoe8 = smoe8;
     /* smoe7 = smoe7 / this.howManySendQuestions;
