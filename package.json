@@ -32,7 +32,7 @@
     "font-awesome": "^4.7.0",
     "html2canvas": "1.0.0-rc.1",
     "jquery": "^3.4.1",
-    "jspdf": "^1.5.3",
+    "jspdf": "^2.3.1",
     "ngx-bootstrap": "^5.2.0",
     "ngx-color-picker": "^9.1.0",
     "ngx-loading": "^8.0.0",
