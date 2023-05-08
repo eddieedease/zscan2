@@ -17,7 +17,7 @@ $app->post('/createuseringroup/{grouplink}', function (Request $request, Respons
     $grouplink = (int)$grouplink;
     $parsedBody = $request->getParsedBody();
     
-    $email = $parsedBody[email];
+    $email = $parsedBody['email'];
 
     include 'db.php';
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
@@ -48,11 +48,11 @@ $app->post('/createauser', function (Request $request, Response $response) {
     $grouplink = (int)$grouplink;
     $parsedBody = $request->getParsedBody();
     
-    $email = $parsedBody[email];
-    $name = $parsedBody[name];
-    $lastname = $parsedBody[lastname];
-    $ww = $parsedBody[ww];
-    $typee = $parsedBody[typee];
+    $email = $parsedBody['email'];
+    $name = $parsedBody['name'];
+    $lastname = $parsedBody['lastname'];
+    $ww = $parsedBody['ww'];
+    $typee = $parsedBody['typee'];
     $typee = (int)$typee;
     $newpwd = md5($ww);
     include 'db.php';
@@ -76,7 +76,7 @@ $app->post('/createauser', function (Request $request, Response $response) {
 $app->post('/usersbatchimporttogroup/{grouplink}', function (Request $request, Response $response) {
     // $userid = (int)$userid;
     $parsedBody = $request->getParsedBody();
-    $userstoadd = $parsedBody[userstoadd];
+    $userstoadd = $parsedBody['userstoadd'];
 
 
     $groupLink = $request->getAttribute('grouplink');
@@ -151,8 +151,8 @@ $app->post('/edituser/{userid}', function (Request $request, Response $response)
     $userid = (int)$userid;
     
     $parsedBody = $request->getParsedBody();
-    $email = $parsedBody[email];
-    $type = $parsedBody[type];
+    $email = $parsedBody['email'];
+    $type = $parsedBody['type'];
     
 
     include 'db.php';
@@ -205,11 +205,11 @@ $app->post('/editauser/{userid}', function (Request $request, Response $response
     $userid = (int)$userid;
     
     $parsedBody = $request->getParsedBody();
-    $email = $parsedBody[email];
-    $type = $parsedBody[type];
-    $name = $parsedBody[name];
-    $lastname = $parsedBody[lastname];
-    $ww = $parsedBody[ww];
+    $email = $parsedBody['email'];
+    $type = $parsedBody['type'];
+    $name = $parsedBody['name'];
+    $lastname = $parsedBody['lastname'];
+    $ww = $parsedBody['ww'];
     
 
     include 'db.php';

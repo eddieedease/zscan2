@@ -15,7 +15,7 @@ $app->post('/formsubmit/{groupid}/{userid}/{IZ1}/{IZ2}/{IZ3}/{IW1}/{IW2}/{IW3}/{
 
     // get post vars
     $parsedBody = $request->getParsedBody();
-    $openq = $parsedBody[openq];
+    $openq = $parsedBody['openq'];
     $openq = str_replace("'","\'",$openq);
     
     

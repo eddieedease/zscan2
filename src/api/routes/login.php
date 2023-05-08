@@ -25,8 +25,8 @@ $app->get('/site/{userid}/{keyy}', function (Request $request, Response $respons
     $stmtgetuser->execute();
     $resultgetuser = $stmtgetuser->fetchAll(PDO::FETCH_ASSOC);
 
-    $keymatch = $resultgetuser[0][unlockkey];
-    $grouplink = $resultgetuser[0][grouplink];
+    $keymatch = $resultgetuser[0]['unlockkey'];
+    $grouplink = $resultgetuser[0]['grouplink'];
 
     if ($keyy === $keymatch) {
         // right key acces granted
@@ -37,8 +37,8 @@ $app->get('/site/{userid}/{keyy}', function (Request $request, Response $respons
         $stmtgetactive->execute();
         $resultgetactive = $stmtgetactive->fetchAll(PDO::FETCH_ASSOC);
 
-        $isActive = $resultgetactive[0][status];
-        $validTo = $resultgetactive[0][validto];
+        $isActive = $resultgetactive[0]['status'];
+        $validTo = $resultgetactive[0]['validto'];
 
         $timevalid = 1;
         if ($validTo != NULL) {
@@ -67,7 +67,7 @@ $app->get('/site/{userid}/{keyy}', function (Request $request, Response $respons
 
 
 
-        if ($resultgetuser[0][filled] == 1 && $timevalid == 1) {
+        if ($resultgetuser[0]['filled'] == 1 && $timevalid == 1) {
             $data = array('status' => 'alreadyfilled');
         } elseif ($isActive == 0 || $timevalid == 0) {
             $data = array('status' => 'formclosed',  'debugDATENOW' => $dateNow ,'debugDATEEND' => $endDate, 'timevalid' => $timevalid);
@@ -87,12 +87,13 @@ $app->get('/site/{userid}/{keyy}', function (Request $request, Response $respons
 $app->post('/admnlogin', function (Request $request, Response $response) {
 
     $parsedBody = $request->getParsedBody();
-    $email = $parsedBody[email];
-    $pwd = $parsedBody[ww];
+    
+    $email = $parsedBody['email'];
+    $pwd = $parsedBody['ww'];
 
     include 'db.php';
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
-
+    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
     // SQL QUERY FOR getting group id with key
     $sqlgetuser = "SELECT * FROM ausers WHERE email = '$email'";
     $stmtgetuser = $dbh->prepare($sqlgetuser);

@@ -167,11 +167,12 @@ export class TestComponent implements OnInit {
     this.edSer.debugLog(this.typeTest);
 
     let stringlink = '';
-    if (this.typeTest === '1') {
+    if (this.typeTest === 1) {
       stringlink = 'assets/questions/questions5.json';
-    } else if (this.typeTest === '2') {
+    } else if (this.typeTest === 2) {
       stringlink = 'assets/questions/questions3.json';
     }
+    this.edSer.debugLog(stringlink);
     http_.get(stringlink)
       .map(response => response.json())
       .subscribe(
@@ -365,7 +366,7 @@ export class TestComponent implements OnInit {
 
 
     // TODO: Set up for both tests
-    if (this.typeTest === '1') {
+    if (this.typeTest === 1) {
       // make some logic for collecting test data, loop through questions
       for (let index = 0; index < this.questionArray.length; index++) {
         // tslint:disable-next-line:max-line-length
@@ -469,7 +470,7 @@ export class TestComponent implements OnInit {
 
         }
       }
-    } else if (this.typeTest === '2') {
+    } else if (this.typeTest === 2) {
       for (let index = 0; index < this.questionArray.length; index++) {
         // tslint:disable-next-line:max-line-length
         if (this.questionArray[index].answer !== null && this.questionArray[index].answer !== undefined && this.questionArray[index].answer !== '') {
@@ -558,7 +559,7 @@ export class TestComponent implements OnInit {
 
 
       // TODO: Below comes the calculating, we need to know how many items one thing has
-      if (this.typeTest === '1') {
+      if (this.typeTest === 1) {
         // rounded up shared by number of questions
         // this.result1 = Math.round(this.result1 / 8 * 100) / 100;
         this.IZ1 = Math.round(this.IZ1 / 5 * 100) / 100;
@@ -583,7 +584,7 @@ export class TestComponent implements OnInit {
         // tslint:disable-next-line:max-line-length
         this.edSer.API_formsubmit(this.currentGroupId, this.currentUserId, this.IZ1, this.IZ2, this.IZ3, this.IW1, this.IW2, this.IW3, this.IWE1, this.IWE2, this.IWE3, this.IWE4, this.IK1, this.IK2, this.IK3, this.SMOE1, this.SMOE2, this.SMOE3, this.SMOE4, this.SMOE5, this.SMOE6, this.SMOE7, this.SMOE8, this.openQ).subscribe(value => this.formSend(value));
 
-      } else if (this.typeTest === '2') {
+      } else if (this.typeTest === 2) {
         this.CW1 = Math.round(this.CW1 / 24 * 100) / 100;
         this.CW2 = Math.round(this.CW2 / 2 * 100) / 100;
         this.VB1 = Math.round(this.VB1 / 1 * 100) / 100;
